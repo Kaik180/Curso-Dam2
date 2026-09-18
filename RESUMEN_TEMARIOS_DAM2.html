@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Resumen y Guía de Estudio Integral - 2º DAM</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm 15mm 15mm 15mm;
+    }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: #1f2937;
+      line-height: 1.55;
+      font-size: 12.5px;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+    }
+    .header-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #ffffff;
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+    }
+    .header-banner h1 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      color: #ffffff;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .header-banner p {
+      margin: 4px 0;
+      font-size: 13px;
+      opacity: 0.95;
+    }
+    h1, h2, h3, h4 {
+      color: #1e3a8a;
+      page-break-after: avoid;
+    }
+    h1 {
+      font-size: 20px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-top: 30px;
+    }
+    h2 {
+      font-size: 16px;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 4px;
+      margin-top: 22px;
+      color: #0f766e;
+    }
+    h3 {
+      font-size: 14px;
+      margin-top: 16px;
+      color: #1e293b;
+    }
+    p, ul, ol {
+      margin-top: 6px;
+      margin-bottom: 10px;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 11.5px;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .badge-green { background-color: #dcfce7; color: #166534; }
+    .badge-yellow { background-color: #fef9c3; color: #854d0e; }
+    .badge-blue { background-color: #dbeafe; color: #1e40af; }
+    .callout {
+      background-color: #f0fdf4;
+      border-left: 4px solid #16a34a;
+      padding: 10px 14px;
+      margin: 14px 0;
+      border-radius: 0 6px 6px 0;
+      page-break-inside: avoid;
+    }
+    .callout-info {
+      background-color: #f0f9ff;
+      border-left-color: #0284c7;
+    }
+    .callout-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+    code {
+      font-family: 'Cascadia Code', Consolas, 'Courier New', monospace;
+      background-color: #f1f5f9;
+      color: #c026d3;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 11.5px;
+    }
+    pre {
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-family: 'Cascadia Code', Consolas, monospace;
+      font-size: 11px;
+      overflow-x: auto;
+      page-break-inside: avoid;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      page-break-inside: avoid;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 10px 0;
+      page-break-inside: avoid;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 10px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 10.5px;
+      color: #64748b;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-banner">
+    <h1>📚 Guía de Estudio Integral y Resúmenes - 2º DAM</h1>
+    <p><strong>Curso Académico:</strong> 2026-2027 | <strong>Centro:</strong> IES Mutxamel (Generalitat Valenciana)</p>
+    <p><strong>Ciclo Formativo de Grado Superior:</strong> Desarrollo de Aplicaciones Multiplataforma</p>
+  </div>
+
+  <h2>🗺️ Mapa General del Curso y Estado de las Materias</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Asignatura</th>
+        <th>Horas / Código</th>
+        <th>Profesorado</th>
+        <th>Estado y Temarios Disponibles</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sistema de Gestión Empresarial (SGE)</strong></td>
+        <td>100h</td>
+        <td>José Castillo / Sergi García</td>
+        <td><span class="badge badge-green">Completado UD00-UD08</span> Teoría ERP/CRM/BI, Docker Compose, Odoo ORM y OWL</td>
+      </tr>
+      <tr>
+        <td><strong>Programación Móvil (PMDM)</strong></td>
+        <td>-</td>
+        <td>Adaptación Joamuran</td>
+        <td><span class="badge badge-green">Disponible UNIT 01</span> Flutter & Dart, SDK, emuladores, CLI, FVM</td>
+      </tr>
+      <tr>
+        <td><strong>Digitalización Aplicada</strong></td>
+        <td>-</td>
+        <td>Editex (2024)</td>
+        <td><span class="badge badge-green">Disponible Tema 1</span> Digitalización vs TD, IT/OT, Top 5 ERPs, Ciberseguridad</td>
+      </tr>
+      <tr>
+        <td><strong>Desarrollo de Interfaces (DIW)</strong></td>
+        <td>0488 (166h)</td>
+        <td>Juan Sanz Moya</td>
+        <td><span class="badge badge-green">Disponible UT01</span> Ponderación de RAs, Accesibilidad WCAG 2.1 AA, Guía de Estilos</td>
+      </tr>
+      <tr>
+        <td><strong>Proyecto Intermodular</strong></td>
+        <td>100h (3h/sem)</td>
+        <td>Silvia Diánez Juan</td>
+        <td><span class="badge badge-green">Disponible UT01</span> Guía general, matriz de requisitos técnicos y Tarea 0 mecanografía</td>
+      </tr>
+      <tr>
+        <td><strong>Acceso a Datos (AD)</strong></td>
+        <td>-</td>
+        <td>-</td>
+        <td><span class="badge badge-yellow">Requisitos fijados</span> API CRUD, persistencia SQL/NoSQL, tests y seguridad</td>
+      </tr>
+      <tr>
+        <td><strong>Prog. Servicios y Procesos (PSP)</strong></td>
+        <td>-</td>
+        <td>-</td>
+        <td><span class="badge badge-yellow">Requisitos fijados</span> Concurrencia, hilos, locks, semáforos y sockets</td>
+      </tr>
+      <tr>
+        <td><strong>Sostenibilidad / Inglés / BD</strong></td>
+        <td>-</td>
+        <td>-</td>
+        <td><span class="badge badge-blue">Transversal</span> Criterios de eco-diseño digital y documentación técnica</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1>1. Sistema de Gestión Empresarial (SGE)</h1>
+  <div class="callout callout-info">
+    <div class="callout-title">Estructura curricular de la materia:</div>
+    Los apuntes del repositorio combinan la teoría general en castellano (Sistemas ERP-CRM-BI) con el itinerario práctico en valenciano de <strong>Odoo 18</strong> y <strong>Docker</strong> del profesor Sergi García.
+  </div>
+
+  <h3>UD 00: Python 3 Básico (Base para Odoo)</h3>
+  <ul>
+    <li><strong>Sintaxis y Tipado:</strong> Tipado dinámico fuerte; colecciones nativas (listas mutables, tuplas inmutables, diccionarios clave-valor, conjuntos).</li>
+    <li><strong>Estructuras de Control:</strong> Condicionales <code>if/elif/else</code>, bucles <code>for ... in</code> y <code>while</code>.</li>
+    <li><strong>Funciones:</strong> Parámetros posicionales y nominales, empaquetado <code>*args</code> y <code>**kwargs</code>.</li>
+    <li><strong>Programación Orientada a Objetos:</strong> Clases, constructores <code>__init__</code>, encapsulación y herencia base requerida para extender modelos en Odoo.</li>
+  </ul>
+
+  <h3>UD 01 / UD 02: Sistemas ERP - CRM - BI (Teoría Principal)</h3>
+  <ul>
+    <li><strong>ERP (Enterprise Resource Planning):</strong> Sistema de software integrado que unifica todas las áreas funcionales de una organización (compras, ventas, inventario, facturación, contabilidad, RRHH) sobre una <strong>única base de datos</strong>.</li>
+    <li><strong>CRM (Customer Relationship Management):</strong> Módulo o sistema de gestión de relaciones con clientes. Automatiza la fuerza comercial, preventa, oportunidades, presupuestos y seguimiento posventa.</li>
+    <li><strong>BI (Business Intelligence):</strong> Inteligencia de negocio. Herramientas de analítica y cuadros de mando que transforman datos transaccionales en información estratégica para la <strong>toma de decisiones</strong> (análisis histórico, descriptivo y predictivo).</li>
+    <li><strong>Ventajas del ERP:</strong> Base de datos unificada, eliminación de silos de datos, mantenimiento centralizado, seguridad uniforme y modularidad.</li>
+    <li><strong>Inconvenientes del ERP:</strong> Coste y tiempo de implantación elevados, sobredimensionamiento en pequeñas empresas, punto único de fallo y resistencia inicial al cambio.</li>
+    <li><strong>Desarrollo a medida vs. Personalización:</strong> Desarrollar desde cero es inviable por coste y riesgo. Se recomienda <strong>personalizar un ERP existente</strong> (como Odoo), adaptando módulos funcionales y temas visuales.</li>
+    <li><strong>Licencias Libres vs. Privativas:</strong> Se priorizan licencias de código abierto (Odoo Community) para evitar el <em>vendor lock-in</em> y costes desproporcionados de licencias propietarias (SAP, Dynamics).</li>
+    <li><strong>Glosario Empresarial:</strong>
+      <ul>
+        <li><em>Persona física:</em> Responde con patrimonio personal (autónomos).</li>
+        <li><em>Persona jurídica:</em> Responde exclusivamente con el patrimonio de la sociedad.</li>
+        <li><em>Facturas:</em> Completa (desglose total de IVA y datos de emisor/receptor), Simplificada/Ticket y Proforma (oferta informativa sin valor fiscal ni contable).</li>
+        <li><em>Producción y Logística:</em> Línea de producción, orden de producción, stock/inventario y cadena de distribución.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>UD 01 (Práctica) / UD 03: Docker y Despliegue con Docker Compose</h3>
+  <ul>
+    <li><strong>Contenedores:</strong> Aislamiento de procesos compartiendo el kernel del sistema operativo anfitrión. Ventajas frente a VMs: arranque en milisegundos y mínimo consumo de RAM.</li>
+    <li><strong>Docker Compose:</strong> Orquestación mediante archivo declarativo <code>docker-compose.yml</code>:
+      <ul>
+        <li>Servicio <strong>db</strong>: contenedor con imagen oficial de <code>postgres:16</code> y volúmenes para persistencia de datos.</li>
+        <li>Servicio <strong>web</strong>: contenedor con imagen de <code>odoo:18</code> enlazado al puerto <code>8069</code>.</li>
+        <li>Montaje de carpetas locales como volúmenes para desarrollo en vivo de <em>addons</em>.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>UD 05 a UD 08: Desarrollo de Módulos en Odoo</h3>
+  <div class="grid">
+    <div class="card">
+      <strong>Estructura y Manifiesto (UD05)</strong>
+      <p>Fichero <code>__manifest__.py</code> con metadatos, dependencias (<code>depends</code>) y vistas XML (<code>data</code>). Creación automática con <code>odoo-bin scaffold</code>.</p>
+    </div>
+    <div class="card">
+      <strong>Modelos ORM y Vistas (UD06)</strong>
+      <p>Clases que heredan de <code>models.Model</code>. Campos estándar y relacionales (<code>Many2one</code>, <code>One2many</code>, <code>Many2many</code>). Vistas XML tipo lista, formulario y búsqueda.</p>
+    </div>
+    <div class="card">
+      <strong>Lógica y Controladores (UD07)</strong>
+      <p>Herencia con <code>_inherit</code>. Decoradores <code>@api.depends</code> (cálculo reactivo) y <code>@api.constrains</code> (validaciones). Controladores web con <code>@http.route</code>.</p>
+    </div>
+    <div class="card">
+      <strong>Cliente Web OWL (UD08)</strong>
+      <p>Desarrollo frontend moderno en Odoo con <strong>Odoo Web Library (OWL)</strong>: componentes reactivos JavaScript, plantillas XML y personalización de interfaz.</p>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h1>2. Programación Multimedia y Dispositivos Móviles (PMDM)</h1>
+  <h2>UNIT 01: Flutter & Dart - Desarrollo Multiplataforma</h2>
+  
+  <h3>Comparativa de Enfoques Móviles</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Enfoque</th>
+        <th>Tecnologías</th>
+        <th>Ventajas</th>
+        <th>Inconvenientes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Nativo</strong></td>
+        <td>Kotlin (Android), Swift (iOS)</td>
+        <td>Máximo rendimiento y acceso pleno a hardware</td>
+        <td>Doble código, mayor tiempo y coste</td>
+      </tr>
+      <tr>
+        <td><strong>Híbrido / Web</strong></td>
+        <td>Ionic, Cordova, PWAs</td>
+        <td>Un solo código web (HTML/CSS/JS)</td>
+        <td>Rendimiento inferior, fluidez limitada</td>
+      </tr>
+      <tr>
+        <td><strong>Multiplataforma Nativo</strong></td>
+        <td><strong>Flutter (Dart)</strong>, React Native</td>
+        <td>Un único código compilado a nativo en cada SO</td>
+        <td>Tamaño de binario algo mayor</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Puntos Clave del Entorno Flutter</h3>
+  <ul>
+    <li><strong>Motor de Flutter:</strong> Renderizado gráfico directo en C++ sin puentes lentos de JavaScript.</li>
+    <li><strong>Lenguaje Dart:</strong> Compilación <strong>JIT</strong> en depuración (habilita <em>Hot Reload</em> instantáneo) y <strong>AOT</strong> en producción (binario compilado a código máquina ARM/x86).</li>
+    <li><strong>Diagnóstico:</strong> Comando central <code>flutter doctor</code> para verificar dependencias, licencias de Android y emuladores.</li>
+    <li><strong>Emulación y Dispositivos:</strong> Emuladores ligeros con <strong>Genymotion</strong>; depuración en terminales físicos por USB o Wi-Fi con soporte de la herramienta <strong>scrcpy</strong>.</li>
+    <li><strong>Gestión de Versiones (FVM):</strong> Uso de <em>Flutter Version Manager</em> para fijar la versión exacta del SDK en cada proyecto y evitar roturas entre actualizaciones.</li>
+  </ul>
+
+  <h1>3. Digitalización Aplicada al Sistema Productivo</h1>
+  <h2>Tema 1: Digitalización y Transformación Digital</h2>
+  
+  <div class="grid">
+    <div class="card">
+      <strong>Digitalización</strong>
+      <p>Conversión de información analógica, documentos en papel y flujos manuales a formato digital. Enfoque operativo táctico a corto plazo.</p>
+    </div>
+    <div class="card">
+      <strong>Transformación Digital</strong>
+      <p>Revisión estratégica profunda de la cultura, los modelos de negocio y las personas mediante la tecnología para generar valor a largo plazo.</p>
+    </div>
+  </div>
+
+  <h3>Convergencia de Entornos IT y OT</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Criterio</th>
+        <th>Entorno IT (Information Technology)</th>
+        <th>Entorno OT (Operational Technology)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ámbito</strong></td>
+        <td>Oficinas, servidores, ERP, bases de datos y software</td>
+        <td>Planta de fabricación, maquinaria industrial, PLCs, SCADA</td>
+      </tr>
+      <tr>
+        <td><strong>Prioridad de Seguridad</strong></td>
+        <td>Confidencialidad e integridad de la información</td>
+        <td>Seguridad física humana y disponibilidad en tiempo real</td>
+      </tr>
+      <tr>
+        <td><strong>Convergencia IT-OT</strong></td>
+        <td colspan="2">Conectar las máquinas de la fábrica con el ERP/Cloud para optimizar decisiones con datos en tiempo real.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ul>
+    <li><strong>Top 5 ERPs en España:</strong> SAP Business One, Microsoft Dynamics 365, Sage 200, Odoo y Oracle NetSuite.</li>
+    <li><strong>Pirámide de Ciberseguridad:</strong> 1. Dispositivos y servicios seguros (base) ➔ 2. Protocolos de seguridad ➔ 3. Formación continua de empleados (cúspide).</li>
+  </ul>
+
+  <h1>4. Desarrollo de Interfaces (DIW)</h1>
+  <h2>Guía Docente y UT01: Accesibilidad y Guía de Estilos</h2>
+  <ul>
+    <li><strong>Profesor:</strong> Juan Sanz Moya (166h). Plan: UT01 Figma (6%), UT02 FlutterFlow I (25%), UT03 FlutterFlow II (45%), UT04 Documentación (8%), UT05 Testing (10%), UT06 Distribución (6%).</li>
+    <li><strong>Norma de Aprobado:</strong> Examen (70%) + Prácticas (30%). Es imprescindible aprobar <strong>todos los Resultados de Aprendizaje</strong> individualmente.</li>
+    <li><strong>Accesibilidad (WCAG 2.1 AA):</strong> Estándar obligatorio. Implica contraste tipográfico alto, navegación completa por teclado, foco visible en inputs y textos alternativos en imágenes.</li>
+    <li><strong>Regla de Color 60-30-10:</strong>
+      <ul>
+        <li><strong>60% Color Dominante:</strong> Fondo y espacios limpios (tonos neutros/blancos/grises).</li>
+        <li><strong>30% Color Secundario:</strong> Elementos de estructura (tarjetas, barras de navegación, menús).</li>
+        <li><strong>10% Color de Acento:</strong> Botones de acción principal (CTA), alertas y destacados.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <h1>5. Proyecto Intermodular (2º DAM)</h1>
+  <h2>Guía Oficial y Matriz Transversal de Requisitos</h2>
+  <div class="callout">
+    <strong>Módulo Integrador:</strong> Impartido por Silvia Diánez Juan (100h, IES Mutxamel). Aplica una metodología activa por retos donde confluyen todos los módulos técnicos del ciclo.
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Módulo Evaluado</th>
+        <th>Requisitos Mínimos Exigidos en el Proyecto Final</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Acceso a Datos (AD)</strong></td>
+        <td>API REST con endpoints <strong>CRUD completos</strong>. Persistencia en Base de Datos (SQL o NoSQL) con tests de integración, autenticación y documentación Swagger.</td>
+      </tr>
+      <tr>
+        <td><strong>Desarrollo de Interfaces (DIW)</strong></td>
+        <td>Frontend usable y accesible (<strong>WCAG 2.1 AA</strong>), responsivo mobile-first, validación rigurosa de formularios y manejo coherente de errores.</td>
+      </tr>
+      <tr>
+        <td><strong>Prog. Móvil (PMDM)</strong></td>
+        <td>App móvil en <strong>Flutter</strong> conectada a la API de AD, con navegación entre pantallas, formularios y persistencia local/remota.</td>
+      </tr>
+      <tr>
+        <td><strong>Prog. Servicios y Procesos (PSP)</strong></td>
+        <td>Servicios concurrentes multihilo (threads, tareas asíncronas), uso de mecanismos de sincronización (<strong>locks, semáforos</strong>) o sockets cliente-servidor.</td>
+      </tr>
+      <tr>
+        <td><strong>Digitalización Aplicada (DA)</strong></td>
+        <td>Despliegue en la nube (Cloud), flujo de trabajo con <strong>Git</strong> (ramas, pull requests, issues) e Integración Continua (CI/CD).</td>
+      </tr>
+      <tr>
+        <td><strong>Sostenibilidad</strong></td>
+        <td>Criterios de <strong>eco-diseño digital</strong>: optimización de código para reducir cómputo y consumo de energía, y reducción de transferencias innecesarias de datos.</td>
+      </tr>
+      <tr>
+        <td><strong>EIE / Iniciativa Emprendedora</strong></td>
+        <td>Definición del modelo de negocio, viabilidad financiera y planificación del proyecto.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Tarea 0: Precisión y Manejo de Teclado</h3>
+  <p>Ejercicio inicial para consolidar agilidad mecanográfica escribiendo sintaxis de código técnico: objetos JSON, consultas SQL (<code>WHERE</code>, operadores relacionales), caracteres especiales (<code>{}</code>, <code>[]</code>, <code>()</code>, <code>|</code>, <code>&</code>, <code>\</code>, <code>@</code>) y expresiones regulares.</p>
+
+  <div class="footer">
+    Guía generada para Kevin — 2º DAM Curso 2026-2027 | Actualizado Septiembre 2026
+  </div>
+
+</body>
+</html>
