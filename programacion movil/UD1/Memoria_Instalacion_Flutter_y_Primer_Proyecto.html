@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Memoria Técnica: Instalación de Flutter y Primer Proyecto - 2º DAM</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 18mm 18mm 18mm;
+    }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: #1f2937;
+      line-height: 1.6;
+      font-size: 13px;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+    }
+    .header-banner {
+      background: linear-gradient(135deg, #02569B 0%, #0175C2 50%, #13B9FD 100%);
+      color: #ffffff;
+      padding: 26px 30px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .header-banner h1 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      color: #ffffff;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .header-banner .subtitle {
+      font-size: 15px;
+      font-weight: 500;
+      color: #e0f2fe;
+      margin: 0 0 14px 0;
+    }
+    .header-banner .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      font-size: 12px;
+      color: #f0f9ff;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      padding-top: 10px;
+    }
+    h2 {
+      color: #02569B;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-top: 28px;
+      margin-bottom: 14px;
+      font-size: 17px;
+    }
+    h3 {
+      color: #1e293b;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    p, li {
+      color: #334155;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 12px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    pre {
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 11.5px;
+      line-height: 1.45;
+      margin: 12px 0;
+    }
+    code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background-color: #f1f5f9;
+      color: #0369a1;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 11.5px;
+    }
+    pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+    }
+    blockquote {
+      margin: 14px 0;
+      padding: 10px 16px;
+      background-color: #eff6ff;
+      border-left: 4px solid #0284c7;
+      color: #0369a1;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 12px;
+      background-color: #e0f2fe;
+      color: #0369a1;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-banner">
+    <h1>MEMORIA TÉCNICA DE PRÁCTICAS</h1>
+    <div class="subtitle">Instalación, Configuración del Entorno Flutter y Primer Proyecto Multiplataforma</div>
+    <div class="meta-grid">
+      <div><strong>Ciclo:</strong> 2º DAM (Desarrollo de Aplicaciones Multiplataforma)</div>
+      <div><strong>Módulo:</strong> Programación Móvil / Desarrollo de Interfaces</div>
+      <div><strong>Entorno del Sistema:</strong> Windows 11 / 10 (x64)</div>
+      <div><strong>Alumno / Autor:</strong> Kevin</div>
+    </div>
+  </div>
+
+  <h2>1. Introducción y Fundamentos del Desarrollo Multiplataforma</h2>
+  <p>En el desarrollo móvil contemporáneo, existen dos filosofías principales: el desarrollo nativo exclusivo y las estrategias multiplataforma (<em>cross-platform</em>).</p>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Paradigma</th>
+        <th>Tecnologías</th>
+        <th>Mecanismo</th>
+        <th>Ventajas</th>
+        <th>Inconvenientes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Web Responsive</strong></td>
+        <td>HTML5, CSS3, JS</td>
+        <td>Navegador estándar</td>
+        <td>100% código único, sin tiendas</td>
+        <td>Sin acceso profundo a hardware</td>
+      </tr>
+      <tr>
+        <td><strong>Híbridas</strong></td>
+        <td>Ionic, Cordova</td>
+        <td>WebView del SO</td>
+        <td>Uso de frameworks web clásicos</td>
+        <td>Sobrecarga de renderizado en WebView</td>
+      </tr>
+      <tr>
+        <td><strong>Puente Nativo</strong></td>
+        <td>React Native</td>
+        <td>Bridge JavaScript &harr; Widgets Nativos</td>
+        <td>Aspecto nativo del sistema</td>
+        <td>Cuello de botella en el puente JS</td>
+      </tr>
+      <tr>
+        <td><strong>Renderizado Directo</strong></td>
+        <td><strong>Flutter</strong> (Google)</td>
+        <td>Código máquina compilado con motor gráfico propio (Skia/Impeller)</td>
+        <td><strong>60/120 FPS reales, consistencia visual exacta, Hot Reload</strong></td>
+        <td>Binario base ligeramente mayor</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>¿Por qué Flutter y Dart?</strong> Flutter dibuja directamente sobre el lienzo gráfico (Canvas) del sistema operativo sin delegar en componentes nativos del fabricante. El lenguaje <strong>Dart</strong> permite compilación <strong>JIT</strong> (Just-In-Time) durante el desarrollo para habilitar <em>Stateful Hot Reload</em>, y compilación <strong>AOT</strong> (Ahead-Of-Time) para generar binarios nativos optimizados para producción.</p>
+
+  <h2>2. Instalación y Configuración de Android Studio y Android SDK</h2>
+  <p>Para compilar hacia la plataforma Android, Flutter requiere las herramientas del SDK oficial.</p>
+  <ul>
+    <li><strong>Ruta de Android Studio:</strong> <code>D:\aplicaciones</code></li>
+    <li><strong>Ruta del SDK de Android:</strong> <code>C:\Users\kevin\AppData\Local\Android\Sdk</code></li>
+  </ul>
+
+  <h3>Instalación de Android SDK Command-line Tools (Componente Crítico)</h3>
+  <p>Por defecto, Android Studio no instala las herramientas de línea de comandos requeridas por Flutter. Para activarlas:</p>
+  <ol>
+    <li>Abrir Android Studio &rarr; <strong>More Actions</strong> &rarr; <strong>SDK Manager</strong>.</li>
+    <li>Navegar a la pestaña <strong>SDK Tools</strong>.</li>
+    <li>Marcar la casilla <strong>Android SDK Command-line Tools (latest)</strong> y pulsar <strong>Apply</strong>.</li>
+  </ol>
+
+  <blockquote>
+    <strong>Aceptación de Licencias:</strong> Es indispensable ejecutar en la terminal el comando <code>flutter doctor --android-licenses</code> y aceptar cada una de las licencias mostradas con <code>y</code>.
+  </blockquote>
+
+  <h2>3. Instalación y Verificación de Flutter SDK</h2>
+  <p>Se descarga el SDK de Flutter (canal <code>stable</code>) y se ubica en un directorio sin caracteres especiales ni requerimientos de privilegios de Administrador (por ejemplo, <code>C:\src\flutter</code> o <code>D:\flutter</code>). Se añade la subcarpeta <code>bin</code> a la variable de entorno <code>Path</code>.</p>
+  
+  <p>Se ejecuta el comando de verificación:</p>
+  <pre><code>flutter doctor -v</code></pre>
+  <p>El asistente valida de forma exhaustiva el SDK de Flutter, la cadena de herramientas de Android (Android toolchain), el navegador Chrome para desarrollo web, la instalación de Android Studio y los dispositivos conectados.</p>
+
+  <div class="page-break"></div>
+
+  <h2>4. Configuración del Editor de Código: VS Code frente a Android Studio</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Criterio</th>
+        <th>Visual Studio Code (Opción Ligera)</th>
+        <th>Android Studio (Opción Completa)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Consumo de Memoria</strong></td>
+        <td>~250 - 450 MB (Muy liviano)</td>
+        <td>~2.5 - 4.0 GB (Elevado)</td>
+      </tr>
+      <tr>
+        <td><strong>Arranque</strong></td>
+        <td>Instantáneo (1-2 segundos)</td>
+        <td>15-30 segundos indexando</td>
+      </tr>
+      <tr>
+        <td><strong>Extensiones / Plugins</strong></td>
+        <td>Flutter, Dart, Pubspec Assist, Awesome Flutter Snippets</td>
+        <td>Plugins Flutter y Dart integrados en JetBrains</td>
+      </tr>
+      <tr>
+        <td><strong>Uso recomendado</strong></td>
+        <td><strong>Desarrollo ágil cotidiano</strong> y portátiles</td>
+        <td>Edición profunda de módulos nativos Gradle / Kotlin</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>5. Creación, Estructura y Modificación del Primer Proyecto</h2>
+  <p>Creación del proyecto mediante CLI:</p>
+  <pre><code>flutter create --org com.ies.dam mi_primer_proyecto</code></pre>
+
+  <h3>Estructura del Proyecto</h3>
+  <ul>
+    <li><code>lib/main.dart</code>: Punto de entrada de la aplicación y árbol de Widgets.</li>
+    <li><code>pubspec.yaml</code>: Manifiesto de dependencias, tipografías y recursos gráficos (assets).</li>
+    <li><code>android/</code>: Contenedor nativo de Android (Gradle, manifiesto y MainActivity).</li>
+  </ul>
+
+  <h3>Modificaciones Realizadas en <code>lib/main.dart</code></h3>
+  <ol>
+    <li><strong>Título de cabecera:</strong> <code>title: 'Exemple d\'aplicació amb Flutter'</code>.</li>
+    <li><strong>Texto descriptivo localizado:</strong> <code>'Has fet tap al botó el següent nombre de vegades:'</code>.</li>
+    <li><strong>Modificación de la paleta de color (Material 3):</strong> <code>colorScheme: ColorScheme.fromSeed(seedColor: Colors.amberAccent)</code>.</li>
+    <li><strong>Comprobación de Stateful Hot Reload:</strong> Al pulsar <code>r</code> en la consola tras modificar estilos, los cambios se aplican en subsegundos conservando el valor exacto del contador en memoria.</li>
+  </ol>
+
+  <h2>6. Conexión y Ejecución en Emuladores</h2>
+  <ul>
+    <li><strong>Emulador Android Studio (AVD):</strong> Se crea un dispositivo virtual (ej. Pixel 7 con Android 13/14) desde el <em>Device Manager</em>. Se gestiona desde consola mediante <code>flutter emulators --launch &lt;id&gt;</code>.</li>
+    <li><strong>Genymotion Desktop:</strong> Emulador alternativo basado en hipervisores (VirtualBox/QEMU) con licencia de uso personal. Al ejecutarse, es detectado automáticamente por ADB y reconocido por <code>flutter devices</code>.</li>
+  </ul>
+
+  <h2>7. Conexión y Despliegue en Dispositivo Físico Real</h2>
+  <p>Probar en un terminal físico proporciona el rendimiento real del hardware ARM y acceso inmediato a sensores, cámara y batería.</p>
+  <ol>
+    <li><strong>Ajustes del Smartphone:</strong> Activar <em>Opciones de desarrollador</em> pulsando 7 veces consecutivas sobre el <em>Número de compilación</em>, y activar <strong>Depuración por USB</strong>.</li>
+    <li><strong>Conexión USB:</strong> Conectar el cable y autorizar la huella RSA en pantalla. Comprobar con <code>adb devices</code> y <code>flutter devices</code>. Desplegar con <code>flutter run -d &lt;device_id&gt;</code>.</li>
+    <li><strong>Depuración Wi-Fi (Android 11+):</strong> Vincular mediante escaneo de código QR desde <em>Pair Devices Using Wi-Fi</em> en Android Studio.</li>
+    <li><strong>Espejo y Control con <code>scrcpy</code>:</strong> Herramienta open-source que proyecta la pantalla del móvil en el PC con latencia ultra baja (&lt;50ms) y control total con ratón y teclado mediante <code>scrcpy --always-on-top --stay-awake</code>.</li>
+  </ol>
+
+  <h2>8. Conclusiones</h2>
+  <p>El entorno de desarrollo configurado ofrece un flujo de trabajo optimizado para el ciclo de 2º DAM. La combinación de la ligereza de Visual Studio Code con el SDK oficial de Android y la potencia del motor gráfico de Flutter permite desarrollar aplicaciones fluidas con una alta velocidad de iteración gracias a Stateful Hot Reload.</p>
+
+</body>
+</html>
