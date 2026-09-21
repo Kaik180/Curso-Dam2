@@ -62,6 +62,8 @@ public class Videojuego {
         this.plataforma = plataforma;
         this.precio = precio;
         this.stock = stock;
+
+
     }
 
 
