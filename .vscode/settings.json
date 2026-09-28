@@ -1,0 +1,6 @@
+{
+  "dart.flutterSdkPath": "D:\\flutter",
+  "terminal.integrated.env.windows": {
+    "PATH": "D:\\flutter\\bin;C:\\Users\\kevin\\AppData\\Local\\Android\\Sdk\\platform-tools;C:\\Users\\kevin\\AppData\\Local\\Android\\Sdk\\emulator;C:\\Program Files\\Genymobile\\Genymotion;C:\\Users\\kevin\\AppData\\Local\\GitHubDesktop\\app-3.6.6\\resources\\app\\git\\cmd;${env:PATH}"
+  }
+}
