@@ -1,42 +1,49 @@
-# FarmaCare & Physio 💊🏃
+# Memorix 💊⚡🏃
 > **Asistente Móvil Inteligente para la Gestión de Tratamientos Farmacológicos y Rehabilitación Muscular Asistida**  
 > *Proyecto Intermodular — 2º DAM (Curso 2026/2027)*  
 > **Alumno:** Kevin ([Kaik180](https://github.com/Kaik180))
 
 ---
 
-## 📌 1. Visión General del Proyecto
+## 🎨 1. Identidad de Marca y Accesibilidad Cromática
 
-**FarmaCare & Physio** es una propuesta de solución digital multiplataforma (Android / iOS) orientada a resolver dos problemas interconectados en el ámbito sociosanitario cotidiano:
-1. **La falta de adherencia farmacológica**, los olvidos y la confusión en la posología diaria en pacientes polimedicados, personas de edad avanzada o con deterioro cognitivo leve / Alzheimer temprano.
-2. **El abandono y la mala ejecución de la rehabilitación física domiciliaria**, proporcionando rutinas guiadas y accesibles para fortalecer grupos musculares ante traumatismos, contracturas o dolores posturales crónicos.
+**Memorix** nace con una identidad visual fuertemente vinculada a su propósito:
+- **Isotipo:** Una cápsula/pastilla fusionada con pistas de circuito impreso, simbolizando la unión entre la medicina/farmacología y la tecnología inteligente al servicio de la memoria humana.
+- **Paleta de Contrastes Accesibles:** El diseño gráfico contempla cuatro variantes de alto contraste cromático basadas en las directrices de accesibilidad universal **WCAG AAA**. Esta distinción cromática es vital para evitar barreras visuales y cognitivas en personas de la tercera edad o pacientes con fases tempranas de Alzheimer.
+
+![Identidad de Marca y Contrastes de Memorix](contrastes.png)
+*Figura 1: Sistema de contrastes e identidad visual oficial de Memorix.*
 
 ---
 
-## 🚨 2. Problema o Necesidad Detectada
+## 📌 2. Visión General del Proyecto
 
-- **¿Qué ocurre?** Según la Organización Mundial de la Salud (OMS), hasta el 50% de los pacientes con enfermedades crónicas no cumplen adecuadamente su tratamiento médico. Además, los prospectos son difíciles de leer y comprender. En el área física, las recomendaciones de rehabilitación en hojas de papel se extravían con facilidad y no garantizan una ejecución técnica correcta.
+**Memorix** es una propuesta de solución digital multiplataforma (Android / iOS) orientada a dar respuesta coordinada a dos grandes necesidades sociosanitarias:
+1. **La falta de adherencia farmacológica**, los olvidos habituales y la confusión en la posología en pacientes polimedicados, personas de edad avanzada o con deterioro cognitivo leve / Alzheimer temprano.
+2. **El abandono y la ejecución incorrecta de la rehabilitación física domiciliaria**, ofreciendo rutinas activas y guiadas para fortalecer grupos musculares dañados por dolores posturales crónicos o traumatismos físicos.
+
+---
+
+## 🚨 3. Problema o Necesidad Detectada
+
+- **¿Qué ocurre?** Según la Organización Mundial de la Salud (OMS), hasta un 50% de los pacientes con patologías crónicas no cumplen adecuadamente su pauta médica. Los prospectos tienen letra ilegible y lenguaje incomprensible. Al mismo tiempo, las recomendaciones de ejercicios físicos en hojas de papel se pierden o se ejecutan con mala postura, empeorando las lesiones.
 - **¿A quién afecta?** 
   - Personas mayores y enfermos en fases iniciales de demencia/Alzheimer.
-  - Cuidadores y familiares que sufren estrés y sobrecarga mental supervisando las tomas diarias.
-  - Pacientes con lesiones traumatológicas o dolores musculoesqueléticos que requieren ejercicios de fortalecimiento.
-- **¿Por qué puede mejorarse?** Los smartphones permiten avisos sonoros con locución hablada, interfaces de alto contraste y videoguías paso a paso, convirtiendo una pauta médica pasiva en un acompañamiento activo y seguro.
+  - Cuidadores y familiares sometidos a estrés continuo y sobrecarga mental.
+  - Personas con dolores musculares o traumatismos que requieren fortalecimiento físico asistido.
+- **¿Por qué puede mejorarse?** Los smartphones permiten sustituir el papel por avisos sonoros con locución hablada, interfaces de alto contraste y guías de ejercicios con temporizador visual, creando un acompañamiento activo, cercano y seguro.
 
 ---
 
-## 📱 3. Solución Digital
+## 📱 4. Solución Digital: Memorix
 
-Una aplicación móvil con interfaz universal adaptada (**"Modo Senior"** con botones y textos grandes) que ofrece:
-- **Botiquín Digital Inteligente:** Alarmas audibles y habladas que indican el nombre del medicamento, la dosis, para qué sirve y cómo tomarlo.
-- **Confirmación con Aviso a Cuidadores:** Botón de un solo toque para registrar la toma. Si tras 20 minutos no se confirma, se notifica automáticamente al cuidador.
-- **Fisioterapia y Fortalecimiento Muscular:** Rutinas visuales organizadas por zona corporal (cuello, espalda, hombro, rodilla) con temporizadores y consejos posturales.
+Una aplicación móvil con interfaz simplificada (**"Modo Senior de Alto Contraste"**) que ofrece:
+- **Botiquín Digital Inteligente:** Alarmas sonoras que leen por voz el nombre del fármaco, la dosis, para qué sirve y cómo debe tomarse (ej. con comida o abundante agua).
+- **Confirmación Antiolvido y Alerta SOS a Cuidadores:** Botón gigante de confirmación de un solo toque. Si pasan 20 minutos sin confirmarse una toma crítica, se alerta automáticamente al familiar supervisor.
+- **Fisioterapia y Fortalecimiento Muscular Guiado:** Módulo interactivo con rutinas visuales por grupo muscular (hombros, cuello, espalda, rodillas) con conteo de series y tiempos de descanso.
 
----
-
-## 🖼️ 4. Prototipo Visual de Interfaz (Mockup)
-
-![Prototipo de Interfaz FarmaCare](mockup_farmacare.jpg)
-*Figura 1: Pantalla izquierda (Alarma de medicación y locución explicativa) | Pantalla derecha (Rutina guiada de fortalecimiento muscular).*
+![Prototipo de Interfaz Memorix](mockup_memorix.jpg)
+*Figura 2: Pantalla de Alarma Farmacológica con Locución por Voz (izquierda) y Módulo de Ejercicios Guiados con Temporizador (derecha).*
 
 ---
 
@@ -44,13 +51,13 @@ Una aplicación móvil con interfaz universal adaptada (**"Modo Senior"** con bo
 
 | Funcionalidad | Descripción |
 | :--- | :--- |
-| **Registro y Perfil Dual** | Configuración de perfiles adaptados: modo autónomo, modo asistido (tercera edad) y modo cuidador supervisor. |
-| **Alarmas con Locución por Voz** | Avisos acústicos y síntesis de voz que explican el fármaco, la posología y si requiere ingerirse con alimentos. |
-| **Confirmación de Toma y Antiolvido** | Botón táctil de gran visibilidad para confirmar la ingesta; previene tomas dobles accidentales. |
-| **Alertas de Seguridad a Cuidadores** | Envío de notificación push/SMS al contacto designado si una toma no ha sido confirmada a tiempo. |
-| **Módulo de Fisioterapia y Ejercicios** | Catálogo interactivo de ejercicios con temporizador, series y enfoque anatómico por dolor o traumatismo. |
-| **Prospecto Claro y Accesible** | Ficha simplificada en lenguaje no técnico con indicaciones, advertencias y contraindicaciones clave. |
-| **Historial Clínico en PDF** | Reporte mensual de cumplimiento farmacológico y actividad física para presentar al médico o fisioterapeuta. |
+| **Registro y Perfil Dual** | Perfiles adaptados: modo autónomo, modo asistido (para mayores) y perfil de cuidador supervisor. |
+| **Alarmas con Locución por Voz** | Avisos sonoros que reproducen por síntesis de voz el nombre del medicamento, dosis e instrucciones comprensibles. |
+| **Confirmación de Toma de Un Toque** | Botón táctil de gran formato para confirmar la ingesta; previene tomas duplicadas por despistes. |
+| **Alerta SOS a Cuidadores** | Notificación push/SMS automática al contacto designado si una toma prioritaria no es confirmada a tiempo. |
+| **Módulo de Fisioterapia Activa** | Catálogo interactivo de ejercicios con series, repeticiones y temporizador para dolores o traumatismos. |
+| **Prospecto Claro y Accesible** | Ficha simplificada sin tecnicismos que resume la utilidad de la pastilla, advertencias e incompatibilidades. |
+| **Modo Contraste Memorix** | Temas visuales optimizados (azul oscuro, cian, menta y blanco) diseñados para máxima legibilidad visual (WCAG). |
 
 ---
 
@@ -65,18 +72,19 @@ Una aplicación móvil con interfaz universal adaptada (**"Modo Senior"** con bo
 
 ## 🌍 7. Impacto y Objetivos de Desarrollo Sostenible (ODS)
 
-- **ODS 3: Salud y Bienestar:** Fomenta la adherencia farmacológica, disminuye ingresos hospitalarios por errores de dosificación y acelera la recuperación física motora.
+- **ODS 3: Salud y Bienestar:** Fomenta la adherencia farmacológica, reduce visitas innecesarias a urgencias y estimula la recuperación física motora.
 - **ODS 10: Reducción de las Desigualdades:** Rompe la brecha digital en personas mayores y con diversidad funcional mediante diseño accesible universal.
 
 ---
 
 ## 📂 8. Estructura y Entregables del Repositorio
 
-- 📄 [`Tarea0_FarmaCare_Kevin.docx`](./Tarea0_FarmaCare_Kevin.docx): Documento oficial en Word formateado según los requisitos de la tarea (portada + 2 páginas de contenido, Calibri 14pt títulos, Calibri 12pt texto, interlineado 1.5, cabecera, pie de página, índice enlazable, tabla, enlaces y bibliografía).
-- 📊 [`Tarea0_FarmaCare_Presentacion.pptx`](./Tarea0_FarmaCare_Presentacion.pptx): Presentación en PowerPoint de 3 diapositivas visuales (Problema, Solución y Valor Añadido).
-- 🖼️ [`mockup_farmacare.jpg`](./mockup_farmacare.jpg): Diseño conceptual de las pantallas principales de la aplicación.
-- ⚙️ [`generate_word.py`](./generate_word.py): Script en Python para la generación automatizada del documento Word cumpliendo todas las directrices.
-- ⚙️ [`generate_slides.py`](./generate_slides.py): Script en Python para la creación de la presentación en diapositivas 16:9.
+- 📄 [`Tarea0_Memorix_Kevin.docx`](./Tarea0_Memorix_Kevin.docx): Documento oficial en Word formateado según los requisitos de la tarea (portada con logo + 2 páginas de contenido, Calibri 14pt títulos, Calibri 12pt texto, interlineado 1.5, cabecera, pie de página con número dinámico, índice enlazable, tabla de funcionalidades, enlaces y fuentes).
+- 📊 [`Tarea0_Memorix_Presentacion.pptx`](./Tarea0_Memorix_Presentacion.pptx): Presentación en PowerPoint de exactamente 3 diapositivas visuales (Problema, Solución Memorix y Valor Añadido).
+- 🎨 [`contrastes.png`](./contrastes.png): Identidad de marca y cuadrante de contrastes cromáticos de Memorix.
+- 📱 [`mockup_memorix.jpg`](./mockup_memorix.jpg): Prototipo de interfaz móvil con el branding oficial de Memorix.
+- ⚙️ [`generate_word.py`](./generate_word.py): Script en Python para generar el documento Word.
+- ⚙️ [`generate_slides.py`](./generate_slides.py): Script en Python para generar la presentación PowerPoint.
 
 ---
 
