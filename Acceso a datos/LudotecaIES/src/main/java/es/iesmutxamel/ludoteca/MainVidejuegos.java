@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Main {
+public class MainVidejuegos {
 
     public static void main(String[] args) {
         Catalogo catalogo = new Catalogo();
 
-        // Añadimos los dos videojuegos de la tarea anterior
+        // Añadimos los dos videojuegos
         catalogo.agregarVideojuego(new Videojuego(100, "The witcher", "pc", 20.00, 7));
         catalogo.agregarVideojuego(new Videojuego(101, "Órbita", "pc", 19.95, 7));
 
         Scanner scanner = new Scanner(System.in);
-        int opcion = -1;
+        int opcion = 0;
 
         do {
             mostrarMenu();
@@ -145,7 +145,7 @@ public class Main {
         }
 
         // 5. Stock
-        int stock = -1;
+        int stock = 0;
         while (true) {
             System.out.print("Introduce el stock: ");
             String input = scanner.nextLine().trim();
