@@ -1,48 +1,72 @@
 package es.iesmutxamel.ludoteca;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Catalogo {
-    private final ArrayList<Videojuego> Coleccion = new ArrayList<>();
+    private ArrayList<Videojuego> videojuegos;
 
-    public void menu(){
-        int opcion = 0;
-        Scanner teclado = new Scanner(System.in);
-        do {
+    public Catalogo() {
+        this.videojuegos = new ArrayList<>();
+    }
 
+    public boolean agregarVideojuego(Videojuego videojuego) {
+        if (videojuego == null) {
+            return false;
+        }
+        if (buscarPorId(videojuego.getId()) != null) {
+            return false;
+        }
+        return videojuegos.add(videojuego);
+    }
 
-            System.out.println("Elige una de las opciones:");
-            System.out.println("1.-Añadir");
-            System.out.println("2.-buscar");
-            System.out.println("3.-Eliminar");
-            System.out.println("4.-Salir");
-            opcion = teclado.nextInt();
-            switch (opcion){
-                case 1:
-                    añadir();
-                    break;
-                case 2:
-                    buscar();
-                    break;
-                case 3:
-                    eliminar();
-                    break;
-
-                default: System.out.println("Opcion no valida");
+    public Videojuego buscarPorId(int id) {
+        for (Videojuego v : videojuegos) {
+            if (v.getId() == id) {
+                return v;
             }
-        }while (opcion != 4);
-    }
-    static void añadir(){
-
-
-    }
-    static void buscar(){
-
-    }
-    static void eliminar(){
-
+        }
+        return null;
     }
 
+    public boolean eliminarPorId(int id) {
+        Videojuego v = buscarPorId(id);
+        if (v != null) {
+            return videojuegos.remove(v);
+        }
+        return false;
+    }
 
+    public int obtenerCantidad() {
+        return videojuegos.size();
+    }
+
+    public ArrayList<Videojuego> obtenerVideojuegos() {
+        return videojuegos;
+    }
+
+    public int obtenerTotalUnidades() {
+        int total = 0;
+        for (Videojuego v : videojuegos) {
+            total += v.getStock();
+        }
+        return total;
+    }
+
+    public double obtenerValorTotalStock() {
+        double total = 0.0;
+        for (Videojuego v : videojuegos) {
+            total += v.getPrecio() * v.getStock();
+        }
+        return total;
+    }
+
+    public ArrayList<Videojuego> buscarPorStockMaximo(int stockMaximo) {
+        ArrayList<Videojuego> resultado = new ArrayList<>();
+        for (Videojuego v : videojuegos) {
+            if (v.getStock() <= stockMaximo) {
+                resultado.add(v);
+            }
+        }
+        return resultado;
+    }
 }
