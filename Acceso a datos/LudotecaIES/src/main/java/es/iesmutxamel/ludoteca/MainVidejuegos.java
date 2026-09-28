@@ -174,7 +174,7 @@ public class MainVidejuegos {
         System.out.println("--- RESUMEN DEL CATÁLOGO ---");
         System.out.println("• Número de videojuegos diferentes: " + catalogo.obtenerCantidad());
         System.out.println("• Número total de unidades disponibles: " + catalogo.obtenerTotalUnidades());
-        System.out.printf(Locale.ROOT, "• Valor total del stock: %.2f €%n", catalogo.obtenerValorTotalStock());
+        System.out.println("• Valor total del stock: " + catalogo.obtenerValorTotalStock() + " €");
     }
 
     private static void consultarPocasUnidades(Scanner scanner, Catalogo catalogo) {
