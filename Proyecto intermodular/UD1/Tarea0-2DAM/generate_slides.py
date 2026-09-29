@@ -14,15 +14,15 @@ def create_presentation():
 
     curr_dir = os.path.dirname(__file__)
 
-    # Memorix Color Palette from contrastes.png
-    C_NAVY = RGBColor(5, 12, 38)         # #050C26 (Deep Midnight Navy)
-    C_MINT = RGBColor(0, 210, 180)       # #00D2B4 (Vibrant Mint / Cyan)
-    C_BLUE = RGBColor(0, 56, 255)        # #0038FF (Royal Tech Blue)
-    C_CORAL = RGBColor(224, 86, 36)      # #E05624 (Alert Coral)
-    C_BG_SLIDE = RGBColor(248, 250, 252) # #F8FAFC
-    C_CARD_BG = RGBColor(255, 255, 255)  # #FFFFFF
-    C_BORDER = RGBColor(226, 232, 240)   # #E2E8F0
-    C_TEXT_DARK = RGBColor(30, 41, 59)   # #1E293B
+    # Memorix Color Palette
+    C_NAVY = RGBColor(5, 12, 38)          # #050C26
+    C_MINT = RGBColor(0, 180, 150)        # #00B496
+    C_BLUE = RGBColor(0, 56, 255)         # #0038FF
+    C_CORAL = RGBColor(224, 86, 36)       # #E05624
+    C_BG_SLIDE = RGBColor(248, 250, 252)  # #F8FAFC
+    C_CARD_BG = RGBColor(255, 255, 255)   # #FFFFFF
+    C_BORDER = RGBColor(226, 232, 240)    # #E2E8F0
+    C_TEXT_DARK = RGBColor(35, 47, 62)    # #232F3E
     C_TEXT_MUTED = RGBColor(100, 116, 139) # #64748B
 
     def draw_bg(slide):
@@ -39,7 +39,7 @@ def create_presentation():
         top_bar.fill.fore_color.rgb = C_MINT
         top_bar.line.color.rgb = C_MINT
 
-        # Logo / Text box on left
+        # Header tag
         tb = slide.shapes.add_textbox(Inches(0.8), Inches(0.2), Inches(8), Inches(0.45))
         p = tb.text_frame.paragraphs[0]
         p.text = "Memorix  •  Proyecto Intermodular 2º DAM"
@@ -85,9 +85,9 @@ def create_presentation():
     slide1 = prs.slides.add_slide(blank_layout)
     draw_bg(slide1)
     add_top_nav(slide1, "DIAGNÓSTICO DEL PROBLEMA", "01 / 03  •  EL PROBLEMA")
-    add_slide_header(slide1, "1. Problema y Necesidad Detectada", "¿Qué ocurre en la realidad diaria y a quién afecta?")
+    add_slide_header(slide1, "1. Diagnóstico del Problema y Colectivos Afectados", "¿Qué ocurre en la vida cotidiana y a quién afecta directamente?")
 
-    # Tarjeta Izquierda: ¿Qué ocurre?
+    # Card 1: ¿Qué ocurre?
     card1 = slide1.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.5))
     card1.fill.solid()
     card1.fill.fore_color.rgb = C_CARD_BG
@@ -107,10 +107,9 @@ def create_presentation():
     p.space_after = Pt(12)
 
     items_c1 = [
-        ("50% de Abandono Terapéutico", "Casi la mitad de enfermos crónicos no toman su medicación correctamente (OMS), provocando recaídas y urgencias."),
-        ("Olvidos y Confusión de Dosis", "Múltiples pastillas diarias provocan tomas duplicadas o dosis omitidas por no recordar las horas."),
-        ("Prospectos Inaccesibles", "Texto minúsculo e instrucciones farmacológicas complejas que generan inseguridad."),
-        ("Rehabilitación en Papel Ineficaz", "Las rutinas de ejercicios para traumatismos o dolor muscular se olvidan o se ejecutan sin técnica adecuada.")
+        ("Olvidos y Confusión en la Medicación", "Casi el 50% de pacientes crónicos no toma bien su tratamiento (OMS), provocando recaídas y visitas a urgencias."),
+        ("Dificultad con Posologías y Prospectos", "La letra diminuta y las explicaciones técnicas confunden al paciente sobre cómo y cuándo tomar cada pastilla."),
+        ("Abandono de la Rehabilitación en Casa", "Las hojas de papel con ejercicios para dolores musculares o traumatismos se extravían y no guían la postura correcta.")
     ]
     for tit, desc in items_c1:
         p_t = tf1.add_paragraph()
@@ -124,11 +123,11 @@ def create_presentation():
         p_d = tf1.add_paragraph()
         p_d.text = f"   {desc}"
         p_d.font.name = "Calibri"
-        p_d.font.size = Pt(10.5)
+        p_d.font.size = Pt(11)
         p_d.font.color.rgb = C_TEXT_DARK
-        p_d.space_after = Pt(8)
+        p_d.space_after = Pt(10)
 
-    # Tarjeta Derecha: ¿A quién afecta?
+    # Card 2: ¿A quién afecta?
     card2 = slide1.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.8), Inches(5.7), Inches(4.5))
     card2.fill.solid()
     card2.fill.fore_color.rgb = C_CARD_BG
@@ -148,10 +147,9 @@ def create_presentation():
     p.space_after = Pt(12)
 
     items_c2 = [
-        ("Mayores y Pacientes de Alzheimer", "Vulnerabilidad extrema ante polimedicación y despistes por deterioro cognitivo."),
-        ("Cuidadores y Familias", "Estrés constante y sobrecarga mental por no tener confirmación de que la medicación se ha tomado."),
-        ("Personas con Traumatismos o Dolor Físico", "Pacientes en recuperación de lesiones o con dolores de espalda/cuello que necesitan fortalecer zonas específicas."),
-        ("Sistema de Salud y ODS 3", "El mal uso de medicamentos colapsa consultas. Resolverlo impacta en el ODS 3 (Salud) y ODS 10 (Accesibilidad).")
+        ("Personas Mayores y Pacientes con Olvidos", "Especialmente vulnerables por polimedicación o principios de Alzheimer y deterioro cognitivo leve."),
+        ("Familiares y Cuidadores", "Viven con la preocupación y el estrés diario de tener que estar comprobando si se han tomado la medicación."),
+        ("Personas con Lesiones Musculares o Dolor", "Pacientes en recuperación de traumatismos, contracturas o con dolores de espalda que necesitan guías de ejercicios.")
     ]
     for tit, desc in items_c2:
         p_t = tf2.add_paragraph()
@@ -165,9 +163,9 @@ def create_presentation():
         p_d = tf2.add_paragraph()
         p_d.text = f"   {desc}"
         p_d.font.name = "Calibri"
-        p_d.font.size = Pt(10.5)
+        p_d.font.size = Pt(11)
         p_d.font.color.rgb = C_TEXT_DARK
-        p_d.space_after = Pt(8)
+        p_d.space_after = Pt(10)
 
     # Footer banner slide 1
     b_foot1 = slide1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(6.5), Inches(11.7), Inches(0.55))
@@ -175,9 +173,9 @@ def create_presentation():
     b_foot1.fill.fore_color.rgb = C_NAVY
     b_foot1.line.color.rgb = C_NAVY
     p_bf1 = b_foot1.text_frame.paragraphs[0]
-    p_bf1.text = "💡 IMPACTO: Alineado con los Objetivos de Desarrollo Sostenible (ODS 3 Salud y Bienestar • ODS 10 Reducción de Desigualdades)"
+    p_bf1.text = "💡 IMPACTO: Alineado con ODS 3 (Salud y Bienestar) y ODS 10 (Reducción de las Desigualdades)"
     p_bf1.font.name = "Calibri"
-    p_bf1.font.size = Pt(10.5)
+    p_bf1.font.size = Pt(11)
     p_bf1.font.bold = True
     p_bf1.font.color.rgb = RGBColor(255, 255, 255)
     p_bf1.alignment = PP_ALIGN.CENTER
@@ -188,14 +186,14 @@ def create_presentation():
     slide2 = prs.slides.add_slide(blank_layout)
     draw_bg(slide2)
     add_top_nav(slide2, "PROPUESTA DIGITAL", "02 / 03  •  LA SOLUCIÓN")
-    add_slide_header(slide2, "2. Memorix: Solución Digital Accesible", "Asistente móvil inteligente con alto contraste visual para medicación y rehabilitación")
+    add_slide_header(slide2, "2. Memorix: Propuesta Digital y Funcionalidades", "Asistente móvil accesible para el control de medicamentos y ejercicios de recuperación")
 
-    # Contenedor Imagen Izquierda (Mockup de Memorix)
+    # Image Left
     img_mockup = os.path.join(curr_dir, "mockup_memorix.jpg")
     if os.path.exists(img_mockup):
         slide2.shapes.add_picture(img_mockup, Inches(0.8), Inches(1.8), width=Inches(5.5))
 
-    # Tarjeta de Funcionalidades en la derecha
+    # Card Right
     card_sol = slide2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.6), Inches(1.8), Inches(5.9), Inches(4.5))
     card_sol.fill.solid()
     card_sol.fill.fore_color.rgb = C_CARD_BG
@@ -207,7 +205,7 @@ def create_presentation():
     tf_sol.word_wrap = True
 
     p = tf_sol.paragraphs[0]
-    p.text = "⚡ FUNCIONALIDADES CLAVE DE MEMORIX"
+    p.text = "⚡ FUNCIONALIDADES CLAVE"
     p.font.name = "Calibri"
     p.font.size = Pt(15)
     p.font.bold = True
@@ -215,18 +213,17 @@ def create_presentation():
     p.space_after = Pt(10)
 
     funcs_list = [
-        ("🔊 Alarmas Inteligentes con Audio-Guía", "Reproduce por voz el nombre del fármaco, dosis e indicaciones (ej. 'tomar con agua tras la comida')."),
-        ("✅ Confirmación Fácil de Un Toque", "Botón táctil de gran visibilidad para registrar la toma y evitar duplicidades por despistes."),
-        ("🛡️ Alerta Automática SOS a Cuidadores", "Si tras 20 min no se confirma una toma crítica, envía aviso inmediato al familiar asignado."),
-        ("🏋️ Rutinas de Fortalecimiento Muscular", "Ejercicios guiados paso a paso con temporizador para dolores de espalda, hombros, cuello o piernas."),
-        ("🎨 Interfaz de Alto Contraste (Modo Senior)", "Gama cromática de máxima legibilidad (azul, cian, menta) adaptada a problemas visuales."),
-        ("📊 Historial de Adherencia Exportable", "Estadísticas semanales y mensuales de cumplimiento listas para compartir con el médico.")
+        ("🔊 Alarmas con Locución por Voz", "Lee en voz alta el nombre de la pastilla, la dosis y cómo tomarla (ej. con comida)."),
+        ("👆 Confirmación Fácil de Un Toque", "Botón táctil grande para registrar la toma y evitar tomar la pastilla dos veces por despiste."),
+        ("🛡️ Aviso Automático al Cuidador", "Manda una alerta al móvil del familiar si pasan 20 minutos sin confirmarse la toma."),
+        ("🏋️ Ejercicios Musculares Guiados", "Rutinas para dolores o traumatismos con temporizador, series y descansos en pantalla."),
+        ("🎨 Interfaz de Alto Contraste", "Tipografía clara y colores contrastados pensados para personas mayores o con poca vista.")
     ]
     for f_tit, f_desc in funcs_list:
         p_ft = tf_sol.add_paragraph()
         p_ft.text = f_tit
         p_ft.font.name = "Calibri"
-        p_ft.font.size = Pt(11)
+        p_ft.font.size = Pt(11.5)
         p_ft.font.bold = True
         p_ft.font.color.rgb = C_MINT
         p_ft.space_after = Pt(1)
@@ -234,9 +231,9 @@ def create_presentation():
         p_fd = tf_sol.add_paragraph()
         p_fd.text = f_desc
         p_fd.font.name = "Calibri"
-        p_fd.font.size = Pt(9.5)
+        p_fd.font.size = Pt(10)
         p_fd.font.color.rgb = C_TEXT_DARK
-        p_fd.space_after = Pt(6)
+        p_fd.space_after = Pt(7)
 
     # Footer banner slide 2
     b_foot2 = slide2.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(6.5), Inches(11.7), Inches(0.55))
@@ -244,22 +241,22 @@ def create_presentation():
     b_foot2.fill.fore_color.rgb = C_NAVY
     b_foot2.line.color.rgb = C_NAVY
     p_bf2 = b_foot2.text_frame.paragraphs[0]
-    p_bf2.text = "📱 Memorix: Aplicación Multiplataforma (Android / iOS) • Enfoque Universal y Accesible"
+    p_bf2.text = "📱 Solución Multiplataforma (Android / iOS) • Modo Fácil Diseñado para la Tercera Edad"
     p_bf2.font.name = "Calibri"
-    p_bf2.font.size = Pt(10.5)
+    p_bf2.font.size = Pt(11)
     p_bf2.font.bold = True
     p_bf2.font.color.rgb = RGBColor(255, 255, 255)
     p_bf2.alignment = PP_ALIGN.CENTER
 
     # =========================================================================
-    # DIAPOSITIVA 3: VALOR AÑADIDO, CONTRASTES Y MEJORA FUTURA
+    # DIAPOSITIVA 3: VALOR AÑADIDO Y MEJORA FUTURA
     # =========================================================================
     slide3 = prs.slides.add_slide(blank_layout)
     draw_bg(slide3)
     add_top_nav(slide3, "VALOR E INNOVACIÓN", "03 / 03  •  VALOR AÑADIDO")
-    add_slide_header(slide3, "3. Valor Añadido y Visión de Futuro", "¿Por qué Memorix marca la diferencia y hacia dónde evoluciona?")
+    add_slide_header(slide3, "3. Valor Diferencial y Mejoras Futuras", "¿Por qué resulta útil esta solución y cómo puede evolucionar?")
 
-    # Tarjeta Izquierda: ¿Por qué resulta útil? (Valor Diferencial)
+    # Card Left: Valor Añadido
     card_va = slide3.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.5))
     card_va.fill.solid()
     card_va.fill.fore_color.rgb = C_CARD_BG
@@ -271,7 +268,7 @@ def create_presentation():
     tf_va.word_wrap = True
 
     p = tf_va.paragraphs[0]
-    p.text = "🌟 VALOR AÑADIDO DIFERENCIAL"
+    p.text = "🌟 VALOR AÑADIDO (¿POR QUÉ ES ÚTIL?)"
     p.font.name = "Calibri"
     p.font.size = Pt(15)
     p.font.bold = True
@@ -279,10 +276,10 @@ def create_presentation():
     p.space_after = Pt(12)
 
     val_items = [
-        ("Doble Enfoque Integral (Fármacos + Fisioterapia)", "Unifica en un solo lugar la adherencia médica y la actividad física terapéutica."),
-        ("Accesibilidad Total por Contrastes", "La identidad gráfica de Memorix utiliza contrastes cromáticos de grado médico para eliminar barreras cognitivas."),
-        ("Autonomía Real para la Tercera Edad", "Instrucciones de audio claras y botones gigantes que devuelven la independencia al paciente."),
-        ("Paz Mental para las Familias", "Supervisión remota pasiva: solo alerta a los familiares cuando realmente ocurre una omisión.")
+        ("Solución 2 en 1 (Medicamentos + Ejercicio)", "Une en una sola aplicación el control de los tratamientos y la recuperación física activa."),
+        ("Mayor Autonomía para Personas Mayores", "Las explicaciones por voz y los botones grandes permiten manejarse sin depender siempre de otra persona."),
+        ("Tranquilidad para los Familiares", "Supervisión sin agobios; solo reciben alerta en el móvil si su familiar no confirma una toma."),
+        ("Constancia en la Rehabilitación", "Las guías visuales con cronómetro ayudan a no abandonar los ejercicios musculares en casa.")
     ]
     for v_tit, v_desc in val_items:
         p_t = tf_va.add_paragraph()
@@ -296,11 +293,11 @@ def create_presentation():
         p_d = tf_va.add_paragraph()
         p_d.text = f"   {v_desc}"
         p_d.font.name = "Calibri"
-        p_d.font.size = Pt(10.5)
+        p_d.font.size = Pt(10)
         p_d.font.color.rgb = C_TEXT_DARK
         p_d.space_after = Pt(8)
 
-    # Tarjeta Derecha: Mejoras Futuras
+    # Card Right: Mejoras Futuras
     card_mf = slide3.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.8), Inches(5.7), Inches(4.5))
     card_mf.fill.solid()
     card_mf.fill.fore_color.rgb = C_CARD_BG
@@ -312,7 +309,7 @@ def create_presentation():
     tf_mf.word_wrap = True
 
     p = tf_mf.paragraphs[0]
-    p.text = "🚀 MEJORAS FUTURAS DE MEMORIX"
+    p.text = "🚀 MEJORAS FUTURAS PREVISTAS"
     p.font.name = "Calibri"
     p.font.size = Pt(15)
     p.font.bold = True
@@ -320,10 +317,9 @@ def create_presentation():
     p.space_after = Pt(12)
 
     fut_items = [
-        ("IA de Visión Artificial (Computer Vision)", "Supervisión postural en tiempo real a través de la cámara del móvil durante los ejercicios de fisioterapia."),
-        ("Escaneo OCR Inteligente de Cajas", "Reconocimiento automático de prospectos y posología con solo enfocar la caja del medicamento."),
-        ("Conectividad IoT con Smartwatches", "Vibración en la muñeca para avisar de la toma y detección de caídas en personas mayores."),
-        ("Interoperabilidad con Receta Electrónica", "Conexión directa con la historia clínica pública para actualizar dosis automáticamente.")
+        ("Visión Artificial con Cámara Móvil", "Detección de la postura del usuario en tiempo real durante los ejercicios para avisar por voz si la espalda está mal colocada."),
+        ("Conexión con Pulseras Inteligentes (Smartwatch)", "Avisos de medicación por vibración en la muñeca y detección de caídas accidentales en ancianos."),
+        ("Escaneo de Cajas de Medicamentos", "Reconocimiento automático de la pastilla con la cámara para añadir la alarma sin tener que escribir.")
     ]
     for f_tit, f_desc in fut_items:
         p_t = tf_mf.add_paragraph()
@@ -337,7 +333,7 @@ def create_presentation():
         p_d = tf_mf.add_paragraph()
         p_d.text = f"   {f_desc}"
         p_d.font.name = "Calibri"
-        p_d.font.size = Pt(10.5)
+        p_d.font.size = Pt(10)
         p_d.font.color.rgb = C_TEXT_DARK
         p_d.space_after = Pt(8)
 
@@ -347,9 +343,9 @@ def create_presentation():
     b_foot3.fill.fore_color.rgb = C_NAVY
     b_foot3.line.color.rgb = C_NAVY
     p_bf3 = b_foot3.text_frame.paragraphs[0]
-    p_bf3.text = "🎯 MEMORIX: Tecnología accesible al servicio de la salud, autonomía y bienestar de las personas"
+    p_bf3.text = "🎯 MEMORIX  •  Proyecto Intermodular 2º DAM  •  Kevin Muñoz Córcoles"
     p_bf3.font.name = "Calibri"
-    p_bf3.font.size = Pt(10.5)
+    p_bf3.font.size = Pt(11)
     p_bf3.font.bold = True
     p_bf3.font.color.rgb = RGBColor(255, 255, 255)
     p_bf3.alignment = PP_ALIGN.CENTER
