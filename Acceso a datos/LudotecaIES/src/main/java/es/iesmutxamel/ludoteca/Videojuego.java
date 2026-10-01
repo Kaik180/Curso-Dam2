@@ -66,6 +66,12 @@ public class Videojuego {
 
     }
 
+    public void escribirVideojuegoAlFinal(Videojuego videojuego){
+
+    }
+    public void escribirVideojuegoAlPrincipio(Videojuego videojuego){
+
+    }
 
 
 

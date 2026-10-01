@@ -33,6 +33,9 @@ public class MainVidejuegos {
                 case 4:
                     consultarPocasUnidades(scanner, catalogo);
                     break;
+                case 5:
+                    guardarVideojuego();
+                    break;
                 case 0:
                     System.out.println("¡Gracias por utilizar la aplicación de Ludoteca IES! ¡Hasta pronto!");
                     break;
@@ -50,6 +53,7 @@ public class MainVidejuegos {
         System.out.println("2. Añadir un videojuego");
         System.out.println("3. Mostrar un resumen del catálogo");
         System.out.println("4. Consultar videojuegos con pocas unidades");
+        System.out.println("5. GuardarVideojuego");
         System.out.println("0. Salir");
         System.out.print(">> Selecciona una opción: ");
     }
@@ -208,5 +212,8 @@ public class MainVidejuegos {
                 System.out.println(v);
             }
         }
+    }
+    private static void guardarVideojuego() {
+
     }
 }
