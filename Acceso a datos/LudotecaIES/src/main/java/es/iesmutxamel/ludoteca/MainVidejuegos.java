@@ -9,7 +9,7 @@ public class MainVidejuegos {
     public static void main(String[] args) {
         Catalogo catalogo = new Catalogo();
 
-        // Añadimos los dos videojuegos
+        // Añadimos los dos videojuegos iniciales
         catalogo.agregarVideojuego(new Videojuego(100, "The witcher", "pc", 20.00, 7));
         catalogo.agregarVideojuego(new Videojuego(101, "Órbita", "pc", 19.95, 7));
 
@@ -34,13 +34,13 @@ public class MainVidejuegos {
                     consultarPocasUnidades(scanner, catalogo);
                     break;
                 case 5:
-                    guardarVideojuego();
+                    guardarYMostrarVideojuegos(catalogo);
                     break;
                 case 0:
                     System.out.println("¡Gracias por utilizar la aplicación de Ludoteca IES! ¡Hasta pronto!");
                     break;
                 default:
-                    System.out.println("Error: Opción no válida. Por favor, selecciona una opción entre 0 y 4.");
+                    System.out.println("Error: Opción no válida. Por favor, selecciona una opción entre 0 y 5.");
                     break;
             }
         } while (opcion != 0);
@@ -53,7 +53,7 @@ public class MainVidejuegos {
         System.out.println("2. Añadir un videojuego");
         System.out.println("3. Mostrar un resumen del catálogo");
         System.out.println("4. Consultar videojuegos con pocas unidades");
-        System.out.println("5. GuardarVideojuego");
+        System.out.println("5. Guardar y mostrar los videojuegos en un fichero");
         System.out.println("0. Salir");
         System.out.print(">> Selecciona una opción: ");
     }
@@ -213,7 +213,31 @@ public class MainVidejuegos {
             }
         }
     }
-    private static void guardarVideojuego() {
 
+    /**
+     * Opción 5: Guarda dos videojuegos en el fichero (uno al final y otro al principio)
+     * y muestra el contenido completo por consola usando GestionarVideojuegos.
+     */
+    private static void guardarYMostrarVideojuegos(Catalogo catalogo) {
+        GestionarVideojuegos gestor = new GestionarVideojuegos();
+
+        // Obtenemos los videojuegos ya cargados en el catálogo
+        ArrayList<Videojuego> lista = catalogo.obtenerVideojuegos();
+
+        if (lista.size() >= 2) {
+            // 1. Guardamos uno de los videojuegos iniciales al final del fichero
+            Videojuego juego1 = lista.get(0); // The witcher
+            gestor.escribirVideojuegoAlFinal(juego1);
+
+            // 2. Guardamos el otro videojuego al principio del fichero
+            Videojuego juego2 = lista.get(1); // Órbita
+            gestor.escribirVideojuegoAlPrincipio(juego2);
+
+            // 3. Mostramos el contenido completo del fichero
+            System.out.println("--- CONTENIDO DEL FICHERO ---");
+            gestor.mostrarContenido();
+        } else {
+            System.out.println("No hay suficientes videojuegos en el catálogo para realizar la operación.");
+        }
     }
 }
