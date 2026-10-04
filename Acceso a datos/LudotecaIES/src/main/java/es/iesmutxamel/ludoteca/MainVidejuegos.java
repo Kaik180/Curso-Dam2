@@ -214,10 +214,7 @@ public class MainVidejuegos {
         }
     }
 
-    /**
-     * Opción 5: Guarda dos videojuegos en el fichero (uno al final y otro al principio)
-     * y muestra el contenido completo por consola usando GestionarVideojuegos.
-     */
+    // Opción 5: guardar en fichero y mostrar por consola
     private static void guardarYMostrarVideojuegos(Catalogo catalogo) {
         GestionarVideojuegos gestor = new GestionarVideojuegos();
 
