@@ -1,176 +1,170 @@
-# Práctica: Multiproceso en Java — Cálculo Paralelo de Números Primos
+# Práctica: Multiproceso en Java — Cálculo de Números Primos
 
-**Módulo:** Programación de Servicios y Procesos (PSP)  
-**Curso:** 2º Desarrollo de Aplicaciones Multiplataforma (DAM)  
-**Unidad:** UD1 — Programación Multiproceso  
-**Autor:** Kevin Muñoz Córcoles  
-
----
-
-## 1. Descripción del Proyecto
-
-Esta práctica implementa una arquitectura **Maestro-Trabajador (*Master-Worker*)** en Java para resolver de forma distribuida y concurrente el cálculo y conteo de números primos en un intervalo numérico cerrado $[1, N]$.
-
-El objetivo central es comprender el ciclo de vida de los procesos en los sistemas operativos modernos, la creación y gestión de subprocesos mediante la API `ProcessBuilder` de Java, la sincronización entre procesos mediante `waitFor()` y la comunicación interproceso (**IPC**) básica a través de flujos estándar de entrada/salida (`stdout`, `stderr`).
-
-Adicionalmente, se incluye una implementación secuencial de referencia (`PrimosSecuencial`) para medir empíricamente la sobrecarga asociada al arranque de múltiples Máquinas Virtuales de Java (JVM) y el *speedup* alcanzable frente a cargas de trabajo computacionalmente intensivas.
+* **Asignatura:** Programación de Servicios y Procesos (PSP)
+* **Curso:** 2º DAM (Desarrollo de Aplicaciones Multiplataforma)
+* **Tema:** Unidad 1 - Programación Multiproceso
+* **Alumno:** Kevin Muñoz Córcoles
 
 ---
 
-## 2. Arquitectura y Estructura de Clases
+## 1. ¿De qué va esta práctica?
 
-El proyecto está organizado dentro del paquete `procesos` (y replicado en `Practicas01` para compatibilidad completa en el IDE):
+En esta práctica hemos creado un programa en Java para contar cuántos números primos hay dentro de un rango (por ejemplo, del 1 al 200.000), pero dividiendo el trabajo entre **varios procesos a la vez** para aprovechar los núcleos del procesador.
 
-```
+Para ver si realmente merece la pena usar multiproceso o no, hemos montado el sistema usando el patrón **Maestro-Trabajador** y lo hemos comparado con una versión **secuencial** (que hace todo el trabajo en un solo programa tradicional).
+
+---
+
+## 2. ¿Cómo está organizado el código?
+
+Hemos creado tres clases principales dentro del paquete `procesos` (y una copia en `Practicas01` por si se ejecuta directamente en el IDE):
+
+```text
 Actividades/
 ├── src/main/java/
 │   ├── procesos/
-│   │   ├── TrabajadorPrimo.java   # Proceso Worker independiente (subproceso)
-│   │   ├── MaestroProcesos.java   # Proceso Master orquestador (proceso principal)
-│   │   └── PrimosSecuencial.java  # Benchmark monoproceso secuencial (baseline)
+│   │   ├── TrabajadorPrimo.java   # El proceso hijo (calcula su parte)
+│   │   ├── MaestroProcesos.java   # El programa principal (reparte el trabajo)
+│   │   └── PrimosSecuencial.java  # Versión normal de toda la vida (para comparar)
 │   └── Practicas01/
 │       ├── TrabajadorPrimo.java
 │       ├── MaestroProcesos.java
 │       └── PrimosSecuencial.java
 ├── pom.xml
 ├── README.md
-└── Informe_Practica_Multiproceso_Primos.pdf  # Informe técnico y comparativa
+└── Informe_Practica_Multiproceso_Primos.pdf
 ```
 
-### 2.1. `TrabajadorPrimo` (Worker)
-- **Rol:** Proceso secundario e independiente.
-- **Argumentos recibidos:** `<inicio> <fin>` (rango cerrado $[inicio, fin]$ a procesar).
-- **Comportamiento:**
-  - Valida que se reciban exactamente dos argumentos numéricos enteros válidos, con $inicio \ge 1$ e $inicio \le fin$.
-  - Si los argumentos son inválidos, imprime un mensaje descriptivo por **`stderr`** y finaliza inmediatamente con código de salida **`System.exit(1)`**.
-  - Si los argumentos son válidos, cuenta los números primos en el rango mediante un algoritmo de división por tentativa optimizado ($6k \pm 1$, complejidad $\mathcal{O}(\sqrt{n})$).
-  - Emite el total de primos por **`stdout`** y concluye exitosamente con **`System.exit(0)`**.
+### Explicación sencilla de cada clase:
 
-### 2.2. `MaestroProcesos` (Master / Coordinator)
-- **Rol:** Proceso principal y coordinador del cálculo distribuido.
-- **Parámetros configurables:** 
-  - `args[0]` = $N$ (Límite superior, por defecto $200.000$).
-  - `args[1]` = $M$ (Número de procesos paralelos, por defecto $4$).
-- **Ciclo de orquestación:**
-  1. **Partición equitativa:** Divide el rango $[1, N]$ en $M$ subintervalos homogéneos contiguos, distribuyendo el residuo ($N \pmod M$) equitativamente entre los primeros bloques.
-  2. **Lanzamiento paralelo:** Instancia de forma no bloqueante $M$ procesos hijos ejecutando `TrabajadorPrimo` mediante `ProcessBuilder`, resolviendo automáticamente el binario de Java y el classpath en ejecución.
-  3. **Recolección y sincronización:** Lee la salida estándar de cada subproceso mediante `BufferedReader` y sincroniza su finalización con `process.waitFor()`, verificando el código de retorno.
-  4. **Agregación y métricas:** Suma las cuentas parciales de cada subproceso y cronometra el tiempo total transcurrido.
+1. **`TrabajadorPrimo.java` (El trabajador):**
+   * Es un programa independiente. Le pasamos dos números por argumentos: el `inicio` y el `fin`.
+   * Si le pasamos mal los argumentos (por ejemplo si faltan números, no son enteros o el inicio es mayor que el fin), muestra el mensaje de error por la salida de errores (`System.err`) y se cierra con código de salida `1` (`System.exit(1)`).
+   * Si todo está bien, calcula cuántos primos hay en ese trozo, imprime el número por pantalla (`System.out.println`) y termina con código `0` (`System.exit(0)`).
 
-### 2.3. `PrimosSecuencial` (Monoproceso de referencia)
-- **Rol:** Versión secuencial de control ejecutada en un único hilo dentro de un único proceso JVM.
-- **Propósito:** Validar que el resultado total de primos coincida con exactitud y proporcionar una línea base (*baseline*) para cuantificar el impacto y sobrecarga del modelo multiproceso.
+2. **`MaestroProcesos.java` (El jefe / coordinador):**
+   * Es el programa principal. Por defecto busca primos del 1 al 200.000 usando 4 procesos, pero se le pueden pasar otros valores por argumentos.
+   * **¿Qué hace paso a paso?**
+     1. Parte el rango total en trozos iguales para que cada trabajador tenga la misma cantidad de trabajo.
+     2. Lanza los procesos hijos en paralelo usando `ProcessBuilder` llamando a `TrabajadorPrimo`.
+     3. Lee el número que devuelve cada hijo por la consola usando un `BufferedReader`.
+     4. Espera a que terminen con `waitFor()` y comprueba que el código de salida sea `0`.
+     5. Suma los resultados de todos los procesos y nos muestra por pantalla el total de primos y cuánto tiempo ha tardado en milisegundos.
+
+3. **`PrimosSecuencial.java` (El programa de comparación):**
+   * Hace exactamente la misma cuenta de números primos, pero sin crear procesos ni hilos: todo seguido en el mismo programa.
+   * Nos sirve para comprobar dos cosas:
+     * Que el resultado de primos sea exactamente el mismo (para estar seguros de que no nos hemos dejado ningún número al dividir los rangos).
+     * Comparar los tiempos y ver cuándo es más rápido el secuencial y cuándo el multiproceso.
 
 ---
 
-## 3. Instrucciones de Compilación y Ejecución
+## 3. Cómo compilar y ejecutar los programas
 
-### 3.1. Requisitos Previos
-- **JDK 17 o superior** (OpenJDK / Oracle JDK).
-- Terminal de comandos (PowerShell, Bash o CMD) o un IDE compatible (IntelliJ IDEA, Eclipse, VS Code).
-
-### 3.2. Compilación desde Terminal
-
-Navegar hasta la carpeta `src/main/java` del proyecto:
+### 3.1. Compilar desde la terminal
+Nos situamos en la carpeta `src/main/java`:
 
 ```bash
 cd "src/main/java"
 javac procesos/*.java
 ```
 
-### 3.3. Ejecución de las Clases
+### 3.2. Ejecutar los programas
 
-#### A) Proceso Maestro (Multiproceso)
-Ejecución con parámetros sugeridos por defecto ($N=200.000, M=4$):
+#### A) Ejecutar el Maestro (Multiproceso)
+Si lo ejecutamos sin argumentos, usa los valores pedidos en la práctica ($N = 200.000$ y $4$ procesos):
 ```bash
 java procesos.MaestroProcesos
 ```
 
-Ejecución personalizada pasando $N$ y $M$:
+Si queremos probar con otros números (por ejemplo hasta 10 millones con 4 procesos):
 ```bash
-# Ejemplo: N = 10.000.000 con 8 procesos trabajadores
-java procesos.MaestroProcesos 10000000 8
+java procesos.MaestroProcesos 10000000 4
 ```
 
-#### B) Versión Secuencial (Monoproceso)
-Ejecución con valor por defecto ($N=200.000$):
+#### B) Ejecutar la versión Secuencial (Monoproceso)
+Por defecto calcula hasta 200.000:
 ```bash
 java procesos.PrimosSecuencial
 ```
 
-Ejecución con límite personalizado:
+O indicando el número límite:
 ```bash
 java procesos.PrimosSecuencial 10000000
 ```
 
-#### C) Proceso Trabajador Individual (Pruebas unitarias y de validación)
-Caso exitoso (cuenta primos entre 1 y 100, devuelve 25):
+#### C) Probar un Trabajador suelto (Pruebas individuales)
+Podemos llamar al trabajador directamente para ver cómo responde:
 ```bash
+# Caso correcto: cuenta los primos del 1 al 100 (da 25)
 java procesos.TrabajadorPrimo 1 100
-echo $LASTEXITCODE  # Devuelve 0
-```
 
-Casos de error de argumentos (devuelven código 1):
-```bash
-java procesos.TrabajadorPrimo 100 50    # Rango invertido
-java procesos.TrabajadorPrimo abc def   # Parámetros no numéricos
+# Casos de error: nos avisa por stderr y devuelve código de salida 1
+java procesos.TrabajadorPrimo 100 50    # Rango al revés
+java procesos.TrabajadorPrimo hola adios # No son números
 java procesos.TrabajadorPrimo 50        # Falta un parámetro
 ```
 
 ---
 
-## 4. Tabla Comparativa de Rendimiento
+## 4. Pruebas y Tiempos Reales Obtenidos
 
-A continuación se presentan los resultados empíricos obtenidos en las pruebas de laboratorio bajo el mismo entorno de hardware:
+Hemos hecho pruebas en el ordenador midiendo los tiempos con el secuencial y con multiproceso usando 2, 4 y 8 procesos:
 
-### Caso A: Carga Ligera ($N = 200.000$, $17.984$ primos)
-| Modelo de Ejecución | Procesos ($M$) | Tiempo Total (ms) | Tiempo (s) | Speedup vs. Secuencial |
-| :--- | :---: | :---: | :---: | :---: |
-| **Secuencial (Baseline)** | 1 | **19 ms** | 0,019 s | **1,00x** (Referencia) |
-| **Multiproceso** | 2 | **594 ms** | 0,594 s | 0,03x (31x más lento) |
-| **Multiproceso (Recomendado)** | 4 | **984 ms** | 0,984 s | 0,02x (51x más lento) |
-| **Multiproceso** | 8 | **1.343 ms** | 1,343 s | 0,01x (70x más lento) |
+### Prueba 1: Rango pequeño ($N = 200.000$ — Total: 17.984 primos)
+| Modo de ejecución | Nº de Procesos | Tiempo (ms) | Tiempo (s) | ¿Qué ocurre? |
+| :--- | :---: | :---: | :---: | :--- |
+| **Secuencial (Normal)** | 1 | **16 ms** | 0,016 s | **El más rápido.** Va directo al grano. |
+| **Multiproceso** | 2 | 564 ms | 0,564 s | Mucho más lento. |
+| **Multiproceso (Práctica)** | 4 | 861 ms | 0,861 s | Más lento todavía. |
+| **Multiproceso** | 8 | 1.285 ms | 1,285 s | El más lento de todos. |
 
-### Caso B: Carga Intensiva ($N = 10.000.000$, $664.579$ primos)
-| Modelo de Ejecución | Procesos ($M$) | Tiempo Total (ms) | Tiempo (s) | Speedup vs. Secuencial |
-| :--- | :---: | :---: | :---: | :---: |
-| **Secuencial (Baseline)** | 1 | **3.270 ms** | 3,270 s | **1,00x** (Referencia) |
-| **Multiproceso** | 2 | **2.623 ms** | 2,623 s | **1,25x** (20% más rápido) |
-| **Multiproceso** | 4 | **2.064 ms** | 2,064 s | **1,58x** (37% más rápido) |
-| **Multiproceso** | 8 | **2.232 ms** | 2,232 s | **1,46x** (saturación por sobrecarga) |
+### Prueba 2: Rango medio ($N = 1.000.000$ — Total: 78.498 primos)
+| Modo de ejecución | Nº de Procesos | Tiempo (ms) | Tiempo (s) | ¿Qué ocurre? |
+| :--- | :---: | :---: | :---: | :--- |
+| **Secuencial (Normal)** | 1 | **127 ms** | 0,127 s | Sigue ganando el secuencial. |
+| **Multiproceso** | 2 | 685 ms | 0,685 s | Sigue pesando el arranque de Java. |
+| **Multiproceso** | 4 | 877 ms | 0,877 s | Cerca del punto de equilibrio. |
+| **Multiproceso** | 8 | 1.307 ms | 1,307 s | Tantos procesos siguen frenando. |
+
+### Prueba 3: Rango grande y pesado ($N = 10.000.000$ — Total: 664.579 primos)
+| Modo de ejecución | Nº de Procesos | Tiempo (ms) | Tiempo (s) | ¿Qué ocurre? |
+| :--- | :---: | :---: | :---: | :--- |
+| **Secuencial (Normal)** | 1 | 3.340 ms | 3,340 s | El cálculo se vuelve pesado. |
+| **Multiproceso** | 2 | 2.753 ms | 2,753 s | Empieza a mejorar al secuencial. |
+| **Multiproceso (El mejor)** | 4 | **2.069 ms** | 2,069 s | **El más rápido.** Gana un 61% de velocidad. |
+| **Multiproceso** | 8 | 2.098 ms | 2,098 s | Se estanca porque satura la CPU. |
 
 ---
 
-## 5. Análisis y Conclusiones Técnicas
+## 5. Conclusiones y Explicación de lo que pasa
 
-### 5.1. Sobrecarga del Arranque de la JVM (*Cold Start Overhead*)
-En Java, cuando se lanza un proceso independiente mediante `ProcessBuilder` invocando el comando `java`, el sistema operativo debe:
-1. Crear una nueva estructura de proceso en el kernel (PCB, tablas de páginas, descriptores de fichero).
-2. Reservar un espacio de direcciones de memoria virtual exclusivo y desacoplado.
-3. Cargar las librerías nativas de la JVM, inicializar subsistemas internos (Garbage Collector, compilador JIT, ClassLoader bootstrap y del sistema) y cargar las clases base de la plataforma Java.
+### 1. ¿Por qué el multiproceso es más lento con números pequeños (200.000)?
+En Java, cuando lanzamos un proceso con `ProcessBuilder` ejecutando el comando `java`, no estamos creando simplemente un hilito ligero: **el ordenador tiene que abrir una máquina virtual de Java (JVM) completa desde cero para cada proceso**. 
 
-Esta inicialización consume aproximadamente **$150 - 250\text{ ms}$ por proceso**. Por consiguiente:
-- En rangos reducidos ($N \le 200.000$), el tiempo de computación pura es insignificante ($\approx 19\text{ ms}$). Lanzar 4 procesos introduce una penalización acumulada cercana al segundo, haciendo que la solución multiproceso sea sustancialmente más lenta que la secuencial.
-- En rangos pesados ($N \ge 10.000.000$), el trabajo matemático a repartir supera con creces el coste de inicialización de las JVMs, traduciéndose en una reducción efectiva del tiempo de respuesta (*speedup* de hasta 1,58x con 4 procesos).
+Esto significa que el sistema operativo tiene que reservar memoria, cargar librerías de Java, inicializar el recolector de basura (Garbage Collector) y preparar todo el entorno. Eso tarda unos **150 a 200 milisegundos por cada proceso**.
 
-### 5.2. Ventajas e Inconvenientes del Modelo Multiproceso
-- **Ventajas:**
-  - **Aislamiento total de memoria:** Cada proceso trabajador opera en su propio espacio de memoria virtual protegido. Un fallo crítico o desbordamiento de memoria (`OutOfMemoryError`) en un trabajador no compromete al proceso maestro ni a los demás trabajadores.
-  - **Aprovechamiento directo de múltiples núcleos (CPU Multi-core):** El planificador del sistema operativo distribuye los procesos pesados entre los núcleos físicos disponibles de forma transparente.
-  - **Modularidad y desacoplamiento:** `TrabajadorPrimo` es un programa autocontenido que puede ser reutilizado por otros sistemas, scripts de shell o aplicaciones escritas en otros lenguajes.
-- **Inconvenientes:**
-  - **Elevado consumo de recursos:** Cada proceso requiere su propia memoria heap y stack, así como el runtime completo de Java.
-  - **Comunicación Interproceso (IPC) más costosa:** Los datos deben serializarse y transmitirse a través de tuberías (*pipes* del sistema operativo), a diferencia del modelo multihilo (*multithreading*) donde la memoria se comparte de forma directa y ultrarrápida.
-  - **Saturación en exceso de procesos:** Lanzar más procesos que núcleos lógicos disponibles genera contención por cambios de contexto (*context switching*) y sobrecarga de I/O, como se evidencia al pasar de 4 a 8 procesos.
+* Si el cálculo en sí solo tarda **16 milisegundos** (como pasa con 200.000), abrir 4 máquinas virtuales nos hace perder casi un segundo solo en arrancar. Por eso el secuencial le da mil vueltas en tareas pequeñas.
+
+### 2. ¿Cuándo merece la pena usar multiproceso?
+Merece la pena cuando el trabajo matemático es muy grande y pesado (como con 10 millones de números). 
+* Ahí el secuencial tarda más de 3 segundos seguidos. Como el trabajo tarda bastante, los ~200 ms que tardan en arrancar los procesos ya no importan tanto, y al repartir los números entre 4 procesos que corren en paralelo en los núcleos del procesador, el tiempo baja a **2 segundos**.
+* Con 8 procesos ya no mejora más porque el procesador se satura cambiando de un proceso a otro y arrancando 8 JVMs a la vez.
+
+### 3. Ventajas y desventajas de usar Procesos frente a Hilos (*Threads*)
+
+* **Ventajas de los procesos:**
+  * **Seguridad y aislamiento total:** Cada proceso tiene su propia memoria independiente. Si un trabajador se cuelga, se queda sin memoria o da un fallo grave, **el programa maestro no se cae ni se rompe**. El maestro simplemente recibe el código de error en `waitFor()` y puede seguir funcionando.
+  * **Aprovechamiento directo del procesador:** El sistema operativo reparte los procesos automáticamente entre los núcleos de la CPU.
+
+* **Desventajas de los procesos:**
+  * **Mucha sobrecarga y gasto de memoria:** Cada proceso gasta mucha memoria RAM porque tiene su propia JVM completa.
+  * **Comunicación más lenta y pesada:** Para pasarse datos entre procesos hay que hacerlo mediante la consola (`stdout`/`stderr`), leyendo líneas de texto con `BufferedReader`. En cambio, con hilos se comparten variables directamente en la memoria RAM de forma inmediata.
 
 ---
 
 ## 6. Documentación Javadoc
-
-El código fuente ha sido documentado exhaustivamente siguiendo el estándar Javadoc y las directrices HTML5:
-- Comentarios completos para cada clase, método, parámetro (`@param`), retorno (`@return`) y códigos de salida.
-- Constructores privados explícitos documentados para prevenir la instanciación de clases estáticas y utilitarias.
-- Validación de generación sin errores ni advertencias mediante:
-  ```bash
-  javadoc -d docs -encoding UTF-8 -charset UTF-8 procesos/*.java
-  ```
+Todas las clases, métodos y parámetros tienen sus comentarios Javadoc listos. Se puede generar la documentación HTML ejecutando:
+```bash
+javadoc -d docs -encoding UTF-8 -charset UTF-8 procesos/*.java
+```
