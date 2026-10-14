@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repaso Rápido THD | 2º DAM</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --secondary: #0d9488;
+      --accent: #f59e0b;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 10px;
+    }
+
+    .light-theme {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary-light: #eff6ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 50px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 24px 20px 18px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge-course {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(37, 99, 235, 0.25);
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      color: #93c5fd;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      max-width: 650px;
+      margin: 0 auto 16px auto;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    .nav-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 24px auto 0 auto;
+      padding: 0 16px;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      color: #60a5fa;
+    }
+    .light-theme .card h3 {
+      color: var(--primary);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin: 16px 0;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      background: var(--card-bg);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    th {
+      background: rgba(37, 99, 235, 0.15);
+      color: var(--text);
+      font-weight: 700;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--card-border);
+      text-align: left;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-muted);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Flashcards */
+    .flashcard-container {
+      perspective: 1000px;
+      max-width: 600px;
+      margin: 0 auto;
+      min-height: 280px;
+      cursor: pointer;
+    }
+
+    .flashcard {
+      position: relative;
+      width: 100%;
+      min-height: 280px;
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease;
+      border-radius: 14px;
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 2px solid var(--card-border);
+      background: var(--card-bg);
+    }
+
+    .flashcard-back {
+      transform: rotateY(180deg);
+      border-color: var(--primary);
+      background: linear-gradient(145deg, var(--card-bg) 0%, rgba(37, 99, 235, 0.1) 100%);
+    }
+
+    .card-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+
+    .card-question {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: auto 0;
+      text-align: center;
+    }
+
+    .card-answer {
+      font-size: 0.98rem;
+      color: var(--text);
+      margin: auto 0;
+      line-height: 1.5;
+    }
+
+    .card-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .fc-controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* Test */
+    .quiz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .quiz-opt {
+      padding: 12px 16px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      text-align: left;
+      color: var(--text);
+    }
+
+    .quiz-opt:hover {
+      border-color: var(--primary);
+    }
+
+    .quiz-opt.correct {
+      border-color: var(--success);
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .quiz-opt.wrong {
+      border-color: var(--danger);
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+      font-weight: 700;
+    }
+
+    .quiz-feedback {
+      display: none;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 12px;
+      font-size: 0.88rem;
+    }
+
+    /* 5 Minutos */
+    .cheat-row {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .cheat-row:last-child {
+      border-bottom: none;
+    }
+
+    .cheat-badge {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 800;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+  <span class="badge-course">2º DAM • DIGITALIZACIÓN PRODUCTIVA</span>
+  <h1>Tecnologías Habilitadoras Digitales (THD)</h1>
+  <p>Guía de estudio directa y eficiente: resumen de examen, flashcards y simulador tipo test.</p>
+  
+  <nav>
+    <button class="nav-btn active" onclick="switchTab('resumen')">📋 Resumen Directo</button>
+    <button class="nav-btn" onclick="switchTab('flashcards')">🧠 Flashcards (12)</button>
+    <button class="nav-btn" onclick="switchTab('quiz')">🎯 Test Rápido (10)</button>
+    <button class="nav-btn" onclick="switchTab('cincomin')">⚡ 10 Claves de Examen</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- PESTAÑA 1: RESUMEN DIRECTO -->
+  <section id="tab-resumen" class="tab-content active">
+    <div class="grid-2">
+      <div class="card">
+        <h3>💡 ¿Qué es una THD?</h3>
+        <p style="color: var(--text-muted); font-size: 0.92rem;">
+          Son tecnologías emergentes (IoT, IA, Big Data, Cloud, 5G, Blockchain...) que transforman los procesos productivos aumentando la eficiencia, automatización y competitividad empresarial en la <strong>Industria 4.0</strong>.
+        </p>
+      </div>
+      <div class="card">
+        <h3>🔄 IT vs OT (Convergencia)</h3>
+        <p style="color: var(--text-muted); font-size: 0.92rem;">
+          • <strong>IT (Información):</strong> Gestión de datos, servidores, bases de datos y software en oficina o nube.<br/>
+          • <strong>OT (Operación):</strong> Control de máquinas físicas, robots y sensores en la planta de producción.
+        </p>
+      </div>
+    </div>
+
+    <h2 style="font-size: 1.2rem; margin: 18px 0 8px 0;">Las 11 THDs Clave (Concepto + Ejemplo)</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Tecnología</th>
+            <th>Qué es (directo)</th>
+            <th>Ejemplo real</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. IoT</strong></td>
+            <td>Objetos y sensores físicos conectados a la red que transmiten datos sin intervención humana.</td>
+            <td>Control de riego agrícola; monitor de glucosa MySugr.</td>
+          </tr>
+          <tr>
+            <td><strong>2. Inteligencia Artificial</strong></td>
+            <td>Sistemas que emulan el razonamiento humano y toman decisiones basadas en patrones.</td>
+            <td>Diagnósticos por imagen médica; chatbots de soporte.</td>
+          </tr>
+          <tr>
+            <td><strong>3. Big Data</strong></td>
+            <td>Tratamiento masivo de datos para predecir tendencias y optimizar decisiones.</td>
+            <td>Recomendaciones de compra en Amazon; rutas de Google Maps.</td>
+          </tr>
+          <tr>
+            <td><strong>4. Nube (Cloud)</strong></td>
+            <td>Almacenamiento y servidores remotos accesibles desde cualquier lugar.</td>
+            <td>Google Drive, AWS, Azure; historias clínicas de hospitales.</td>
+          </tr>
+          <tr>
+            <td><strong>5. Ciberseguridad</strong></td>
+            <td>Protección de sistemas y datos ante robos, virus o sabotajes industriales.</td>
+            <td>Autenticación en 2 pasos; cifrado bancario.</td>
+          </tr>
+          <tr>
+            <td><strong>6. VR y AR</strong></td>
+            <td><strong>VR:</strong> Entorno 100% virtual simulado.<br/><strong>AR:</strong> Capas digitales superpuestas en el mundo real.</td>
+            <td>Simuladores de vuelo (VR); Head-Up Display en parabrisas de coches (AR).</td>
+          </tr>
+          <tr>
+            <td><strong>7. Blockchain</strong></td>
+            <td>Registro descentralizado e inmutable en bloques criptográficos sin intermediarios.</td>
+            <td>Trazabilidad contra el fraude alimentario; criptomonedas.</td>
+          </tr>
+          <tr>
+            <td><strong>8. Conectividad 5G</strong></td>
+            <td>Red ultra veloz (10-20 Gbps) y latencia mínima (1-4 ms) para respuesta en tiempo real.</td>
+            <td>Vehículos autónomos sin conductor; telecirugía.</td>
+          </tr>
+          <tr>
+            <td><strong>9. Robótica / RPA</strong></td>
+            <td>Robots colaborativos (Cobots) y automatización de procesos repetitivos.</td>
+            <td>Líneas de ensamblaje de coches; robots bípedos Digit.</td>
+          </tr>
+          <tr>
+            <td><strong>10. Impresión 3D</strong></td>
+            <td>Fabricación aditiva capa a capa a partir de modelos digitales tridimensionales.</td>
+            <td>Piezas de recambio bajo demanda; prótesis biomédicas.</td>
+          </tr>
+          <tr>
+            <td><strong>11. Biometría</strong></td>
+            <td>Autenticación por rasgos biológicos únicos de la persona.</td>
+            <td>Desbloqueo de smartphones con huella o cara; tornos de acceso.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PESTAÑA 2: FLASHCARDS -->
+  <section id="tab-flashcards" class="tab-content">
+    <div style="text-align: center; margin-bottom: 15px;">
+      <span style="font-weight: 700; color: var(--primary);" id="fc-counter">Tarjeta 1 de 12</span>
+    </div>
+
+    <div class="flashcard-container" onclick="flipCard()">
+      <div class="flashcard" id="active-card">
+        <div class="flashcard-face flashcard-front">
+          <span class="card-category" id="fc-cat">Tema</span>
+          <div class="card-question" id="fc-q">Pregunta</div>
+          <div class="card-hint">👆 Toca para ver la respuesta</div>
+        </div>
+        <div class="flashcard-face flashcard-back">
+          <span class="card-category" style="color: var(--primary);">Respuesta Clave</span>
+          <div class="card-answer" id="fc-a">Respuesta</div>
+          <div class="card-hint">🔄 Toca para girar</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-controls">
+      <button class="btn btn-secondary" onclick="prevCard()">⬅️ Anterior</button>
+      <button class="btn btn-primary" onclick="nextCard()">Siguiente ➡️</button>
+    </div>
+  </section>
+
+  <!-- PESTAÑA 3: QUIZ TEST -->
+  <section id="tab-quiz" class="tab-content">
+    <div class="quiz-card">
+      <div class="quiz-header">
+        <span style="font-weight: 700; color: var(--primary);" id="quiz-progress">Pregunta 1 de 10</span>
+        <span style="font-weight: 700; color: var(--secondary);" id="quiz-score">Aciertos: 0</span>
+      </div>
+
+      <h3 style="font-size: 1.1rem; margin-bottom: 14px; color: var(--text);" id="quiz-q">Pregunta</h3>
+      <div class="quiz-options" id="quiz-opts"></div>
+      <div class="quiz-feedback" id="quiz-fb"></div>
+
+      <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
+        <button class="btn btn-primary" id="quiz-next-btn" style="display: none;" onclick="nextQuestion()">Siguiente ➡️</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PESTAÑA 4: 10 CLAVES -->
+  <section id="tab-cincomin" class="tab-content">
+    <div class="card" style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 1.25rem; margin-bottom: 14px; color: var(--primary);">⚡ Las 10 Claves para el Examen</h2>
+      
+      <div class="cheat-row">
+        <div class="cheat-badge">1</div>
+        <div><strong>VR vs AR:</strong> La VR te mete en un entorno 100% digital simulado; la AR añade capas virtuales sobre el entorno real.</div>
+      </div>
+      <div class="cheat-row">
+        <div class="cheat-badge">2</div>
+        <div><strong>Bloque en Blockchain:</strong> Se compone de Datos + Hash propio + Hash anterior. El primer bloque se llama <em>Genesis Block</em> (hash anterior = 0000).</div>
+      </div>
+      <div class="cheat-row">
+        <div class="cheat-badge">3</div>
+        <div><strong>Ventajas de 5G:</strong> Velocidad (hasta 20 Gbps), latencia ultrabaja (1-4 ms) y densidad masiva (1 millón disp/km²).</div>
+      </div>
+      <div class="cheat-row">
+        <div class="cheat-badge">4</div>
+        <div><strong>Debilidad de 5G:</strong> Las ondas de alta frecuencia se frenan fácilmente con paredes, cristales, árboles y lluvia.</div>
+      </div>
+      <div class="cheat-row">
+        <div class="cheat-badge">5</div>
+        <div><strong>IT vs OT:</strong> IT maneja la información de la empresa (ERP, bases de datos); OT maneja las máquinas físicas de la fábrica (sensores, PLC, robots).</div>
+      </div>
+      <div class="cheat-row">
+        <div class="cheat-badge">6</div>
+        <div><strong>¿Por qué ciberseguridad en fábrica?:</strong> Porque conectar máquinas físicas a Internet abre la puerta a que un ciberataque paralice la producción o rompa equipos.</div>
+      </div>
+      <div class="cheat-row">
+        <div class="cheat-badge">7</div>
+        <div><strong>Policía Predictiva (PredPol):</strong> Usa Big Data sobre delitos históricos para predecir dónde ocurrirá el siguiente y enviar patrullas preventivas.</div>
+      </div>
+      <div class="cheat-row">
+        <div class="cheat-badge">8</div>
+        <div><strong>Fraude Alimentario y Blockchain:</strong> Engaño deliberado de productos. Blockchain lo combate asegurando que la trazabilidad es inalterable desde el campo al súper.</div>
+      </div>
+      <div class="cheat-row">
+        <div class="cheat-badge">9</div>
+        <div><strong>SEAT Martorell:</strong> Usa biomecánica y exoesqueletos para evitar lesiones musculares a operarios (ODS 3 y 8) y reparte piezas urgentes con drones en 15 min (ODS 9).</div>
+      </div>
+      <div class="cheat-row">
+        <div class="cheat-badge">10</div>
+        <div><strong>Impacto Ambiental:</strong> Positivo (ahorro de papel, menos viajes con teletrabajo); Negativo (basura electrónica / e-waste y gasto eléctrico en Data Centers).</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle('light-theme');
+  }
+
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  const flashcards = [
+    { cat: "Definición", q: "¿Qué es una THD?", a: "Tecnología emergente que impulsa la transformación digital y la Industria 4.0 automatizando procesos y mejorando la eficiencia." },
+    { cat: "Comparativa", q: "¿Diferencia entre VR y AR?", a: "<strong>VR:</strong> Te aísla en un mundo 100% virtual simulado.<br/><strong>AR:</strong> Superpone datos e imágenes virtuales sobre el mundo real." },
+    { cat: "Blockchain", q: "¿Qué 3 partes forman un bloque?", a: "1. <strong>Datos</strong> de la transacción.<br/>2. <strong>Hash propio</strong> (huella digital).<br/>3. <strong>Hash anterior</strong> (el enlace de la cadena)." },
+    { cat: "Blockchain", q: "¿Qué es el 'Genesis Block'?", a: "El primer bloque de la cadena (bloque 0). No tiene bloque previo, por lo que su hash anterior es 0000." },
+    { cat: "5G", q: "¿Qué 3 ventajas tiene 5G sobre 4G?", a: "1. Mucha más velocidad (10-20 Gbps).<br/>2. Latencia ultrabaja (1-4 ms).<br/>3. Conexión de hasta 1.000.000 de dispositivos/km²." },
+    { cat: "5G", q: "¿Qué frena la señal del 5G?", a: "Las ondas de alta frecuencia se bloquean con paredes, ventanas, vegetación y lluvia intensa." },
+    { cat: "Industria 4.0", q: "¿Qué diferencia hay entre IT y OT?", a: "<strong>IT:</strong> Datos y software de gestión en ordenadores/nube.<br/><strong>OT:</strong> Control y monitorización de las máquinas físicas en fábrica." },
+    { cat: "Ciberseguridad", q: "¿Por qué es crítica en la Industria 4.0?", a: "Porque al conectar los robots de fábrica a Internet, un ataque puede sabotear procesos físicos y paralizar plantas completas." },
+    { cat: "Big Data", q: "¿Para qué usó Los Ángeles el Big Data?", a: "Para predecir delitos con el software <strong>PredPol</strong> y enviar patrullas a esas esquinas antes de que ocurran." },
+    { cat: "Alimentación", q: "¿Qué es fraude alimentario y cómo ayuda Blockchain?", a: "Engaño premeditado en ingredientes o etiquetas. Blockchain garantiza que la trazabilidad es inmutable e infalsificable." },
+    { cat: "Casos Reales", q: "¿Para qué sirve el laboratorio de biomecánica de SEAT?", a: "Analiza con sensores los esfuerzos de los operarios para evitar lesiones laborales e integrar exoesqueletos (ODS 3 y 8)." },
+    { cat: "Robótica", q: "¿Qué es un Cobot?", a: "Un robot colaborativo con sensores que trabaja codo a codo con operarios humanos sin jaulas de protección." }
+  ];
+
+  let currentCardIdx = 0;
+
+  function renderCard() {
+    const c = flashcards[currentCardIdx];
+    document.getElementById('fc-cat').innerText = c.cat;
+    document.getElementById('fc-q').innerHTML = c.q;
+    document.getElementById('fc-a').innerHTML = c.a;
+    document.getElementById('fc-counter').innerText = `Tarjeta ${currentCardIdx + 1} de ${flashcards.length}`;
+    document.getElementById('active-card').classList.remove('flipped');
+  }
+
+  function flipCard() {
+    document.getElementById('active-card').classList.toggle('flipped');
+  }
+
+  function nextCard() {
+    currentCardIdx = (currentCardIdx + 1) % flashcards.length;
+    renderCard();
+  }
+
+  function prevCard() {
+    currentCardIdx = (currentCardIdx - 1 + flashcards.length) % flashcards.length;
+    renderCard();
+  }
+
+  renderCard();
+
+  const quizData = [
+    {
+      q: "¿Cuál es la diferencia principal entre Realidad Aumentada (AR) y Realidad Virtual (VR)?",
+      opts: [
+        "La VR superpone datos al mundo real y la AR te aísla totalmente.",
+        "La VR crea un mundo 100% digital y simulado; la AR superpone elementos digitales sobre el mundo real.",
+        "No existe ninguna diferencia técnica.",
+        "La AR solo se utiliza en hospitales y la VR solo en videojuegos."
+      ],
+      correct: 1,
+      exp: "La VR te sumerge en una simulación completa cerrada; la AR enriquece tu visión del mundo físico real."
+    },
+    {
+      q: "¿Cuáles son los 3 componentes de un bloque en Blockchain?",
+      opts: [
+        "Datos, Hash propio del bloque y Hash del bloque anterior.",
+        "Nombre del usuario, contraseña y clave simétrica.",
+        "Dirección MAC, protocolo TCP y servidor central.",
+        "Firma física, sello notarial y DNI."
+      ],
+      correct: 0,
+      exp: "Cada bloque guarda sus datos, su hash (huella digital) y el hash del bloque previo que lo encadena."
+    },
+    {
+      q: "¿Cómo se llama el primer bloque de una Blockchain?",
+      opts: ["Root Block", "Master Block", "Genesis Block", "First Block"],
+      correct: 2,
+      exp: "El Genesis Block es el bloque 0 y no tiene bloque previo (hash anterior en ceros)."
+    },
+    {
+      q: "¿Cuál es una ventaja destacada de la red 5G respecto a 4G?",
+      opts: [
+        "Funciona sin necesidad de antenas.",
+        "Latencia ultrabaja de 1 a 4 milisegundos (tiempo real).",
+        "Atraviesa mejor las paredes de hormigón que el 4G.",
+        "Menor consumo eléctrico en los smartphones antiguos."
+      ],
+      correct: 1,
+      exp: "La latencia de 1-4 ms es clave para respuesta instantánea en vehículos autónomos y cirugía remota."
+    },
+    {
+      q: "¿Qué obstáculo perjudica más la cobertura de frecuencias altas de 5G?",
+      opts: [
+        "Paredes, árboles densos y lluvia intensa.",
+        "La velocidad a la que viaja el coche.",
+        "El número de usuarios conectados a la fibra óptica.",
+        "El uso de pantallas OLED."
+      ],
+      correct: 0,
+      exp: "Las ondas milimétricas tienen poco alcance y son frenadas con facilidad por obstáculos físicos y lluvia."
+    },
+    {
+      q: "En una empresa industrial, ¿qué área gestiona las Tecnologías de la Operación (OT)?",
+      opts: [
+        "La contabilidad y nóminas en el servidor de la oficina.",
+        "El control y monitorización de máquinas y robots en la planta de producción.",
+        "Las redes sociales y la publicidad digital.",
+        "La gestión de la tienda online."
+      ],
+      correct: 1,
+      exp: "OT (Operational Technology) se encarga de los sistemas de producción física en planta (PLC, robots, maquinaria)."
+    },
+    {
+      q: "¿Por qué el Blockchain combate eficazmente el fraude alimentario?",
+      opts: [
+        "Porque elimina bacterias químicamente.",
+        "Porque la trazabilidad desde el origen queda registrada de forma inmutable e infalsificable.",
+        "Porque baja el coste de los productos en el supermercado.",
+        "Porque sustituye a los camiones frigoríficos."
+      ],
+      correct: 1,
+      exp: "Al ser un registro inmutable, ningún intermediario puede falsificar fechas ni ingredientes."
+    },
+    {
+      q: "¿Qué uso le dio la policía de Los Ángeles al Big Data?",
+      opts: [
+        "Comprar armas por Internet.",
+        "Predecir en qué esquinas es más probable que se cometa un delito con el software PredPol.",
+        "Controlar las multas de tráfico manualmente.",
+        "Eliminar las cámaras de las calles."
+      ],
+      correct: 1,
+      exp: "PredPol analiza delitos pasados para predecir puntos calientes y patrullarlos antes de que se delinca."
+    },
+    {
+      q: "¿Para qué sirve el laboratorio de biomecánica de SEAT en Martorell?",
+      opts: [
+        "Para estudiar la aerodinámica del capó.",
+        "Para analizar posturas de los operarios, evitar lesiones musculares y usar exoesqueletos.",
+        "Para fabricar neumáticos más resistentes.",
+        "Para vigilar la puntualidad de los empleados."
+      ],
+      correct: 1,
+      exp: "Protege la salud ergonómica de los trabajadores reduciendo lesiones musculoesqueléticas (ODS 3 y 8)."
+    },
+    {
+      q: "¿Cuál de estos es un efecto NEGATIVO de la digitalización masiva en el medio ambiente?",
+      opts: [
+        "Ahorro de papel en las oficinas.",
+        "Disminución de trayectos diarios gracias al teletrabajo.",
+        "Generación de basura electrónica (e-waste) y alto consumo de luz en Centros de Datos.",
+        "Sensores para evitar fugas de agua."
+      ],
+      correct: 2,
+      exp: "La rápida obsolescencia genera residuos tóxicos y los Data Centers consumen cantidades colosales de electricidad."
+    }
+  ];
+
+  let qIdx = 0;
+  let qScore = 0;
+  let qAnswered = false;
+
+  function renderQuiz() {
+    qAnswered = false;
+    const cur = quizData[qIdx];
+    document.getElementById('quiz-progress').innerText = `Pregunta ${qIdx + 1} de ${quizData.length}`;
+    document.getElementById('quiz-score').innerText = `Aciertos: ${qScore}`;
+    document.getElementById('quiz-q').innerText = cur.q;
+    
+    const fb = document.getElementById('quiz-fb');
+    fb.style.display = 'none';
+    document.getElementById('quiz-next-btn').style.display = 'none';
+
+    const optsContainer = document.getElementById('quiz-opts');
+    optsContainer.innerHTML = '';
+
+    cur.opts.forEach((optText, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-opt';
+      btn.innerHTML = optText;
+      btn.onclick = () => selectOpt(i);
+      optsContainer.appendChild(btn);
+    });
+  }
+
+  function selectOpt(idx) {
+    if (qAnswered) return;
+    qAnswered = true;
+
+    const cur = quizData[qIdx];
+    const opts = document.querySelectorAll('.quiz-opt');
+    const fb = document.getElementById('quiz-fb');
+
+    if (idx === cur.correct) {
+      opts[idx].classList.add('correct');
+      qScore++;
+      document.getElementById('quiz-score').innerText = `Aciertos: ${qScore}`;
+      fb.style.background = 'rgba(16, 185, 129, 0.15)';
+      fb.style.border = '1px solid var(--success)';
+      fb.style.color = 'var(--success)';
+      fb.innerHTML = `<strong>¡Correcto!</strong> ${cur.exp}`;
+    } else {
+      opts[idx].classList.add('wrong');
+      opts[cur.correct].classList.add('correct');
+      fb.style.background = 'rgba(239, 68, 68, 0.15)';
+      fb.style.border = '1px solid var(--danger)';
+      fb.style.color = 'var(--danger)';
+      fb.innerHTML = `<strong>Incorrecto.</strong> ${cur.exp}`;
+    }
+
+    fb.style.display = 'block';
+    document.getElementById('quiz-next-btn').style.display = 'inline-flex';
+  }
+
+  function nextQuestion() {
+    qIdx++;
+    if (qIdx < quizData.length) {
+      renderQuiz();
+    } else {
+      const card = document.querySelector('.quiz-card');
+      const nota = ((qScore / quizData.length) * 10).toFixed(1);
+      card.innerHTML = `
+        <div style="text-align: center; padding: 20px 0;">
+          <h2 style="font-size: 1.6rem; margin-bottom: 10px;">Test Terminado</h2>
+          <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 10px;">${nota} / 10</div>
+          <p style="color: var(--text-muted); margin-bottom: 20px;">Has acertado ${qScore} de ${quizData.length} preguntas.</p>
+          <button class="btn btn-primary" onclick="location.reload()">🔄 Repetir Test</button>
+        </div>
+      `;
+    }
+  }
+
+  renderQuiz();
+</script>
+
+</body>
+</html>
