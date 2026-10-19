@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprende Dart y Todo PMDM - Guía Interactiva</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    .code-keyword { color: #f43f5e; font-weight: 600; }
+    .code-type { color: #06b6d4; font-weight: 600; }
+    .code-func { color: #3b82f6; }
+    .code-string { color: #10b981; }
+    .code-comment { color: #94a3b8; font-style: italic; }
+    .tab-btn.active {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-6 md:p-8">
+  <div class="max-w-6xl mx-auto space-y-6">
+    
+    <!-- Header -->
+    <header class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-500 mb-2">
+            <span>🎯 2º DAM - Programación Multimedia y Móvil</span>
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-[var(--foreground)]">
+            Aprender Dart: La Guía Integral de PMDM
+          </h1>
+          <p class="text-[var(--muted-foreground)] text-sm mt-1">
+            Explicación paso a paso de qué es Dart, cómo programar en él y todo el contenido de las Unidades 2.1 a 2.5.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs px-3 py-1.5 rounded-lg bg-[var(--sidebar)] border border-[var(--border)] text-[var(--muted-foreground)] font-mono">
+            Dart SDK 3.x • Null-Safe
+          </span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-[var(--border)]">
+        <button onclick="switchTab('tab-intro')" id="btn-tab-intro" class="tab-btn active px-4 py-2 rounded-xl text-xs md:text-sm font-medium border border-[var(--border)] transition">
+          1. ¿Qué es Dart & Fundamentos?
+        </button>
+        <button onclick="switchTab('tab-functions')" id="btn-tab-functions" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-medium border border-[var(--border)] transition">
+          2. Funciones & Colecciones
+        </button>
+        <button onclick="switchTab('tab-oop')" id="btn-tab-oop" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-medium border border-[var(--border)] transition">
+          3. POO & Arquitectura Limpia
+        </button>
+        <button onclick="switchTab('tab-async')" id="btn-tab-async" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-medium border border-[var(--border)] transition">
+          4. Asincronía & Event Loop
+        </button>
+        <button onclick="switchTab('tab-http')" id="btn-tab-http" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-medium border border-[var(--border)] transition">
+          5. Proyectos & API REST HTTP
+        </button>
+      </nav>
+    </header>
+
+    <!-- CONTENT TABS -->
+
+    <!-- TAB 1: INTRO & BASICS -->
+    <section id="tab-intro" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 md:col-span-2 space-y-4">
+          <h2 class="text-lg font-bold flex items-center gap-2 text-[var(--foreground)]">
+            <span class="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center text-sm">01</span>
+            ¿Qué es Dart y por qué lo usamos?
+          </h2>
+          <p class="text-sm text-[var(--muted-foreground)] leading-relaxed">
+            Dart es un lenguaje creado por Google moderno, orientado a objetos, con tipado estático seguro y compilación tanto en tiempo de ejecución (JIT para hot reload en Flutter) como en código máquina nativo (AOT para máxima velocidad de publicación).
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <strong class="text-[var(--foreground)] block mb-1">🚀 Punto de Entrada</strong>
+              No necesita clases para ejecutarse. Una simple función <code class="text-rose-400">void main()</code> a nivel de archivo es el punto de inicio.
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <strong class="text-[var(--foreground)] block mb-1">🛡️ Sound Null Safety</strong>
+              Por defecto ninguna variable puede ser <code class="text-rose-400">null</code>. Esto elimina el 90% de los fallos por <em>NullPointerException</em>.
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <strong class="text-[var(--foreground)] block mb-1">🔒 const vs final</strong>
+              <code class="text-cyan-400">const</code> se resuelve en compilación (inmutable). <code class="text-cyan-400">final</code> se asigna una sola vez en ejecución.
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <strong class="text-[var(--foreground)] block mb-1">💬 Interpolación</strong>
+              <code class="text-emerald-400">"Hola $nombre"</code> o <code class="text-emerald-400">"Longitud: ${nombre.length}"</code> sin concatenar con +.
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Null Safety Playground Card -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+          <h3 class="text-base font-bold text-[var(--foreground)] flex items-center gap-2">
+            <span>✨</span> Operadores Null Safety
+          </h3>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            Pasa el ratón o toca cada operador para ver qué hace:
+          </p>
+          <div class="space-y-2 text-xs">
+            <div class="p-2.5 rounded-xl border border-[var(--border)] bg-[var(--sidebar)] cursor-pointer hover:border-blue-500 transition" onclick="showNullInfo('?')">
+              <code class="text-rose-400 font-bold text-sm">String?</code> <span class="text-[var(--muted-foreground)] font-mono ml-2">Nullable type</span>
+            </div>
+            <div class="p-2.5 rounded-xl border border-[var(--border)] bg-[var(--sidebar)] cursor-pointer hover:border-blue-500 transition" onclick="showNullInfo('!')">
+              <code class="text-amber-400 font-bold text-sm">variable!</code> <span class="text-[var(--muted-foreground)] font-mono ml-2">Null assertion</span>
+            </div>
+            <div class="p-2.5 rounded-xl border border-[var(--border)] bg-[var(--sidebar)] cursor-pointer hover:border-blue-500 transition" onclick="showNullInfo('??')">
+              <code class="text-emerald-400 font-bold text-sm">a ?? b</code> <span class="text-[var(--muted-foreground)] font-mono ml-2">Fallback value</span>
+            </div>
+            <div class="p-2.5 rounded-xl border border-[var(--border)] bg-[var(--sidebar)] cursor-pointer hover:border-blue-500 transition" onclick="showNullInfo('??=')">
+              <code class="text-cyan-400 font-bold text-sm">a ??= 10</code> <span class="text-[var(--muted-foreground)] font-mono ml-2">Null-aware assign</span>
+            </div>
+            <div class="p-2.5 rounded-xl border border-[var(--border)] bg-[var(--sidebar)] cursor-pointer hover:border-blue-500 transition" onclick="showNullInfo('?.')">
+              <code class="text-purple-400 font-bold text-sm">obj?.metodo()</code> <span class="text-[var(--muted-foreground)] font-mono ml-2">Safe access</span>
+            </div>
+          </div>
+          <div id="null-info-box" class="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs text-[var(--foreground)]">
+            💡 <strong>Toca un operador arriba</strong> para ver el ejemplo interactivo.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Code Example 1 -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-semibold text-[var(--muted-foreground)] uppercase tracking-wider">Código de Entrada y Salida (UD 2.1)</span>
+          <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-mono">dart:io</span>
+        </div>
+        <pre class="bg-[var(--sidebar)] border border-[var(--border)] rounded-xl p-4 text-xs overflow-x-auto text-[var(--foreground)]">
+<code><span class="code-keyword">import</span> <span class="code-string">'dart:io'</span>;
+
+<span class="code-type">void</span> <span class="code-func">main</span>() {
+  <span class="code-comment">// stdout.write no mete salto de línea (ideal para prompts)</span>
+  stdout.<span class="code-func">write</span>(<span class="code-string">"Introduce tu nombre: "</span>);
+  
+  <span class="code-comment">// Lectura segura por teclado: puede ser null si se cancela el buffer</span>
+  <span class="code-type">String?</span> input = stdin.<span class="code-func">readLineSync</span>();
+  
+  <span class="code-comment">// Usamos ?? para dar valor por defecto si es null</span>
+  <span class="code-type">String</span> nombre = input ?? <span class="code-string">"Invitado"</span>;
+  
+  print(<span class="code-string">"¡Bienvenido a Dart, $nombre!"</span>);
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- TAB 2: FUNCTIONS & COLLECTIONS -->
+    <section id="tab-functions" class="space-y-6 hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Parameter types -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+          <h2 class="text-lg font-bold flex items-center gap-2 text-[var(--foreground)]">
+            <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-500 flex items-center justify-center text-sm">02</span>
+            Los 3 Tipos de Parámetros en Dart
+          </h2>
+          <div class="space-y-3 text-xs">
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <strong class="text-rose-400 block mb-1">1. Posicionales Obligatorios</strong>
+              <code class="text-gray-300">void saludar(String nombre, int edad)</code>
+              <p class="text-[var(--muted-foreground)] mt-1">El orden y todos los argumentos son estrictos.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <strong class="text-amber-400 block mb-1">2. Posicionales Opcionales (con corchetes [])</strong>
+              <code class="text-gray-300">void log(String msg, [int nivel = 1])</code>
+              <p class="text-[var(--muted-foreground)] mt-1">Se pueden omitir y toman su valor por defecto.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <strong class="text-emerald-400 block mb-1">3. Con Nombre (Named parameters con llaves {})</strong>
+              <code class="text-gray-300">void crear({required String id, double precio = 0.0})</code>
+              <p class="text-[var(--muted-foreground)] mt-1">¡El estándar de Flutter! Se llaman por su nombre sin importar el orden: <code class="text-emerald-300">crear(precio: 10.5, id: "A1")</code>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collections & Methods -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+          <h2 class="text-lg font-bold text-[var(--foreground)]">Colecciones: List, Set y Map</h2>
+          <div class="space-y-3 text-xs">
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <div class="flex justify-between items-center mb-1">
+                <strong class="text-cyan-400">List&lt;T&gt; (Ordenadas e indexadas)</strong>
+                <span class="text-[var(--muted-foreground)] font-mono">[]</span>
+              </div>
+              <p class="text-[var(--muted-foreground)]">Acceso mediante índice <code class="text-cyan-300">lista[0]</code>, permite elementos duplicados.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <div class="flex justify-between items-center mb-1">
+                <strong class="text-purple-400">Set&lt;T&gt; (Sin duplicados)</strong>
+                <span class="text-[var(--muted-foreground)] font-mono">{}</span>
+              </div>
+              <p class="text-[var(--muted-foreground)]">Colección no indexada donde cada elemento es único. Ideal para filtrar repeticiones.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+              <div class="flex justify-between items-center mb-1">
+                <strong class="text-amber-400">Map&lt;K, V&gt; (Clave : Valor)</strong>
+                <span class="text-[var(--muted-foreground)] font-mono">{k: v}</span>
+              </div>
+              <p class="text-[var(--muted-foreground)]">Estructura diccionario equivalente a objetos JSON. Acceso rápido por clave <code class="text-amber-300">map["clave"]</code>.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Arrow Functional Methods Cheat Sheet -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+        <h3 class="text-base font-bold text-[var(--foreground)]">
+          Las 5 Operaciones Funcionales Esenciales (Las 60 Preguntas)
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+            <code class="text-blue-400 font-bold block mb-1">.where((e) => bool)</code>
+            <p class="text-[var(--muted-foreground)]"><strong>Filtra</strong> la lista conservando sólo los que cumplen la condición.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+            <code class="text-emerald-400 font-bold block mb-1">.map((e) => nuevo)</code>
+            <p class="text-[var(--muted-foreground)]"><strong>Transforma</strong> cada elemento en otro aplicando una función.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+            <code class="text-amber-400 font-bold block mb-1">.reduce((acc, e) => ...)</code>
+            <p class="text-[var(--muted-foreground)]"><strong>Agrega</strong> o combina todos los valores (sumas, mayor, menor, productos).</p>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+            <code class="text-purple-400 font-bold block mb-1">.expand((l) => l)</code>
+            <p class="text-[var(--muted-foreground)]"><strong>Aplana</strong> listas anidadas (ej. listas dentro de listas o palabras de frases).</p>
+          </div>
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)]">
+            <code class="text-rose-400 font-bold block mb-1">.every / .any</code>
+            <p class="text-[var(--muted-foreground)]"><strong>Predicados</strong> booleanos: ¿Cumplen todos? / ¿Cumple al menos uno?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: OOP & CLEAN ARCHITECTURE -->
+    <section id="tab-oop" class="space-y-6 hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+          <h2 class="text-lg font-bold flex items-center gap-2 text-[var(--foreground)]">
+            <span class="w-7 h-7 rounded-lg bg-purple-500/20 text-purple-500 flex items-center justify-center text-sm">03</span>
+            Clases, Herencia y Factory Constructors
+          </h2>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+            En Dart no hay constructor overloading, por lo que usamos <strong>constructores con nombre</strong> y <strong>constructores factoría</strong> (<code class="text-rose-400">factory</code>) para instanciar objetos a partir de diccionarios JSON de la API.
+          </p>
+          <pre class="bg-[var(--sidebar)] border border-[var(--border)] rounded-xl p-4 text-xs overflow-x-auto text-[var(--foreground)]">
+<code><span class="code-keyword">abstract class</span> <span class="code-type">Producte</span> {
+  <span class="code-keyword">final</span> <span class="code-type">String</span> id;
+  <span class="code-keyword">final</span> <span class="code-type">String</span> name;
+  <span class="code-keyword">final</span> <span class="code-type">double</span> price;
+
+  <span class="code-comment">// Constructor con parámetros nombrados</span>
+  <span class="code-type">Producte</span>({<span class="code-keyword">required</span> <span class="code-keyword">this</span>.id, <span class="code-keyword">required</span> <span class="code-keyword">this</span>.name, <span class="code-keyword">required</span> <span class="code-keyword">this</span>.price});
+  
+  <span class="code-type">String</span> <span class="code-func">toStringSmart</span>();
+}
+
+<span class="code-keyword">class</span> <span class="code-type">Entrant</span> <span class="code-keyword">extends</span> <span class="code-type">Producte</span> {
+  <span class="code-keyword">final</span> <span class="code-type">List&lt;String&gt;</span> dietType;
+
+  <span class="code-type">Entrant</span>({
+    <span class="code-keyword">required super</span>.id,
+    <span class="code-keyword">required super</span>.name,
+    <span class="code-keyword">required super</span>.price,
+    <span class="code-keyword">required this</span>.dietType,
+  });
+
+  <span class="code-comment">// Factory constructor para mapear desde JSON</span>
+  <span class="code-keyword">factory</span> <span class="code-type">Entrant</span>.<span class="code-func">fromJSON</span>(<span class="code-type">Map&lt;String, dynamic&gt;</span> json) {
+    <span class="code-keyword">return</span> <span class="code-type">Entrant</span>(
+      id: json[<span class="code-string">'id'</span>] ?? <span class="code-string">''</span>,
+      name: json[<span class="code-string">'name'</span>] ?? <span class="code-string">''</span>,
+      price: (json[<span class="code-string">'price'</span>] <span class="code-keyword">as</span> <span class="code-type">num</span>?)?.toDouble() ?? 0.0,
+      dietType: List&lt;String&gt;.from(json[<span class="code-string">'dietType'</span>] ?? []),
+    );
+  }
+}</code></pre>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+          <h2 class="text-lg font-bold text-[var(--foreground)]">Estructura Clean Architecture</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">
+            Organización profesional de carpetas requerida en el curso de PMDM:
+          </p>
+          <div class="bg-[var(--sidebar)] border border-[var(--border)] rounded-xl p-4 font-mono text-xs text-[var(--foreground)] leading-relaxed space-y-1">
+            <div><span class="text-blue-400">mi_primer_proyecto/</span></div>
+            <div class="pl-4">├── <span class="text-emerald-400">bin/</span> <span class="text-[var(--muted-foreground)] font-sans text-[11px]">(Punto de entrada de aplicaciones CLI)</span></div>
+            <div class="pl-8">└── healthys_cli.dart</div>
+            <div class="pl-4">├── <span class="text-purple-400">lib/</span> <span class="text-[var(--muted-foreground)] font-sans text-[11px]">(Código fuente reutilizable)</span></div>
+            <div class="pl-8">├── <span class="text-amber-400">domain/entities/</span> <span class="text-[var(--muted-foreground)] font-sans text-[11px]">(Modelos puros)</span></div>
+            <div class="pl-12">├── producte.dart</div>
+            <div class="pl-12">├── entrant.dart</div>
+            <div class="pl-12">├── principal.dart</div>
+            <div class="pl-12">└── beguda.dart</div>
+            <div class="pl-8">└── <span class="text-cyan-400">data/</span></div>
+            <div class="pl-12">├── services/healthys_api.dart <span class="text-[var(--muted-foreground)] font-sans text-[11px]">(Llamadas HTTP)</span></div>
+            <div class="pl-12">└── repositories/carta_repository.dart <span class="text-[var(--muted-foreground)] font-sans text-[11px]">(Mapeo de datos)</span></div>
+            <div class="pl-4">└── pubspec.yaml <span class="text-[var(--muted-foreground)] font-sans text-[11px]">(Dependencias: http, flutter, etc.)</span></div>
+          </div>
+          <div class="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-xs text-[var(--foreground)]">
+            💡 <strong>Regla de oro:</strong> Las entidades del dominio (<code class="text-purple-400">domain/entities</code>) no conocen a la API ni a la base de datos; solo representan conceptos del negocio.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TAB 4: ASYNC & EVENT LOOP -->
+    <section id="tab-async" class="space-y-6 hidden">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+        <h2 class="text-lg font-bold flex items-center gap-2 text-[var(--foreground)]">
+          <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-500 flex items-center justify-center text-sm">04</span>
+          El Event Loop de Dart: ¿Cómo funciona la concurrència?
+        </h2>
+        <p class="text-sm text-[var(--muted-foreground)]">
+          Dart se ejecuta en un <strong>único hilo (Isolate)</strong>. No utiliza hilos paralelos compartidos como Java o C++, sino una cola de eventos ordenada coordinada por el <strong>Event Loop</strong>.
+        </p>
+
+        <!-- Visual representation of Event Loop -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2">
+          <div class="p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 space-y-2">
+            <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 font-bold uppercase tracking-wider text-[10px]">1. Máxima Prioridad</span>
+            <h4 class="font-bold text-sm text-[var(--foreground)]">MicroTask Queue</h4>
+            <p class="text-[var(--muted-foreground)]">
+              Acciones internas muy breves programadas con <code class="text-rose-400">scheduleMicrotask()</code>. Se vacía por completo ANTES de atender eventos estándar.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-blue-500/30 bg-blue-500/10 space-y-2">
+            <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold uppercase tracking-wider text-[10px]">2. Prioridad Estándar</span>
+            <h4 class="font-bold text-sm text-[var(--foreground)]">Event Queue</h4>
+            <p class="text-[var(--muted-foreground)]">
+              Eventos de I/O, red (HTTP), temporizadores (<code class="text-blue-400">Future.delayed</code>), pulsaciones táctiles y redibujado de pantalla.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 space-y-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold uppercase tracking-wider text-[10px]">3. Flujo Continuo</span>
+            <h4 class="font-bold text-sm text-[var(--foreground)]">Streams (Cinta transportadora)</h4>
+            <p class="text-[var(--muted-foreground)]">
+              Sucesión reactiva de eventos en el tiempo. Se escuchan con <code class="text-emerald-400">stream.listen()</code> y se gestionan con <code class="text-emerald-400">StreamController</code>.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+          <div class="space-y-2">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-[var(--muted-foreground)]">Futures y Async/Await</h4>
+            <pre class="bg-[var(--sidebar)] border border-[var(--border)] rounded-xl p-3 text-xs text-[var(--foreground)]">
+<code><span class="code-comment">// Con async y await: se lee de forma secuencial</span>
+<span class="code-type">Future&lt;void&gt;</span> <span class="code-func">cargar</span>() <span class="code-keyword">async</span> {
+  print(<span class="code-string">"Inicio"</span>);
+  <span class="code-type">String</span> datos = <span class="code-keyword">await</span> <span class="code-func">obtenerDeRed</span>();
+  print(<span class="code-string">"Resultado: $datos"</span>);
+}</code></pre>
+          </div>
+          <div class="space-y-2">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-[var(--muted-foreground)]">Future.wait (En paralelo)</h4>
+            <pre class="bg-[var(--sidebar)] border border-[var(--border)] rounded-xl p-3 text-xs text-[var(--foreground)]">
+<code><span class="code-comment">// Dispara 3 tareas en paralelo y espera a todas</span>
+<span class="code-keyword">final</span> resultados = <span class="code-keyword">await</span> <span class="code-type">Future</span>.<span class="code-func">wait</span>([
+  repo.<span class="code-func">getEntrants</span>(),
+  repo.<span class="code-func">getPrincipals</span>(),
+  repo.<span class="code-func">getBegudes</span>(),
+]);</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: HTTP & REST API -->
+    <section id="tab-http" class="space-y-6 hidden">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+        <h2 class="text-lg font-bold flex items-center gap-2 text-[var(--foreground)]">
+          <span class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-500 flex items-center justify-center text-sm">05</span>
+          Consumiendo APIs REST en Dart (La librería http)
+        </h2>
+        <p class="text-sm text-[var(--muted-foreground)]">
+          En el punto 2.5 conectamos nuestra arquitectura con la API real de Railway.
+        </p>
+
+        <div class="bg-[var(--sidebar)] border border-[var(--border)] rounded-xl p-4 space-y-3">
+          <div class="flex items-center gap-2 text-xs font-semibold text-cyan-400">
+            <span>📡</span> Endpoint utilizado en PMDM:
+          </div>
+          <code class="block text-xs text-emerald-400 bg-black/30 p-2 rounded-lg font-mono">
+            https://healthys-express-backend-production.up.railway.app/api/entrants
+          </code>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-[var(--foreground)] uppercase tracking-wider">Puntos Críticos al hacer llamadas HTTP:</h4>
+          <ol class="list-decimal list-inside space-y-2 text-xs text-[var(--muted-foreground)]">
+            <li><strong class="text-[var(--foreground)]">Añadir al pubspec.yaml:</strong> <code class="text-cyan-400">http: ^1.2.2</code> y ejecutar <code class="text-cyan-400">dart pub get</code>.</li>
+            <li><strong class="text-[var(--foreground)]">Descodificación UTF-8:</strong> Para evitar que las tildes y caracteres valencianos/catalanes (<em>Amanida mediterrània, sèsam, etc.</em>) salgan corruptos, se decodifican los bytes: <code class="text-amber-300">utf8.decode(response.bodyBytes)</code>.</li>
+            <li><strong class="text-[var(--foreground)]">Validar status 200:</strong> Asegurarse de que el servidor ha respondido correctamente antes de convertirlo con <code class="text-emerald-300">jsonDecode()</code>.</li>
+            <li><strong class="text-[var(--foreground)]">Patrón Resiliente:</strong> Añadir fallback en caso de que la red falle o el servidor se encuentre en reposo.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Execution Guide Footer Card -->
+    <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-bold text-[var(--foreground)]">
+          💻 Cómo ejecutar los ejercicios en tu terminal
+        </h3>
+        <span class="text-xs px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 font-medium">Listo para usar</span>
+      </div>
+      <p class="text-xs text-[var(--muted-foreground)]">
+        Abre tu terminal en la carpeta <code class="text-cyan-400">programacion movil\UD1\mi_primer_proyecto</code> y prueba cualquiera de los siguientes comandos:
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+        <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] flex justify-between items-center">
+          <div>
+            <strong class="text-emerald-400 block">Menú Maestro (Todos juntos)</strong>
+            <span class="text-[var(--muted-foreground)]">Lanzador interactivo</span>
+          </div>
+          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/menu_ejercicios.dart</code>
+        </div>
+        <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] flex justify-between items-center">
+          <div>
+            <strong class="text-cyan-400 block">Healthys Express CLI (UD 2.3 & 2.5)</strong>
+            <span class="text-[var(--muted-foreground)]">Consumo de API con tarjetas</span>
+          </div>
+          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/healthys_cli.dart</code>
+        </div>
+        <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] flex justify-between items-center">
+          <div>
+            <strong class="text-purple-400 block">Las 60 Preguntas (UD 2.2)</strong>
+            <span class="text-[var(--muted-foreground)]">Programación funcional completa</span>
+          </div>
+          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/the_sixty_questions.dart</code>
+        </div>
+        <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] flex justify-between items-center">
+          <div>
+            <strong class="text-amber-400 block">Demostraciones Asíncronas (UD 2.4)</strong>
+            <span class="text-[var(--muted-foreground)]">Futures, Event Loop y Streams</span>
+          </div>
+          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/exercicis_async.dart</code>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      // Hide all tabs
+      const tabs = ['tab-intro', 'tab-functions', 'tab-oop', 'tab-async', 'tab-http'];
+      tabs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+
+      // Show chosen tab
+      const target = document.getElementById(tabId);
+      if (target) target.classList.remove('hidden');
+
+      // Update button active states
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    function showNullInfo(op) {
+      const box = document.getElementById('null-info-box');
+      if (!box) return;
+
+      const infoMap = {
+        '?': '<strong>Tipo Nullable (String? nom):</strong> Indica que la variable puede almacenar un String o el valor null. Si no pones ?, Dart nunca te permitirá asignarle null.',
+        '!': '<strong>Null Assertion (nom!):</strong> Le juras al compilador "¡Te garantizo que no es null!". Si resulta ser null en tiempo de ejecución, lanzará un error.',
+        '??': '<strong>Null-Coalescing (nom ?? "Invitado"):</strong> Si nom no es null devuelve nom; si es null, devuelve "Invitado". Es como un if-else abreviado.',
+        '??=': '<strong>Assignación Null-Aware (nom ??= "Predeterminado"):</strong> Solo asigna el valor si la variable contiene actualmente null.',
+        '?.': '<strong>Acceso Seguro (cadena?.length):</strong> Si cadena es null, devuelve null sin lanzar excepción. Si no es null, accede a .length normalmente.'
+      };
+
+      box.innerHTML = infoMap[op] || 'Toca un operador para ver detalles.';
+    }
+  </script>
+</body>
+</html>

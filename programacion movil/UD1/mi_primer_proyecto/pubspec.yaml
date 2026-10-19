@@ -1,4 +1,4 @@
-﻿name: mi_primer_proyecto
+name: mi_primer_proyecto
 description: "Mi primer proyecto con Flutter - 2Âº DAM ProgramaciÃ³n MÃ³vil"
 publish_to: 'none'
 version: 1.0.0+1
@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:

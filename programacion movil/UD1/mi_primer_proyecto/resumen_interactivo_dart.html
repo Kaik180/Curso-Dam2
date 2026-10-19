@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    .nav-pill.active {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+    }
+  </style>
+</head>
+<body class="bg-transparent text-[var(--foreground)] antialiased p-2">
+  <div class="bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-2xl p-4 shadow-sm max-w-2xl mx-auto space-y-3">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
+      <div class="flex items-center gap-2">
+        <span class="w-6 h-6 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center text-xs font-bold">🎯</span>
+        <h3 class="text-sm font-bold text-[var(--foreground)]">Dart en PMDM: Los 4 Pilares Fundamentales</h3>
+      </div>
+      <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-[var(--sidebar)] text-[var(--muted-foreground)] border border-[var(--border)]">
+        Interactivo
+      </span>
+    </div>
+
+    <!-- Quick Pill Selector -->
+    <div class="flex flex-wrap gap-1.5">
+      <button onclick="setTopic('nullSafety')" id="pill-nullSafety" class="nav-pill active text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
+        🛡️ Null Safety
+      </button>
+      <button onclick="setTopic('functional')" id="pill-functional" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
+        ⚡ Colecciones & Flecha
+      </button>
+      <button onclick="setTopic('eventLoop')" id="pill-eventLoop" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
+        🔄 Event Loop (Asincronía)
+      </button>
+      <button onclick="setTopic('cleanOop')" id="pill-cleanOop" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
+        🏛️ POO & API REST
+      </button>
+    </div>
+
+    <!-- Dynamic Content Area -->
+    <div id="content-display" class="bg-[var(--sidebar)] border border-[var(--border)] rounded-xl p-3 space-y-2 text-xs">
+      <!-- Injected via JS -->
+    </div>
+
+  </div>
+
+  <script>
+    const topics = {
+      nullSafety: {
+        title: 'Sound Null Safety (UD 2.1)',
+        desc: 'En Dart, los tipos no pueden ser null salvo que pongas ?. Esto previene fallos en tiempo de ejecución.',
+        code: `String? nombre;               // Puede ser null
+print(nombre ?? "Invitado");  // Fallback si es null: "Invitado"
+nombre ??= "Kevin";           // Asigna solo si actualmente es null
+int len = nombre?.length ?? 0; // Acceso seguro condicional`,
+        note: '💡 ¿Por qué importa?: El compilador garantiza la ausencia de NullPointerExceptions antes de compilar.'
+      },
+      functional: {
+        title: 'Operaciones Funcionales con Colecciones (UD 2.2)',
+        desc: 'Transformaciones de datos de alto nivel mediante funciones flecha sin bucles for manuales.',
+        code: `final pares = numeros.where((n) => n % 2 == 0); // Filtra
+final dobles = numeros.map((n) => n * 2);        // Transforma
+final suma = numeros.reduce((acc, n) => acc + n); // Acumula
+final unico = repetidos.toSet().toList();        // Elimina duplicados`,
+        note: '💡 ¿Por qué importa?: Código más conciso, declarativo y limpio, estándar en Flutter.'
+      },
+      eventLoop: {
+        title: 'Concurrencia con Event Loop (UD 2.4)',
+        desc: 'Dart es monohilo. Utiliza dos colas: MicroTask (máxima prioridad) y Event (HTTP, timers).',
+        code: `scheduleMicrotask(() => print("1. Prioridad máxima"));
+Future.delayed(Duration.zero, () => print("2. Cola de eventos"));
+final datos = await Future.wait([api1(), api2()]); // En paralelo`,
+        note: '💡 ¿Por qué importa?: La interfaz gráfica nunca se congela mientras se descargan datos de red.'
+      },
+      cleanOop: {
+        title: 'Arquitectura Limpia y Factory Constructors (UD 2.3 & 2.5)',
+        desc: 'Separación estricta entre capa de presentación (CLI), datos (API HTTP) y dominio (Entidades puras).',
+        code: `// lib/domain/entities/entrant.dart
+factory Entrant.fromJSON(Map<String, dynamic> json) {
+  return Entrant(
+    name: json['name'] ?? '',
+    price: (json['price'] as num?)?.toDouble() ?? 0.0,
+  );
+}`,
+        note: '💡 ¿Por qué importa?: Las entidades no dependen de la red ni de librerías externas.'
+      }
+    };
+
+    function setTopic(key) {
+      document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('pill-' + key);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const data = topics[key];
+      const container = document.getElementById('content-display');
+      container.innerHTML = `
+        <div class="flex items-center justify-between">
+          <strong class="text-[var(--foreground)] text-xs font-semibold">${data.title}</strong>
+        </div>
+        <p class="text-[var(--muted-foreground)] text-[11px] leading-relaxed">${data.desc}</p>
+        <pre class="bg-black/30 p-2.5 rounded-lg font-mono text-[11px] overflow-x-auto text-emerald-400 leading-normal border border-white/5"><code>${escapeHtml(data.code)}</code></pre>
+        <div class="text-[11px] text-blue-400 font-medium">${data.note}</div>
+      `;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Initialize
+    setTopic('nullSafety');
+  </script>
+</body>
+</html>
