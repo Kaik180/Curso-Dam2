@@ -1,0 +1,16 @@
+{
+  "nombre": "LudotecaIES",
+  "curso": "2º DAM",
+  "videojuegos": [
+    {
+      "titulo": "Minecraft",
+      "plataforma": "PC",
+      "disponible": true
+    },
+    {
+      "titulo": "Zelda",
+      "plataforma": "Switch",
+      "disponible": false
+    }
+  ]
+}
