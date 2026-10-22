@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libros>
+    <libro id="1">
+        <titulo>El principito</titulo>
+        <autor>Antoine de Saint-Exupéry</autor>
+        <anio>1943</anio>
+    </libro>
+    <libro id="2">
+        <titulo>Don Quijote</titulo>
+        <autor>Miguel de Cervantes</autor>
+        <anio>1605</anio>
+    </libro>
+    <libro id="3">
+        <titulo>La historia interminable</titulo>
+        <autor>Michael Ende</autor>
+        <anio>1979</anio>
+    </libro>
+</libros>
