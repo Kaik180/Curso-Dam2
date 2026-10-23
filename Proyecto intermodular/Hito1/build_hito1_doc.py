@@ -1,10 +1,10 @@
-import os
 import docx
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml import parse_xml
 from docx.oxml.ns import nsdecls
+import os
 
 curr_dir = r"c:\Users\kevin\OneDrive\Documentos\GitHub\Curso-Dam2\Proyecto intermodular\Hito1"
 
@@ -14,8 +14,8 @@ def build_word_hito1():
     for section in doc.sections:
         section.top_margin = Inches(0.7)
         section.bottom_margin = Inches(0.7)
-        section.left_margin = Inches(0.8)
-        section.right_margin = Inches(0.8)
+        section.left_margin = Inches(0.75)
+        section.right_margin = Inches(0.75)
         section.page_width = Inches(8.27)
         section.page_height = Inches(11.69)
         section.different_first_page_header_footer = True
@@ -23,7 +23,7 @@ def build_word_hito1():
         header = section.header
         p_hdr = header.paragraphs[0]
         p_hdr.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        r_hdr = p_hdr.add_run("Proyecto Intermodular - 2º DAM  |  Hito 1: Viabilidad Inicial (LeadCraft AI)")
+        r_hdr = p_hdr.add_run("Proyecto Intermodular - 2º DAM  |  Hito 1: LeadCraft AI")
         r_hdr.font.name = "Calibri"
         r_hdr.font.size = Pt(8.5)
         r_hdr.font.color.rgb = RGBColor(120, 144, 156)
@@ -33,12 +33,12 @@ def build_word_hito1():
         p_ftr.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         r_ftr_l = p_ftr.add_run("LeadCraft AI  •  Kevin Muñoz Córcoles\t\tPágina ")
         r_ftr_l.font.name = "Calibri"
-        r_ftr_l.font.size = Pt(9)
+        r_ftr_l.font.size = Pt(8.5)
         r_ftr_l.font.color.rgb = RGBColor(120, 144, 156)
         
         fld_run = p_ftr.add_run()
         fld_run.font.name = "Calibri"
-        fld_run.font.size = Pt(9)
+        fld_run.font.size = Pt(8.5)
         fld_run.font.color.rgb = RGBColor(120, 144, 156)
         fldChar1 = parse_xml(r'<w:fldChar %s w:fldCharType="begin"/>' % nsdecls('w'))
         instrText = parse_xml(r'<w:instrText %s xml:space="preserve"> PAGE </w:instrText>' % nsdecls('w'))
@@ -52,10 +52,10 @@ def build_word_hito1():
     style_normal = doc.styles['Normal']
     font_normal = style_normal.font
     font_normal.name = 'Calibri'
-    font_normal.size = Pt(11)
+    font_normal.size = Pt(10.5)
     font_normal.color.rgb = RGBColor(35, 47, 62)
-    style_normal.paragraph_format.line_spacing = 1.25
-    style_normal.paragraph_format.space_after = Pt(3)
+    style_normal.paragraph_format.line_spacing = 1.2
+    style_normal.paragraph_format.space_after = Pt(2.5)
 
     bookmark_id = 0
     def add_bookmark(paragraph, name):
@@ -66,47 +66,47 @@ def build_word_hito1():
         paragraph._p.insert(0, b_start)
         paragraph._p.append(b_end)
 
-    def add_h1(text, anchor=None, space_before=6, space_after=2):
+    def add_h1(text, anchor=None, space_before=5, space_after=2):
         p = doc.add_paragraph()
         p.paragraph_format.space_before = Pt(space_before)
         p.paragraph_format.space_after = Pt(space_after)
         p.paragraph_format.keep_with_next = True
         r = p.add_run(text)
         r.font.name = 'Calibri'
-        r.font.size = Pt(13)
+        r.font.size = Pt(12.5)
         r.font.bold = True
         r.font.color.rgb = RGBColor(10, 25, 47)
         if anchor:
             add_bookmark(p, anchor)
         return p
 
-    def add_p(text, bold_prefix=None, space_after=3):
+    def add_p(text, bold_prefix=None, space_after=2.5):
         p = doc.add_paragraph()
-        p.paragraph_format.line_spacing = 1.25
+        p.paragraph_format.line_spacing = 1.2
         p.paragraph_format.space_after = Pt(space_after)
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         if bold_prefix:
             rb = p.add_run(bold_prefix)
             rb.font.name = 'Calibri'
-            rb.font.size = Pt(11)
+            rb.font.size = Pt(10.5)
             rb.font.bold = True
             rb.font.color.rgb = RGBColor(10, 37, 64)
         rt = p.add_run(text)
         rt.font.name = 'Calibri'
-        rt.font.size = Pt(11)
+        rt.font.size = Pt(10.5)
         rt.font.color.rgb = RGBColor(40, 50, 60)
         return p
 
     # ========================== PÁGINA 1: PORTADA & ÍNDICE ==========================
     p_sp = doc.add_paragraph()
-    p_sp.paragraph_format.space_before = Pt(25)
+    p_sp.paragraph_format.space_before = Pt(20)
 
     p_badge = doc.add_paragraph()
     p_badge.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_badge.paragraph_format.space_after = Pt(6)
+    p_badge.paragraph_format.space_after = Pt(4)
     rb = p_badge.add_run("PROYECTO INTERMODULAR • 2º DAM")
     rb.font.name = "Calibri"
-    rb.font.size = Pt(11)
+    rb.font.size = Pt(10.5)
     rb.font.bold = True
     rb.font.color.rgb = RGBColor(0, 180, 150)
 
@@ -116,40 +116,40 @@ def build_word_hito1():
     p_title.paragraph_format.line_spacing = 1.1
     rt = p_title.add_run("LeadCraft AI")
     rt.font.name = "Calibri"
-    rt.font.size = Pt(30)
+    rt.font.size = Pt(28)
     rt.font.bold = True
     rt.font.color.rgb = RGBColor(10, 25, 47)
 
     p_sub = doc.add_paragraph()
     p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_sub.paragraph_format.space_after = Pt(12)
+    p_sub.paragraph_format.space_after = Pt(10)
     p_sub.paragraph_format.line_spacing = 1.2
     rs = p_sub.add_run("Servicio Integral de Gestión y Presencia Digital para el Pequeño Comercio Local impulsado por Inteligencia Artificial")
     rs.font.name = "Calibri"
-    rs.font.size = Pt(12.5)
+    rs.font.size = Pt(12)
     rs.font.italic = True
     rs.font.color.rgb = RGBColor(0, 56, 255)
 
     p_div = doc.add_paragraph()
     p_div.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_div.paragraph_format.space_after = Pt(12)
+    p_div.paragraph_format.space_after = Pt(10)
     rd = p_div.add_run("—" * 32)
     rd.font.color.rgb = RGBColor(203, 213, 225)
 
     p_hito = doc.add_paragraph()
     p_hito.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_hito.paragraph_format.space_after = Pt(30)
+    p_hito.paragraph_format.space_after = Pt(25)
     p_hito.paragraph_format.line_spacing = 1.25
     rh = p_hito.add_run("HITO 1: ANÁLISIS Y CONTEXTO\nDocumento de Viabilidad Inicial, Definición de Alcance y Modelo de Servicio")
     rh.font.name = "Calibri"
-    rh.font.size = Pt(11.5)
+    rh.font.size = Pt(11)
     rh.font.bold = True
     rh.font.color.rgb = RGBColor(71, 85, 105)
 
     p_meta = doc.add_paragraph()
     p_meta.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_meta.paragraph_format.line_spacing = 1.3
-    p_meta.paragraph_format.space_after = Pt(35)
+    p_meta.paragraph_format.space_after = Pt(28)
     
     p_meta.add_run("Alumno: ").font.bold = True
     p_meta.add_run("Kevin Muñoz Córcoles\n")
@@ -160,7 +160,7 @@ def build_word_hito1():
     p_meta.add_run("Fecha de entrega: ").font.bold = True
     p_meta.add_run("23 de Octubre de 2026")
 
-    add_h1("Índice del Documento de Viabilidad Inicial", space_before=8, space_after=4)
+    add_h1("Índice del Documento de Viabilidad Inicial", space_before=6, space_after=3)
     toc_lines = [
         "01. Título y Descripción del Proyecto: El Servicio LeadCraft AI (Pág. 2)",
         "02. Problema o Necesidad: La Dificultad de Llevar un Negocio en Internet (Pág. 2)",
@@ -181,7 +181,7 @@ def build_word_hito1():
         p_t.paragraph_format.space_after = Pt(1.5)
         r_t = p_t.add_run("• " + tl)
         r_t.font.name = "Calibri"
-        r_t.font.size = Pt(10)
+        r_t.font.size = Pt(9.5)
         r_t.font.color.rgb = RGBColor(30, 41, 59)
 
     doc.add_page_break()
@@ -217,38 +217,47 @@ def build_word_hito1():
             for r in p.runs:
                 r.font.name = "Calibri"
                 r.font.bold = True
-                r.font.size = Pt(9.5)
+                r.font.size = Pt(9)
                 r.font.color.rgb = RGBColor(255, 255, 255)
 
     bench_data = [
-        ("Wix / Squarespace (con IA)", "Plataformas de autoservicio para construir páginas web.", "Diseño visual atractivo y herramientas avanzadas de personalización.", "Exigen que el propio comerciante dedique horas a configurarlo todo; no incluyen prospección sobre mapa ni resuelven la gestión diaria de pymes sin tiempo."),
-        ("D7 Lead Finder / Scrapers", "Herramientas de extracción masiva de datos en Google Maps.", "Rapidez para extraer listas de teléfonos y correos en archivos CSV.", "Son simples listados en frío; no ofrecen ningún servicio de gestión para el negocio ni generan ninguna web ni sistema de citas que el cliente pueda ver."),
-        ("Treatwell / Calendly", "Portales verticales de reserva de citas y agendas online.", "Sistemas de reserva consolidados con recordatorios por correo.", "Son herramientas aisladas que no proporcionan la web del negocio, cobran comisiones elevadas por cada reserva y no ofrecen un servicio integral de marca.")
+        ("Wix Studio / Duda", "Generadores web SaaS con IA para crear sitios web corporativos.", "Diseños modernos y plantillas responsive bien estructuradas.", "No incluye prospección en Maps ni detecta carencias; requiere que el comerciante dedique tiempo a construir y maquetar la web por su cuenta."),
+        ("D7 Lead Finder", "Buscadores de leads que extraen datos de contacto desde Google Maps.", "Rápida extracción masiva de correos y teléfonos de negocios.", "Se limita a generar listados de texto en Excel; no audita carencias reales, no genera la solución web ni integra reservas."),
+        ("Calendly / Treatwell", "Software especializado en reservas y gestión de citas online.", "Calendarios eficaces con recordatorios automáticos por SMS/correo.", "Son herramientas aisladas que no proporcionan la web del negocio ni canal directo por WhatsApp; comisiones por reserva abusivas en el caso de Treatwell.")
     ]
 
-    for idx, (tool, enf, pf, car) in enumerate(bench_data):
-        row = t_bench.add_row().cells
-        for j in range(4):
-            row[j].width = b_widths[j]
-        row[0].text = tool
-        row[1].text = enf
-        row[2].text = pf
-        row[3].text = car
-
-        fill = "F1F5F9" if idx % 2 == 0 else "FFFFFF"
-        for j, cell in enumerate(row):
+    for r_idx, (p_name, p_mod, p_str, p_car) in enumerate(bench_data):
+        row = t_bench.add_row()
+        fill = "F1F5F9" if r_idx % 2 == 0 else "FFFFFF"
+        for c_idx, val in enumerate([p_name, p_mod, p_str, p_car]):
+            cell = row.cells[c_idx]
+            cell.width = b_widths[c_idx]
+            cell.text = val
             shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{fill}"/>')
             cell._tc.get_or_add_tcPr().append(shd)
             for p in cell.paragraphs:
                 p.paragraph_format.line_spacing = 1.15
-                p.paragraph_format.space_before = Pt(1.5)
-                p.paragraph_format.space_after = Pt(1.5)
+                p.paragraph_format.space_before = Pt(2)
+                p.paragraph_format.space_after = Pt(2)
                 for r in p.runs:
                     r.font.name = "Calibri"
                     r.font.size = Pt(8.5)
-                    r.font.color.rgb = RGBColor(35, 47, 62)
-                    if j == 0:
+                    r.font.color.rgb = RGBColor(30, 41, 59)
+                    if c_idx == 0:
                         r.font.bold = True
+
+    b_tblPr = t_bench._tbl.tblPr
+    borders = parse_xml(
+        f'<w:tblBorders {nsdecls("w")}>'
+        f'<w:top w:val="single" w:sz="4" w:space="0" w:color="CBD5E1"/>'
+        f'<w:bottom w:val="single" w:sz="6" w:space="0" w:color="0A192F"/>'
+        f'<w:insideH w:val="single" w:sz="4" w:space="0" w:color="E2E8F0"/>'
+        f'<w:insideV w:val="none"/>'
+        f'<w:left w:val="none"/>'
+        f'<w:right w:val="none"/>'
+        f'</w:tblBorders>'
+    )
+    b_tblPr.append(borders)
 
     doc.add_page_break()
 
@@ -262,17 +271,39 @@ def build_word_hito1():
 
     add_h1("06. Alcance Mínimo Viable (MVP) y Ampliaciones Futuras")
     add_p("• Funcionalidades del MVP (Versión 1.0 del Servicio):")
-    add_p("  1) Módulo de localización y auditoría express de comercios sobre Google Maps (detección de carencias web y reservas).<br/>"
-          "  2) Motor de generación con IA de la web del negocio (redacción comercial de servicios, horarios y fotos de Maps).<br/>"
-          "  3) Widget interactivo de citas y reservas online incrustado en la web con selección de franjas horarias.<br/>"
-          "  4) Panel de gestión básico para el comerciante donde puede consultar las citas recibidas y cambiar horarios desde su móvil.<br/>"
-          "  5) Integración de botón de contacto directo por WhatsApp Business.<br/>"
-          "  6) Exportación de la web en paquete HTML5/Tailwind y generación de informe comercial de auditoría en PDF.")
+    mvp_items = [
+        "1) Módulo de localización y auditoría express de comercios sobre Google Maps (detección de carencias web y reservas).",
+        "2) Motor de generación con IA de la web del negocio (redacción comercial de servicios, horarios y fotos de Maps).",
+        "3) Widget interactivo de citas y reservas online incrustado en la web con selección de franjas horarias.",
+        "4) Panel de gestión básico para el comerciante donde puede consultar las citas recibidas y cambiar horarios desde su móvil.",
+        "5) Integración de botón de contacto directo por WhatsApp Business.",
+        "6) Exportación de la web en paquete HTML5/Tailwind y generación de informe comercial de auditoría en PDF."
+    ]
+    for mi in mvp_items:
+        p_mi = doc.add_paragraph()
+        p_mi.paragraph_format.line_spacing = 1.15
+        p_mi.paragraph_format.space_after = Pt(1.5)
+        p_mi.paragraph_format.left_indent = Inches(0.2)
+        r_mi = p_mi.add_run(mi)
+        r_mi.font.name = "Calibri"
+        r_mi.font.size = Pt(9.5)
+        r_mi.font.color.rgb = RGBColor(40, 50, 60)
 
     add_p("• Ampliaciones Futuras (Versión 2.0):")
-    add_p("  1) Bot inteligente de WhatsApp con IA que responde preguntas de los clientes y agenda citas de forma automática 24/7.<br/>"
-          "  2) Pasarela de cobro integrada con Stripe para permitir a los clientes pagar señales o productos online.<br/>"
-          "  3) Alojamiento cloud automatizado en Vercel/Netlify con asignación de dominios propios (.es / .com) con 1 clic.")
+    fut_items = [
+        "1) Bot inteligente de WhatsApp con IA que responde preguntas de los clientes y agenda citas de forma automática 24/7.",
+        "2) Pasarela de cobro integrada con Stripe para permitir a los clientes pagar señales o productos online.",
+        "3) Alojamiento cloud automatizado en Vercel/Netlify con asignación de dominios propios (.es / .com) con 1 clic."
+    ]
+    for fi in fut_items:
+        p_fi = doc.add_paragraph()
+        p_fi.paragraph_format.line_spacing = 1.15
+        p_fi.paragraph_format.space_after = Pt(1.5)
+        p_fi.paragraph_format.left_indent = Inches(0.2)
+        r_fi = p_fi.add_run(fi)
+        r_fi.font.name = "Calibri"
+        r_fi.font.size = Pt(9.5)
+        r_fi.font.color.rgb = RGBColor(40, 50, 60)
 
     add_h1("07. Riesgos Iniciales y Medidas Preventivas")
     add_p("• Riesgo 1: Coste de las llamadas a Google Places API y modelos de IA. Medida: Implementar almacenamiento en caché local (base de datos) para no repetir consultas sobre el mismo comercio y comprimir los prompts enviados a Gemini.")
@@ -301,31 +332,31 @@ def build_word_hito1():
     doc.add_page_break()
 
     # ========================== PÁGINA 5: ARQUITECTURA & MOCKUPS ==========================
-    add_h1("11. Diagrama de Arquitectura del Sistema")
-    add_p("La arquitectura técnica de LeadCraft AI se estructura en cuatro capas modulares que separan el cliente, la lógica de negocio, las APIs externas y la persistencia de datos:")
+    add_h1("11. Diagrama de Arquitectura del Sistema", space_before=2, space_after=2)
+    add_p("La arquitectura técnica de LeadCraft AI se estructura en cuatro capas modulares que separan el cliente, la lógica de negocio, las APIs externas y la persistencia de datos:", space_after=2)
 
     diag_path = os.path.join(curr_dir, "diagrama_arquitectura_leadcraft.png")
     if os.path.exists(diag_path):
         p_img_d = doc.add_paragraph()
         p_img_d.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_img_d.paragraph_format.space_before = Pt(2)
-        p_img_d.paragraph_format.space_after = Pt(2)
+        p_img_d.paragraph_format.space_before = Pt(1)
+        p_img_d.paragraph_format.space_after = Pt(1)
         r_d = p_img_d.add_run()
-        r_d.add_picture(diag_path, width=Inches(5.8))
+        r_d.add_picture(diag_path, width=Inches(5.5))
         
         p_cap_d = doc.add_paragraph()
         p_cap_d.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_cap_d.paragraph_format.space_after = Pt(6)
+        p_cap_d.paragraph_format.space_after = Pt(4)
         rcd = p_cap_d.add_run("Figura 1: Arquitectura de Componentes de LeadCraft AI (Frontend, Backend Gateway, APIs Externas y Capa de Datos).")
         rcd.font.name = "Calibri"
-        rcd.font.size = Pt(8.5)
+        rcd.font.size = Pt(8)
         rcd.font.italic = True
         rcd.font.color.rgb = RGBColor(100, 116, 139)
 
-    add_h1("12. Mockups de Pantallas Clave de la Aplicación", space_before=4, space_after=2)
+    add_h1("12. Mockups de Pantallas Clave de la Aplicación", space_before=3, space_after=2)
     
-    m1_path = os.path.join(curr_dir, "mockup_leadcraft_audit.jpg")
-    m2_path = os.path.join(curr_dir, "mockup_leadcraft_generator.jpg")
+    m1_path = os.path.join(curr_dir, "mockup_leadcraft_desktop.png")
+    m2_path = os.path.join(curr_dir, "mockup_leadcraft_mobile.png")
 
     if os.path.exists(m1_path) and os.path.exists(m2_path):
         t_mock = doc.add_table(rows=1, cols=2)
@@ -333,28 +364,46 @@ def build_word_hito1():
         t_mock.autofit = False
 
         c1, c2 = t_mock.rows[0].cells
-        c1.width = Inches(3.3)
-        c2.width = Inches(3.3)
+        c1.width = Inches(3.35)
+        c2.width = Inches(3.35)
 
         p1 = c1.paragraphs[0]
         p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p1.paragraph_format.space_before = Pt(1)
+        p1.paragraph_format.space_after = Pt(1)
         r1 = p1.add_run()
-        r1.add_picture(m1_path, width=Inches(3.1))
+        r1.add_picture(m1_path, width=Inches(3.15))
         p1_cap = c1.add_paragraph()
         p1_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p1_cap.add_run("Pantalla 1: Mapa de Prospección y Auditoría Digital.").font.size = Pt(8)
+        p1_cap.paragraph_format.space_before = Pt(1)
+        p1_cap.paragraph_format.space_after = Pt(1)
+        rc1 = p1_cap.add_run("Pantalla 1: Mapa y Auditoría Digital Express versión Escritorio.")
+        rc1.font.size = Pt(8)
+        rc1.font.bold = True
+        rc1.font.color.rgb = RGBColor(71, 85, 105)
 
         p2 = c2.paragraphs[0]
         p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p2.paragraph_format.space_before = Pt(1)
+        p2.paragraph_format.space_after = Pt(1)
         r2 = p2.add_run()
-        r2.add_picture(m2_path, width=Inches(3.1))
+        r2.add_picture(m2_path, width=Inches(3.15))
         p2_cap = c2.add_paragraph()
         p2_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p2_cap.add_run("Pantalla 2: Servicio Web Activo con Citas y WhatsApp.").font.size = Pt(8)
+        p2_cap.paragraph_format.space_before = Pt(1)
+        p2_cap.paragraph_format.space_after = Pt(1)
+        rc2 = p2_cap.add_run("Pantalla 2: Versión móvil en 3 fases (Explorar, Generar y Exportar).")
+        rc2.font.size = Pt(8)
+        rc2.font.bold = True
+        rc2.font.color.rgb = RGBColor(71, 85, 105)
 
-    out_docx = os.path.join(curr_dir, "Hito1_Viabilidad_LeadCraft_Kevin.docx")
-    doc.save(out_docx)
-    print("Hito 1 Word Document saved at:", out_docx)
+    # Save to BOTH filenames
+    out_docx_leadcraft = os.path.join(curr_dir, "Hito1_LeadCraft_Kevin.docx")
+    out_docx_viabilidad = os.path.join(curr_dir, "Hito1_Viabilidad_LeadCraft_Kevin.docx")
+    doc.save(out_docx_leadcraft)
+    doc.save(out_docx_viabilidad)
+    print("Hito 1 Word Document saved at:", out_docx_leadcraft)
+    print("Hito 1 Word Document saved at:", out_docx_viabilidad)
 
 if __name__ == "__main__":
     build_word_hito1()

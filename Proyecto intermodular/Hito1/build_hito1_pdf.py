@@ -32,58 +32,52 @@ class NumberedCanvas(canvas.Canvas):
             return
 
         self.saveState()
-        self.setFont("Helvetica", 8.5)
+        self.setFont("Helvetica", 8)
         self.setFillColor(colors.HexColor("#78909C"))
 
-        header_text = "Proyecto Intermodular - 2º DAM  |  Hito 1: Viabilidad Inicial (LeadCraft AI)"
-        self.drawRightString(A4[0] - 45, A4[1] - 32, header_text)
+        header_text = "Proyecto Intermodular - 2º DAM  |  Hito 1: LeadCraft AI"
+        self.drawRightString(A4[0] - 40, A4[1] - 30, header_text)
         self.setStrokeColor(colors.HexColor("#E2E8F0"))
         self.setLineWidth(0.5)
-        self.line(45, A4[1] - 38, A4[0] - 45, A4[1] - 38)
+        self.line(40, A4[1] - 35, A4[0] - 40, A4[1] - 35)
 
         footer_left = "LeadCraft AI  •  Kevin Muñoz Córcoles"
         footer_right = f"Página {self._pageNumber} de {page_count}"
-        self.line(45, 36, A4[0] - 45, 36)
-        self.drawString(45, 25, footer_left)
-        self.drawRightString(A4[0] - 45, 25, footer_right)
+        self.line(40, 35, A4[0] - 40, 35)
+        self.drawString(40, 24, footer_left)
+        self.drawRightString(A4[0] - 40, 24, footer_right)
         self.restoreState()
 
 def generate_hito1_pdf():
-    pdf_path = os.path.join(curr_dir, "Hito1_Viabilidad_LeadCraft_Kevin.pdf")
-    doc = SimpleDocTemplate(
-        pdf_path,
-        pagesize=A4,
-        leftMargin=45,
-        rightMargin=45,
-        topMargin=45,
-        bottomMargin=45
-    )
+    pdf_path_leadcraft = os.path.join(curr_dir, "Hito1_LeadCraft_Kevin.pdf")
+    pdf_path_viabilidad = os.path.join(curr_dir, "Hito1_Viabilidad_LeadCraft_Kevin.pdf")
 
+    # Build story
     s_title = ParagraphStyle('CoverTitle', fontName='Helvetica-Bold', fontSize=26, leading=30, textColor=colors.HexColor("#0A192F"), alignment=1)
-    s_sub = ParagraphStyle('CoverSub', fontName='Helvetica-Oblique', fontSize=11.5, leading=15, textColor=colors.HexColor("#0038FF"), alignment=1)
-    s_badge = ParagraphStyle('CoverBadge', fontName='Helvetica-Bold', fontSize=10.5, leading=14, textColor=colors.HexColor("#00B496"), alignment=1)
-    s_hito = ParagraphStyle('CoverHito', fontName='Helvetica-Bold', fontSize=11, leading=15, textColor=colors.HexColor("#475569"), alignment=1)
-    s_meta = ParagraphStyle('CoverMeta', fontName='Helvetica', fontSize=10.5, leading=15, textColor=colors.HexColor("#232F3E"), alignment=1)
+    s_sub = ParagraphStyle('CoverSub', fontName='Helvetica-Oblique', fontSize=11, leading=15, textColor=colors.HexColor("#0038FF"), alignment=1)
+    s_badge = ParagraphStyle('CoverBadge', fontName='Helvetica-Bold', fontSize=9.5, leading=13, textColor=colors.HexColor("#00B496"), alignment=1)
+    s_hito = ParagraphStyle('CoverHito', fontName='Helvetica-Bold', fontSize=10.5, leading=14, textColor=colors.HexColor("#475569"), alignment=1)
+    s_meta = ParagraphStyle('CoverMeta', fontName='Helvetica', fontSize=10, leading=14, textColor=colors.HexColor("#232F3E"), alignment=1)
 
-    s_h1 = ParagraphStyle('Heading1', fontName='Helvetica-Bold', fontSize=12, leading=15, textColor=colors.HexColor("#0A192F"), spaceBefore=6, spaceAfter=2)
-    s_body = ParagraphStyle('BodyTextCustom', fontName='Helvetica', fontSize=9, leading=12.5, textColor=colors.HexColor("#2C3E50"), alignment=4, spaceAfter=3.5)
+    s_h1 = ParagraphStyle('Heading1', fontName='Helvetica-Bold', fontSize=11, leading=14, textColor=colors.HexColor("#0A192F"), spaceBefore=4, spaceAfter=2)
+    s_body = ParagraphStyle('BodyTextCustom', fontName='Helvetica', fontSize=8.5, leading=11.5, textColor=colors.HexColor("#2C3E50"), alignment=4, spaceAfter=2.5)
     s_toc = ParagraphStyle('TOCItem', fontName='Helvetica', fontSize=8.5, leading=11.5, textColor=colors.HexColor("#0A192F"), spaceAfter=1.5)
     s_cap = ParagraphStyle('Caption', fontName='Helvetica-Oblique', fontSize=7.5, leading=10, textColor=colors.HexColor("#64748B"), alignment=1, spaceAfter=2)
 
     story = []
 
     # ========================== PÁGINA 1: PORTADA ==========================
-    story.append(Spacer(1, 20))
+    story.append(Spacer(1, 15))
     story.append(Paragraph("PROYECTO INTERMODULAR • 2º DAM", s_badge))
     story.append(Spacer(1, 4))
     story.append(Paragraph("LeadCraft AI", s_title))
     story.append(Spacer(1, 4))
     story.append(Paragraph("Servicio Integral de Gestión y Presencia Digital para el Pequeño Comercio Local impulsado por Inteligencia Artificial", s_sub))
-    story.append(Spacer(1, 10))
-    story.append(Paragraph("—" * 28, ParagraphStyle('Div', fontName='Helvetica', fontSize=11, textColor=colors.HexColor("#CBD5E1"), alignment=1)))
     story.append(Spacer(1, 8))
+    story.append(Paragraph("—" * 28, ParagraphStyle('Div', fontName='Helvetica', fontSize=11, textColor=colors.HexColor("#CBD5E1"), alignment=1)))
+    story.append(Spacer(1, 6))
     story.append(Paragraph("<b>HITO 1: ANÁLISIS Y CONTEXTO</b><br/><font color='#64748B'>Documento de Viabilidad Inicial, Definición de Alcance y Modelo de Servicio</font>", s_hito))
-    story.append(Spacer(1, 25))
+    story.append(Spacer(1, 20))
 
     meta_html = (
         "<b>Alumno:</b> Kevin Muñoz Córcoles<br/>"
@@ -92,7 +86,7 @@ def generate_hito1_pdf():
         "<b>Fecha de entrega:</b> 23 de Octubre de 2026"
     )
     story.append(Paragraph(meta_html, s_meta))
-    story.append(Spacer(1, 25))
+    story.append(Spacer(1, 20))
 
     story.append(Paragraph("Índice del Documento de Viabilidad Inicial", s_h1))
     tocs = [
@@ -142,42 +136,39 @@ def generate_hito1_pdf():
     ))
 
     story.append(Paragraph("04. Benchmarking Competitivo y Soluciones Similares", s_h1))
-    story.append(Paragraph(
-        "Se han analizado tres alternativas actuales en el mercado para comparar cómo abordan la digitalización de pymes:",
-        s_body
-    ))
+    story.append(Paragraph("Se han analizado tres alternativas actuales en el mercado para comparar cómo abordan la digitalización de pymes:", s_body))
 
-    b_data = [
-        [Paragraph("<b>Plataforma</b>", ParagraphStyle('BTH', fontName='Helvetica-Bold', fontSize=8, textColor=colors.white)),
-         Paragraph("<b>Modelo / Enfoque</b>", ParagraphStyle('BTH', fontName='Helvetica-Bold', fontSize=8, textColor=colors.white)),
-         Paragraph("<b>Puntos Fuertes</b>", ParagraphStyle('BTH', fontName='Helvetica-Bold', fontSize=8, textColor=colors.white)),
-         Paragraph("<b>Carencias frente al Servicio LeadCraft</b>", ParagraphStyle('BTH', fontName='Helvetica-Bold', fontSize=8, textColor=colors.white))],
-        [Paragraph("<b>Wix / Squarespace (con IA)</b>", ParagraphStyle('BTD', fontName='Helvetica-Bold', fontSize=7.5, leading=9.5)),
-         Paragraph("Plataformas de autoservicio para construir páginas web.", ParagraphStyle('BTD2', fontName='Helvetica', fontSize=7.5, leading=9.5)),
-         Paragraph("Diseño visual atractivo y herramientas avanzadas de edición.", ParagraphStyle('BTD2', fontName='Helvetica', fontSize=7.5, leading=9.5)),
-         Paragraph("Exigen que el propio comerciante dedique horas a configurarlo todo; no incluyen prospección sobre mapa ni resuelven la gestión diaria de pymes sin tiempo.", ParagraphStyle('BTD2', fontName='Helvetica', fontSize=7.5, leading=9.5))],
-        [Paragraph("<b>D7 Lead Finder / Scrapers</b>", ParagraphStyle('BTD', fontName='Helvetica-Bold', fontSize=7.5, leading=9.5)),
-         Paragraph("Herramientas de extracción masiva de datos en Google Maps.", ParagraphStyle('BTD2', fontName='Helvetica', fontSize=7.5, leading=9.5)),
-         Paragraph("Rapidez para extraer listas de teléfonos y correos en archivos CSV.", ParagraphStyle('BTD2', fontName='Helvetica', fontSize=7.5, leading=9.5)),
-         Paragraph("Son simples listados en frío; no ofrecen ningún servicio de gestión para el negocio ni generan ninguna web ni sistema de citas que el cliente pueda ver.", ParagraphStyle('BTD2', fontName='Helvetica', fontSize=7.5, leading=9.5))],
-        [Paragraph("<b>Treatwell / Calendly</b>", ParagraphStyle('BTD', fontName='Helvetica-Bold', fontSize=7.5, leading=9.5)),
-         Paragraph("Portales verticales de reserva de citas y agendas online.", ParagraphStyle('BTD2', fontName='Helvetica', fontSize=7.5, leading=9.5)),
-         Paragraph("Sistemas de reserva consolidados con recordatorios por correo.", ParagraphStyle('BTD2', fontName='Helvetica', fontSize=7.5, leading=9.5)),
-         Paragraph("Son herramientas aisladas que no proporcionan la web del negocio, cobran comisiones elevadas por cada reserva y no ofrecen un servicio integral de marca.", ParagraphStyle('BTD2', fontName='Helvetica', fontSize=7.5, leading=9.5))]
+    t_bench_data = [
+        [Paragraph("<b>Plataforma</b>", ParagraphStyle('TBH', fontName='Helvetica-Bold', fontSize=8, textColor=colors.white)),
+         Paragraph("<b>Modelo / Enfoque</b>", ParagraphStyle('TBH', fontName='Helvetica-Bold', fontSize=8, textColor=colors.white)),
+         Paragraph("<b>Puntos Fuertes</b>", ParagraphStyle('TBH', fontName='Helvetica-Bold', fontSize=8, textColor=colors.white)),
+         Paragraph("<b>Carencias frente al Servicio LeadCraft</b>", ParagraphStyle('TBH', fontName='Helvetica-Bold', fontSize=8, textColor=colors.white))],
+        [Paragraph("<b>Wix Studio / Duda</b>", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5)),
+         Paragraph("Generadores web SaaS con IA para crear sitios web corporativos.", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5)),
+         Paragraph("Diseños modernos y plantillas responsive bien estructuradas.", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5)),
+         Paragraph("No incluye prospección en Maps ni detecta carencias; requiere que el comerciante dedique tiempo a construir y maquetar la web por su cuenta.", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5))],
+        [Paragraph("<b>D7 Lead Finder</b>", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5)),
+         Paragraph("Buscadores de leads que extraen datos de contacto desde Google Maps.", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5)),
+         Paragraph("Rápida extracción masiva de correos y teléfonos de negocios.", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5)),
+         Paragraph("Se limita a generar listados de texto en Excel; no audita carencias reales, no genera la solución web ni integra reservas.", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5))],
+        [Paragraph("<b>Calendly / Treatwell</b>", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5)),
+         Paragraph("Software especializado en reservas y gestión de citas online.", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5)),
+         Paragraph("Calendarios eficaces con recordatorios automáticos por SMS/correo.", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5)),
+         Paragraph("Son herramientas aisladas que no proporcionan la web del negocio ni canal directo por WhatsApp; comisiones abusivas en el caso de Treatwell.", ParagraphStyle('TBD', fontName='Helvetica', fontSize=7.5, leading=9.5))]
     ]
-    t_b = Table(b_data, colWidths=[110, 115, 135, 145])
-    t_b.setStyle(TableStyle([
+    t_bench_pdf = Table(t_bench_data, colWidths=[100, 115, 135, 165])
+    t_bench_pdf.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#0A192F")),
         ('ALIGN', (0,0), (-1,-1), 'LEFT'),
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('TOPPADDING', (0,0), (-1,-1), 2),
         ('BOTTOMPADDING', (0,0), (-1,-1), 2),
-        ('LEFTPADDING', (0,0), (-1,-1), 4),
-        ('RIGHTPADDING', (0,0), (-1,-1), 4),
+        ('LEFTPADDING', (0,0), (-1,-1), 3),
+        ('RIGHTPADDING', (0,0), (-1,-1), 3),
         ('ROWBACKGROUNDS', (0,1), (-1,-1), [colors.HexColor("#F1F5F9"), colors.white]),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#CBD5E1")),
     ]))
-    story.append(t_b)
+    story.append(t_bench_pdf)
     story.append(PageBreak())
 
     # ========================== PÁGINA 3: SMART, MVP & RIESGOS ==========================
@@ -232,31 +223,56 @@ def generate_hito1_pdf():
 
     diag_p = os.path.join(curr_dir, "diagrama_arquitectura_leadcraft.png")
     if os.path.exists(diag_p):
-        story.append(Image(diag_p, width=6.5*inch, height=3.6*inch))
+        story.append(Image(diag_p, width=5.5*inch, height=3.0*inch))
+        story.append(Spacer(1, 1))
         story.append(Paragraph("Figura 1: Arquitectura de Componentes de LeadCraft AI (Frontend, Backend Gateway, APIs Externas y Capa de Datos).", s_cap))
 
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
     story.append(Paragraph("12. Mockups de Pantallas Clave de la Aplicación", s_h1))
     
-    m1_p = os.path.join(curr_dir, "mockup_leadcraft_audit.jpg")
-    m2_p = os.path.join(curr_dir, "mockup_leadcraft_generator.jpg")
+    m1_p = os.path.join(curr_dir, "mockup_leadcraft_desktop.png")
+    m2_p = os.path.join(curr_dir, "mockup_leadcraft_mobile.png")
 
     if os.path.exists(m1_p) and os.path.exists(m2_p):
+        # 3.25 inches wide for both
         t_img_data = [
-            [Image(m1_p, width=3.2*inch, height=1.8*inch), Image(m2_p, width=3.2*inch, height=1.8*inch)],
-            [Paragraph("Pantalla 1: Mapa de Prospección y Auditoría Digital.", s_cap), Paragraph("Pantalla 2: Servicio Web Activo con Citas y WhatsApp.", s_cap)]
+            [Image(m1_p, width=3.35*inch, height=2.44*inch), Image(m2_p, width=3.35*inch, height=1.87*inch)],
+            [Paragraph("<b>Pantalla 1:</b> Mapa y Auditoría Digital Express (Escritorio).", s_cap), 
+             Paragraph("<b>Pantalla 2:</b> Versión móvil en 3 fases (Explorar, Generar y Exportar).", s_cap)]
         ]
-        t_mock_pdf = Table(t_img_data, colWidths=[250, 250])
+        t_mock_pdf = Table(t_img_data, colWidths=[255, 255])
         t_mock_pdf.setStyle(TableStyle([
             ('ALIGN', (0,0), (-1,-1), 'CENTER'),
-            ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+            ('VALIGN', (0,0), (-1,-1), 'BOTTOM'),
             ('TOPPADDING', (0,0), (-1,-1), 1),
             ('BOTTOMPADDING', (0,0), (-1,-1), 1),
+            ('LEFTPADDING', (0,0), (-1,-1), 1),
+            ('RIGHTPADDING', (0,0), (-1,-1), 1),
         ]))
         story.append(t_mock_pdf)
 
-    doc.build(story, canvasmaker=NumberedCanvas)
-    print("Hito 1 PDF Document generated successfully at:", pdf_path)
+    # Build both files
+    doc_leadcraft = SimpleDocTemplate(
+        pdf_path_leadcraft,
+        pagesize=A4,
+        leftMargin=40,
+        rightMargin=40,
+        topMargin=38,
+        bottomMargin=38
+    )
+    doc_leadcraft.build(list(story), canvasmaker=NumberedCanvas)
+    print("Hito 1 PDF Document generated successfully at:", pdf_path_leadcraft)
+
+    doc_viabilidad = SimpleDocTemplate(
+        pdf_path_viabilidad,
+        pagesize=A4,
+        leftMargin=40,
+        rightMargin=40,
+        topMargin=38,
+        bottomMargin=38
+    )
+    doc_viabilidad.build(list(story), canvasmaker=NumberedCanvas)
+    print("Hito 1 PDF Document generated successfully at:", pdf_path_viabilidad)
 
 if __name__ == "__main__":
     generate_hito1_pdf()

@@ -16,20 +16,23 @@ Este directorio contiene el desarrollo íntegro del **Hito 1: Análisis y Contex
 4. **Benchmarking competitivo:** Análisis comparativo de 3 plataformas (*Wix Studio/Duda*, *D7 Lead Finder* y *Calendly/Treatwell*).
 5. **Objetivos iniciales (Modelo SMART):** Definición detallada bajo los criterios Específico, Medible, Alcanzable, Relevante y Temporal.
 6. **Alcance mínimo (MVP) vs Ampliaciones futuras:** Delimitación de las 6 funcionalidades del servicio MVP y 3 ampliaciones post-MVP (bot de WhatsApp, pasarela Stripe, Google Calendar).
-7. **Riesgos iniciales y medidas preventivas:** Cuotas de APIs externas, completitud de datos y gestión temporal con metodología ágil.
+7. **Riesgos iniciales y medidas preventivas:** Cuotas de APIs externas, reticencia del comerciante y gestión temporal con metodología ágil.
 8. **Objetivos de Desarrollo Sostenible (ODS):** Vinculación justificada con ODS 8 (Crecimiento económico y pymes), ODS 9 (Innovación tecnológica) y ODS 11 (Comercio de proximidad).
 9. **Organización del trabajo:** Metodología Scrum/Kanban en 3 Sprints con seguimiento en tablero de Trello (Product Backlog).
 10. **Diseño preliminar:**
-    - **Caso de uso principal paso a paso** (5 fases de interacción: Prospección, Auditoría, Generación Asistida, Demostración y Venta del Servicio Mensual).
+    - **Caso de uso principal paso a paso** (5 fases de interacción: Prospección, Diagnóstico, Generación Asistida, Demostración y Activación del Servicio).
     - **Diagrama de arquitectura técnica** en 4 capas desacopladas.
-    - **Mockups de 2 pantallas clave** de la aplicación.
+    - **Mockups de pantallas clave** de la aplicación (versión Escritorio y versión Móvil adaptativa).
 
 ---
 
 ## 📁 Archivos Entregables
 
-- 📄 [`Hito1_Viabilidad_LeadCraft_Kevin.docx`](./Hito1_Viabilidad_LeadCraft_Kevin.docx): Documento oficial en Word (5 páginas completas con portada, índice, tablas, imágenes incrustadas y formato corporativo).
-- 📄 [`Hito1_Viabilidad_LeadCraft_Kevin.pdf`](./Hito1_Viabilidad_LeadCraft_Kevin.pdf): Versión PDF oficial del documento de viabilidad (exactamente 5 páginas) listo para entrega.
-- 🖼️ [`diagrama_arquitectura_leadcraft.png`](./diagrama_arquitectura_leadcraft.png): Diagrama de arquitectura del sistema (Frontend, Backend Gateway, APIs externas y Capa de Datos).
-- 🖼️ [`mockup_leadcraft_audit.jpg`](./mockup_leadcraft_audit.jpg): Mockup de la Pantalla 1 (Buscador cartográfico y panel de auditoría express).
-- 🖼️ [`mockup_leadcraft_generator.jpg`](./mockup_leadcraft_generator.jpg): Mockup de la Pantalla 2 (Generador con IA y previsualizador con widget de citas).
+- 📄 [`Hito1_LeadCraft_Kevin.docx`](./Hito1_LeadCraft_Kevin.docx): Documento oficial en Word listo para entrega (exactamente 5 páginas con portada, índice, tablas, imágenes incrustadas y formato institucional).
+- 📄 [`Hito1_LeadCraft_Kevin.pdf`](./Hito1_LeadCraft_Kevin.pdf): Versión PDF oficial del documento de viabilidad (exactamente 5 páginas, validado con `pypdf`).
+- 📄 [`Hito1_Viabilidad_LeadCraft_Kevin.docx`](./Hito1_Viabilidad_LeadCraft_Kevin.docx): Versión sincronizada alternativa con la nomenclatura completa.
+- 📄 [`Hito1_Viabilidad_LeadCraft_Kevin.pdf`](./Hito1_Viabilidad_LeadCraft_Kevin.pdf): Versión PDF sincronizada alternativa en 5 páginas.
+- 🖼️ [`diagrama_arquitectura_leadcraft.png`](./diagrama_arquitectura_leadcraft.png): Diagrama de arquitectura del sistema en 4 capas (Frontend, Backend Gateway, APIs externas y Capa de Datos).
+- 🖼️ [`mockup_leadcraft_desktop.png`](./mockup_leadcraft_desktop.png): Mockup de la Pantalla 1 (Buscador cartográfico y panel de auditoría express en versión escritorio).
+- 🖼️ [`mockup_leadcraft_mobile.png`](./mockup_leadcraft_mobile.png): Mockup de la Pantalla 2 (Interfaz responsive para smartphone en 3 fases: Exploración, Generador web con citas y Propuesta comercial con WhatsApp).
+- 🖼️ [`mockup_leadcraft_mobile_flow.png`](./mockup_leadcraft_mobile_flow.png): Mockup continuo en formato móvil de las tres vistas del sistema.
