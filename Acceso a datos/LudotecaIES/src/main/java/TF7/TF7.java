@@ -88,6 +88,12 @@ public class TF7 {
             System.out.println(juego.getString("calificacion"));
         }
 
-
+        try {
+            Files.writeString(ruta, Profesor.toString(2),
+                    StandardCharsets.UTF_8);
+            System.out.println("Fichero guardado");
+        } catch (IOException e) {
+            System.out.println("Error al guardar: " + e.getMessage());
+        }
     }
 }
