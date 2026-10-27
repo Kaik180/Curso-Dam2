@@ -1,0 +1,14 @@
+{
+  "departamento": "Informática",
+  "estudiantes": [
+    {
+      "calificacion": 9.5,
+      "nombre": "Kevin"
+    },
+    {
+      "calificacion": 8,
+      "nombre": "Juan"
+    }
+  ],
+  "nombre": "Silvia"
+}

@@ -1,0 +1,12 @@
+name: resumen_pmdm
+description: Material de preparación y simulacro de examen Dart y Flutter PMDM.
+version: 1.0.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  http: ^1.2.2
+
+dev_dependencies:
+  lints: ^4.0.0

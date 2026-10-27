@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    .nav-pill.active {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+    }
+  </style>
+</head>
+<body class="bg-transparent text-[var(--foreground)] antialiased p-2">
+  <div class="bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-2xl p-4 shadow-sm max-w-2xl mx-auto space-y-3">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
+      <div class="flex items-center gap-2">
+        <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-500 flex items-center justify-center text-xs font-bold">🎯</span>
+        <h3 class="text-sm font-bold text-[var(--foreground)]">Preparación Examen PMDM (28 Octubre)</h3>
+      </div>
+      <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-[var(--sidebar)] text-amber-400 border border-amber-500/30">
+        Simulacro 10 Pts
+      </span>
+    </div>
+
+    <!-- Quick Pill Selector -->
+    <div class="flex flex-wrap gap-1.5">
+      <button onclick="setTopic('flutterExam')" id="pill-flutterExam" class="nav-pill active text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
+        📱 Flutter & PWA (2 pts)
+      </button>
+      <button onclick="setTopic('dartExam')" id="pill-dartExam" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
+        🛡️ Dart: ? y ! (2 pts)
+      </button>
+      <button onclick="setTopic('practicaExam')" id="pill-practicaExam" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
+        🏛️ Modelado Práctico (4 pts)
+      </button>
+      <button onclick="setTopic('funcionalExam')" id="pill-funcionalExam" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
+        ⚡ 6 Pregs Funcionales (2 pts)
+      </button>
+      <button onclick="setTopic('eventLoop')" id="pill-eventLoop" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
+        🔄 Event Loop & Async
+      </button>
+    </div>
+
+    <!-- Dynamic Content Area -->
+    <div id="content-display" class="bg-[var(--sidebar)] border border-[var(--border)] rounded-xl p-3 space-y-2 text-xs">
+      <!-- Injected via JS -->
+    </div>
+
+  </div>
+
+  <script>
+    const topics = {
+      flutterExam: {
+        title: 'Teoría Flutter: Conceptos & Archivos (20% - 2 Puntos)',
+        desc: 'Flutter compila a código nativo ARM/x86 directamente desde Dart. Las PWAs usan Service Workers para modo offline y caché local.',
+        code: `// Archivos de configuración clave:
+* pubspec.yaml: Dependencias (http), recursos (imágenes, fuentes) y versión SDK.
+* pubspec.lock: Versiones exactas y fijas descargadas por pub get.
+* analysis_options.yaml: Reglas del linter (paquete lints) para análisis estático.
+* .metadata: Archivo interno de Flutter para rastrear el estado del proyecto.
+
+// Compilación:
+* JIT (Just-In-Time): En desarrollo -> Permite Stateful Hot Reload.
+* AOT (Ahead-Of-Time): En producción -> Binario máquina a 60/120 FPS.`,
+        note: '💡 PWA vs Flutter: La PWA corre en navegador con Service Workers; Flutter compila a binario nativo sin WebViews.'
+      },
+      dartExam: {
+        title: 'Teoría Dart: Null Safety y Argumentos Nombrados (20% - 2 Puntos)',
+        desc: 'Sound Null Safety evita NullPointerException en compilación. Los argumentos nombrados {} se identifican por clave en cualquier orden.',
+        code: `String? nombre;               // '?' Permite que contenga null
+String seguro = nombre!;      // '!' Fuerza aserción (arriesgado si es null)
+print(nombre ?? "Invitado");  // '??' Valor fallback si es null
+nombre ??= "Kevin";           // '??=' Asigna sólo si actualmente es null
+int? len = nombre?.length;    // '?.' Acceso seguro (no arroja error)
+
+// Argumentos nombrados requeridos:
+void login({required String email, String rol = "user"}) {}
+login(email: "alumno@dam.es"); // Orden indistinto`,
+        note: '💡 final vs const: const se calcula en compilación (inmutable profundo). final se asigna una sola vez en ejecución.'
+      },
+      practicaExam: {
+        title: 'Caso Práctico: Asociación de Estudiantes (40% - 4 Puntos)',
+        desc: 'Herencia orientada a objetos, getter con DateTime.now() y consumo de API asíncrono y síncrono.',
+        code: `class Estudiante {
+  final String nombre, apellido, dni;
+  final DateTime fechaNacimiento;
+  Curso curso;
+
+  Estudiante({required this.nombre, required this.apellido, required this.dni,
+              required this.fechaNacimiento, required this.curso});
+
+  int get edad {
+    final now = DateTime.now();
+    int a = now.year - fechaNacimiento.year;
+    if (now.month < fechaNacimiento.month ||
+       (now.month == fechaNacimiento.month && now.day < fechaNacimiento.day)) a--;
+    return a;
+  }
+}
+
+class Delegado extends Estudiante {
+  final String claseGestionada;
+  Delegado({required super.nombre, required super.apellido, required super.dni,
+            required super.fechaNacimiento, required super.curso, required this.claseGestionada});
+}
+
+// Carga Asíncrona (.then o async/await) vs Síncrona/Secuencial (await):
+Future<void> cargarCursos(List<Curso> lista) async {
+  final res = await http.get(Uri.parse('https://api.asociacion/cursos'));
+  if (res.statusCode == 200) {
+    final raw = jsonDecode(utf8.decode(res.bodyBytes)) as List;
+    lista.addAll(raw.map((e) => Curso.fromJson(e)));
+  }
+}`,
+        note: '💡 Archivo ejecutable completo: test_examen/practica_asociacion_estudiantes.dart'
+      },
+      funcionalExam: {
+        title: '6 Preguntas Clave de Programación Funcional (20% - 2 Puntos)',
+        desc: 'Colecciones de Dart utilizando funciones flecha de alto nivel.',
+        code: `// 1. Filtrar con where (pares positivos):
+final pares = numeros.where((n) => n > 0 && n % 2 == 0).toList();
+
+// 2. Transformar con map (mayúsculas):
+final mayus = palabras.map((p) => p.toUpperCase()).toList();
+
+// 3. Reducir con reduce (máximo):
+final max = numeros.reduce((actual, n) => n > actual ? n : actual);
+
+// 4. Acumular con fold (total inventario precio * stock):
+final total = prods.fold<double>(0.0, (acc, p) => acc + (p['precio'] * p['stock']));
+
+// 5. Validar con any / every:
+final hayAgotados = prods.any((p) => p['stock'] == 0);
+
+// 6. Encadenamiento (where + map + join):
+final texto = prods.where((p) => p['stock'] > 0).map((p) => p['nombre']).join(', ');`,
+        note: '💡 Archivo ejecutable completo: test_examen/seis_preguntas_funcionales.dart'
+      },
+      eventLoop: {
+        title: 'Event Loop y Concurrencia Monohilo (UD 2.4)',
+        desc: 'Dart es monohilo. Utiliza dos colas: MicroTask (máxima prioridad) y Event (HTTP, timers).',
+        code: `scheduleMicrotask(() => print("1. Prioridad máxima (MicroTask)"));
+Future.delayed(Duration.zero, () => print("2. Cola estándar (Event)"));
+final datos = await Future.wait([api1(), api2()]); // Ejecución paralela`,
+        note: '💡 En Flutter, el Event Loop evita que la pantalla se congele mientras se descargan datos de red.'
+      }
+    };
+
+    function setTopic(key) {
+      document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('pill-' + key);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const data = topics[key];
+      const container = document.getElementById('content-display');
+      container.innerHTML = `
+        <div class="flex items-center justify-between">
+          <strong class="text-[var(--foreground)] text-xs font-semibold">${data.title}</strong>
+        </div>
+        <p class="text-[var(--muted-foreground)] text-[11px] leading-relaxed">${data.desc}</p>
+        <pre class="bg-black/30 p-2.5 rounded-lg font-mono text-[11px] overflow-x-auto text-emerald-400 leading-normal border border-white/5"><code>${escapeHtml(data.code)}</code></pre>
+        <div class="text-[11px] text-amber-400 font-medium">${data.note}</div>
+      `;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Initialize
+    setTopic('flutterExam');
+  </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "equipo": "2º DAM",
+  "instituto": "IES Mutxamel",
+  "profesores": [
+    {
+      "nombre": "Pepito Grillo",
+      "cursos": [1, 2],
+      "modulos": ["Acceso a Datos", "Proyecto Intermodular"]
+    },
+    {
+      "nombre": "Pinocho",
+      "cursos": [2],
+      "modulos": ["Desarrollo de Interfaces"]
+    }
+  ]
+}

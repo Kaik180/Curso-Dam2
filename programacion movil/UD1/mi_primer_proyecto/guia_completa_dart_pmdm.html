@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aprende Dart y Todo PMDM - Guía Interactiva</title>
+  <title>Aprende Dart y Todo PMDM - Guía Interactiva Completa</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
     pre {
@@ -35,7 +35,7 @@
             Aprender Dart: La Guía Integral de PMDM
           </h1>
           <p class="text-[var(--muted-foreground)] text-sm mt-1">
-            Explicación paso a paso de qué es Dart, cómo programar en él y todo el contenido de las Unidades 2.1 a 2.5.
+            Explicación paso a paso de qué es Dart, cómo programar en él, Unidades 2.1 a 2.5 y Guía Especial Examen.
           </p>
         </div>
         <div class="flex items-center gap-2">
@@ -61,6 +61,9 @@
         </button>
         <button onclick="switchTab('tab-http')" id="btn-tab-http" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-medium border border-[var(--border)] transition">
           5. Proyectos & API REST HTTP
+        </button>
+        <button onclick="switchTab('tab-examen')" id="btn-tab-examen" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-bold border border-amber-500/60 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 transition flex items-center gap-1.5 shadow-sm">
+          <span>🔥</span> Especial Examen 28 Octubre (10 Pts)
         </button>
       </nav>
     </header>
@@ -413,6 +416,508 @@
       </div>
     </section>
 
+    <!-- TAB 6: ESPECIAL EXAMEN 28 OCTUBRE -->
+    <section id="tab-examen" class="hidden space-y-6">
+      
+      <!-- Banner Cabecera Examen -->
+      <div class="bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-blue-500/10 border border-amber-500/30 rounded-2xl p-6 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 mb-2">
+              <span>📅 EXAMEN PMDM: 28 DE OCTUBRE</span>
+            </div>
+            <h2 class="text-xl md:text-2xl font-black text-[var(--foreground)] tracking-tight">
+              Guía de Preparación Intensiva: Simulacro Completo de 10 Puntos
+            </h2>
+            <p class="text-xs md:text-sm text-[var(--muted-foreground)] mt-1">
+              Desglose exhaustivo de las preguntas teóricas de Flutter (20%) y Dart (20%), modelado práctico de datos (40%) y preguntas de programación funcional (20%).
+            </p>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+            <div class="bg-[var(--card)]/80 p-2.5 rounded-xl border border-[var(--border)]">
+              <span class="text-amber-400 font-bold block text-sm">2.0 pts</span>
+              <span class="text-[var(--muted-foreground)] text-[10px]">Flutter Teórico</span>
+            </div>
+            <div class="bg-[var(--card)]/80 p-2.5 rounded-xl border border-[var(--border)]">
+              <span class="text-cyan-400 font-bold block text-sm">2.0 pts</span>
+              <span class="text-[var(--muted-foreground)] text-[10px]">Dart Teórico</span>
+            </div>
+            <div class="bg-[var(--card)]/80 p-2.5 rounded-xl border border-[var(--border)]">
+              <span class="text-emerald-400 font-bold block text-sm">4.0 pts</span>
+              <span class="text-[var(--muted-foreground)] text-[10px]">Modelado Práctico</span>
+            </div>
+            <div class="bg-[var(--card)]/80 p-2.5 rounded-xl border border-[var(--border)]">
+              <span class="text-purple-400 font-bold block text-sm">2.0 pts</span>
+              <span class="text-[var(--muted-foreground)] text-[10px]">Funcional (6 Pregs)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOQUE 1: FLUTTER TEÓRICO (2 PUNTOS) -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+        <div class="flex items-center gap-2 border-b border-[var(--border)] pb-3">
+          <span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-sm">01</span>
+          <div>
+            <h3 class="text-base font-bold text-[var(--foreground)]">Preguntas Teóricas sobre Flutter (20% - 2 Puntos)</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Conceptos de plataforma, tipos de aplicaciones y ficheros clave</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <!-- Qué es Flutter -->
+          <div class="p-4 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-2">
+            <h4 class="font-bold text-blue-400 flex items-center gap-1.5">
+              <span>🚀</span> ¿Qué es Flutter?
+            </h4>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              Es un <strong>SDK (Software Development Kit)</strong> y framework de código abierto creado por <strong>Google en 2017</strong> para el desarrollo de aplicaciones multiplataforma. Permite compilar a partir de una única base de código fuente hacia código nativo específico para cada plataforma (Android, iOS, Web, Windows, macOS, Linux).
+            </p>
+            <ul class="list-disc list-inside text-[var(--muted-foreground)] space-y-1">
+              <li><strong>Núcleo (Core):</strong> Escrito en C++ con motor de renderizado (Skia / Impeller).</li>
+              <li><strong>Lenguaje:</strong> Dart (desarrollado también por Google en 2011).</li>
+              <li><strong>Filosofía de renderizado:</strong> No usa componentes nativos ni WebViews; dibuja cada píxel directamente en un canvas nativo a 60/120 FPS.</li>
+            </ul>
+          </div>
+
+          <!-- Modos de Compilación JIT vs AOT -->
+          <div class="p-4 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-2">
+            <h4 class="font-bold text-emerald-400 flex items-center gap-1.5">
+              <span>⚙️</span> Compilación: JIT vs AOT
+            </h4>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              Dart y Flutter combinan dos estrategias de compilación únicas:
+            </p>
+            <div class="space-y-2">
+              <div class="p-2 rounded bg-black/20">
+                <strong class="text-amber-400">JIT (Just-In-Time):</strong> Se usa en fase de <em>desarrollo (debug)</em>. El código se compila sobre la marcha en la máquina virtual, lo que permite la función de <strong>Stateful Hot Reload</strong> (aplicar cambios en milisegundos sin reiniciar la app ni perder el estado).
+              </div>
+              <div class="p-2 rounded bg-black/20">
+                <strong class="text-emerald-400">AOT (Ahead-Of-Time):</strong> Se usa en fase de <em>producción (release)</em>. El código Dart se compila antes de ejecutarse directamente a código máquina nativo (ARM o x86), ofreciendo arranque ultrarrápido y máximo rendimiento.
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparativa de Tipos de Aplicaciones y PWA -->
+          <div class="p-4 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-2 md:col-span-2">
+            <h4 class="font-bold text-purple-400 flex items-center gap-1.5">
+              <span>🌐</span> Enfoques Multiplataforma: ¿Qué es una PWA y en qué se diferencia?
+            </h4>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-[var(--border)] text-[var(--foreground)]">
+                    <th class="py-2 pr-3">Tipo de Aplicación</th>
+                    <th class="py-2 pr-3">Tecnología Base</th>
+                    <th class="py-2 pr-3">Rendimiento & Acceso a Hardware</th>
+                    <th class="py-2">Características Clave</th>
+                  </tr>
+                </thead>
+                <tbody class="text-[var(--muted-foreground)] divide-y divide-[var(--border)]">
+                  <tr>
+                    <td class="py-2 pr-3 font-semibold text-[var(--foreground)]">Nativa</td>
+                    <td class="py-2 pr-3">Kotlin/Java (Android), Swift (iOS)</td>
+                    <td class="py-2 pr-3 text-emerald-400">Máximo / Acceso total al 100%</td>
+                    <td class="py-2">Código específico por SO; coste de desarrollo x2.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 pr-3 font-semibold text-[var(--foreground)]">Web Responsive</td>
+                    <td class="py-2 pr-3">HTML5, CSS3, JavaScript</td>
+                    <td class="py-2 pr-3 text-red-400">Bajo / Sin acceso a hardware directo</td>
+                    <td class="py-2">Corre dentro del navegador web del dispositivo.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 pr-3 font-semibold text-[var(--foreground)]">Híbrida (Ionic, Cordova)</td>
+                    <td class="py-2 pr-3">Web envuelta en un <strong>WebView</strong></td>
+                    <td class="py-2 pr-3 text-amber-400">Medio / Acceso puenteado (plugins)</td>
+                    <td class="py-2">Navegador camuflado sin barra; experiencia no 100% fluida.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 pr-3 font-semibold text-cyan-400">PWA (Progressive Web App)</td>
+                    <td class="py-2 pr-3">Web + <strong>Service Workers</strong> + Manifest</td>
+                    <td class="py-2 pr-3 text-cyan-400">Medio-Alto / Notificaciones, offline</td>
+                    <td class="py-2">Instalable en escritorio/móvil, almacena caché local con <em>Service Workers</em>, funciona sin conexión.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 pr-3 font-semibold text-emerald-400">Compilada (Flutter)</td>
+                    <td class="py-2 pr-3">Dart + Canvas propio nativo</td>
+                    <td class="py-2 pr-3 text-emerald-400">Casi nativo (60/120 fps) / Acceso total</td>
+                    <td class="py-2">Mismo código fuente compilado directamente a binario nativo.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-xs text-amber-300 bg-amber-500/10 p-2.5 rounded-lg border border-amber-500/20">
+              <strong>Definición Clave para el Examen:</strong> Una <strong>PWA (Progressive Web Application)</strong> es una aplicación web enriquecida que, mediante el uso de <em>Service Workers</em> (scripts en segundo plano) y un archivo <em>manifest.json</em>, ofrece una experiencia similar a una app nativa: capacidad de funcionar sin conexión (offline), recibir notificaciones push y ser instalada en la pantalla de inicio sin pasar por tiendas como Google Play o App Store.
+            </p>
+          </div>
+
+          <!-- Archivos de Configuración Clave -->
+          <div class="p-4 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-2 md:col-span-2">
+            <h4 class="font-bold text-amber-400 flex items-center gap-1.5">
+              <span>📁</span> Archivos de Configuración de un Proyecto Flutter / Dart
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="p-2.5 rounded-lg bg-black/20 border border-[var(--border)]">
+                <span class="text-emerald-400 font-mono font-bold block">pubspec.yaml</span>
+                <p class="text-[var(--muted-foreground)] mt-0.5">
+                  El corazón de la configuración en formato YAML. Declara los metadatos del proyecto (nombre, descripción, versión), la versión mínima del SDK de Dart/Flutter, las dependencias de librerías (<code class="text-cyan-300">dependencies</code> y <code class="text-cyan-300">dev_dependencies</code>) y los recursos multimedia (imágenes, fuentes tipográficas, iconos).
+                </p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-black/20 border border-[var(--border)]">
+                <span class="text-amber-400 font-mono font-bold block">pubspec.lock</span>
+                <p class="text-[var(--muted-foreground)] mt-0.5">
+                  Archivo generado automáticamente por el gestor de paquetes <code class="text-cyan-300">pub</code>. Guarda la versión <em>exacta y fija</em> de cada paquete descargado junto a todas sus dependencias transitivas, asegurando que todos los miembros del equipo utilicen exactamente las mismas versiones.
+                </p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-black/20 border border-[var(--border)]">
+                <span class="text-cyan-400 font-mono font-bold block">analysis_options.yaml</span>
+                <p class="text-[var(--muted-foreground)] mt-0.5">
+                  Configura las directrices del analizador estático de código (<code class="text-cyan-300">dart analyze</code>). Define el conjunto de reglas de estilo y buenas prácticas (como los paquetes oficiales <code class="text-cyan-300">lints</code> o <code class="text-cyan-300">flutter_lints</code>) para advertir sobre errores potenciales, variables sin usar o tipos incorrectos.
+                </p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-black/20 border border-[var(--border)]">
+                <span class="text-purple-400 font-mono font-bold block">.metadata & .gitignore</span>
+                <p class="text-[var(--muted-foreground)] mt-0.5">
+                  <code class="text-purple-400">.metadata</code> es un archivo oculto utilizado internamente por la herramienta CLI de Flutter para rastrear las propiedades del proyecto. <code class="text-purple-400">.gitignore</code> especifica qué carpetas temporales y compiladas (como <code class="text-cyan-300">build/</code> y <code class="text-cyan-300">.dart_tool/</code>) no deben subirse al repositorio Git.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOQUE 2: DART TEÓRICO (2 PUNTOS) -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+        <div class="flex items-center gap-2 border-b border-[var(--border)] pb-3">
+          <span class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-sm">02</span>
+          <div>
+            <h3 class="text-base font-bold text-[var(--foreground)]">Preguntas Teóricas sobre Dart (20% - 2 Puntos)</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Sound Null Safety, operadores de nulos y tipos de argumentos</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <!-- Operadores ? y ! -->
+          <div class="p-4 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-3">
+            <h4 class="font-bold text-cyan-400 flex items-center gap-1.5">
+              <span>🛡️</span> ¿Qué es el ? y qué es el ! en Dart?
+            </h4>
+            <div class="space-y-2">
+              <div class="p-2.5 rounded-lg bg-black/20">
+                <span class="text-amber-400 font-bold block">1. El operador ? (Declaración Nullable)</span>
+                <p class="text-[var(--muted-foreground)] mt-1">
+                  En Dart moderno rige <strong>Sound Null Safety</strong>: por defecto, ningún tipo puede almacenar <code class="text-rose-400">null</code>. Al añadir <code class="text-amber-300">?</code> después del tipo (<code class="text-cyan-300">String? nombre</code> o <code class="text-cyan-300">int? edad</code>), le indicamos explícitamente al compilador que esa variable <em>sí tiene permitido</em> contener el valor <code class="text-rose-400">null</code>.
+                </p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-black/20">
+                <span class="text-rose-400 font-bold block">2. El operador ! (Null Assertion Operator)</span>
+                <p class="text-[var(--muted-foreground)] mt-1">
+                  Se utiliza para convertir un tipo nullable en su versión no-nullable. Le decimos al compilador: <em>"Te garantizo al 100% que esta variable no es null en este momento"</em>.
+                </p>
+                <div class="bg-black/30 p-2 rounded font-mono text-[11px] text-[var(--muted-foreground)] mt-1">
+                  String? textoNulo;<br>
+                  String texto = textoNulo!; // ⚠️ Si resulta ser null, arroja NullError en ejecución
+                </div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-black/20">
+                <span class="text-emerald-400 font-bold block">3. Operadores relacionados imprescindibles:</span>
+                <p class="text-[var(--muted-foreground)] mt-1">
+                  • <code class="text-cyan-300">??</code> (Null Coalescing): <code class="text-emerald-300">var x = a ?? "Valor por defecto";</code> (devuelve <code class="text-cyan-300">a</code> si no es nulo; si es nulo, devuelve la derecha).<br>
+                  • <code class="text-cyan-300">??=</code> (Asignación condicional): <code class="text-emerald-300">x ??= 10;</code> (asigna 10 únicamente si <code class="text-cyan-300">x</code> actualmente vale <code class="text-rose-400">null</code>).<br>
+                  • <code class="text-cyan-300">?.</code> (Acceso seguro): <code class="text-emerald-300">objeto?.metodo()</code> (si el objeto es null, devuelve null sin lanzar excepción).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Argumentos Nombrados -->
+          <div class="p-4 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-3">
+            <h4 class="font-bold text-emerald-400 flex items-center gap-1.5">
+              <span>🔤</span> ¿Qué son los Argumentos Nombrados?
+            </h4>
+            <p class="text-[var(--muted-foreground)] leading-relaxed">
+              Son parámetros encerrados entre llaves <code class="text-cyan-300">{ }</code> en la definición de funciones o constructores. A diferencia de los argumentos posicionales tradicionales, los argumentos nombrados:
+            </p>
+            <ul class="list-disc list-inside text-[var(--muted-foreground)] space-y-1">
+              <li><strong>El orden no importa:</strong> Al invocar la función, se especifican mediante su nombre (<code class="text-cyan-300">nombre: 'Kevin', edad: 24</code>).</li>
+              <li><strong>Mayor legibilidad:</strong> El código es autodocumentado y previene confusiones cuando hay muchos parámetros.</li>
+              <li><strong>Opcionales o Requeridos:</strong> Por defecto son opcionales (pueden tener valor por defecto o ser nullables). Si usamos la palabra clave <code class="text-amber-300 font-bold">required</code>, el compilador obliga a pasarlos por nombre de forma obligatoria.</li>
+            </ul>
+
+            <div class="bg-black/30 p-2.5 rounded-lg font-mono text-[11px] space-y-1.5">
+              <span class="text-code-comment">// Definición con argumentos nombrados:</span><br>
+              <span class="text-code-type">void</span> <span class="text-code-func">crearUsuario</span>({<br>
+              &nbsp;&nbsp;<span class="text-amber-400">required</span> <span class="text-code-type">String</span> nombre,<br>
+              &nbsp;&nbsp;<span class="text-code-type">int</span> edad = <span class="text-code-string">18</span>,<br>
+              &nbsp;&nbsp;<span class="text-code-type">String?</span> telefono,<br>
+              }) { ... }<br><br>
+              <span class="text-code-comment">// Invocación (orden indistinto):</span><br>
+              crearUsuario(edad: <span class="text-code-string">24</span>, nombre: <span class="text-code-string">"Kevin"</span>);
+            </div>
+          </div>
+
+          <!-- Diferencia final vs const vs late -->
+          <div class="p-4 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-2 md:col-span-2">
+            <h4 class="font-bold text-amber-400 flex items-center gap-1.5">
+              <span>⚖️</span> Pregunta Clásica: ¿Cuál es la diferencia entre final y const?
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div class="p-2.5 rounded-lg bg-black/20 border border-[var(--border)]">
+                <span class="text-purple-400 font-bold font-mono">const (Tiempo de compilación)</span>
+                <p class="text-[var(--muted-foreground)] mt-1">
+                  El valor se calcula y fija <strong>en tiempo de compilación</strong>. Debe conocerse antes de que el programa arranque. Es profundamente inmutable (congelado en memoria).<br>
+                  <code class="text-emerald-300 font-mono text-[11px]">const pi = 3.14159;</code>
+                </p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-black/20 border border-[var(--border)]">
+                <span class="text-cyan-400 font-bold font-mono">final (Tiempo de ejecución)</span>
+                <p class="text-[var(--muted-foreground)] mt-1">
+                  Se asigna <strong>una única vez en tiempo de ejecución</strong> (por ejemplo, el resultado de <code class="text-cyan-300">DateTime.now()</code> o una respuesta HTTP). Una vez asignada su referencia, no puede reasignarse a otra variable.<br>
+                  <code class="text-emerald-300 font-mono text-[11px]">final fechaActual = DateTime.now();</code>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOQUE 3: MODELADO PRÁCTICO (4 PUNTOS) -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+        <div class="flex items-center gap-2 border-b border-[var(--border)] pb-3">
+          <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">03</span>
+          <div>
+            <h3 class="text-base font-bold text-[var(--foreground)]">Parte Práctica: Modelado de Datos - Asociación de Estudiantes (40% - 4 Puntos)</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Jerarquía de clases, herencia, cálculo de edad y consumo de API asíncrono/síncrono</p>
+          </div>
+        </div>
+
+        <div class="space-y-3 text-xs text-[var(--muted-foreground)]">
+          <p>
+            <strong>Enunciado:</strong> Asociación de estudiantes donde almacenamos estudiantes (nombre, apellido, DNI, fecha de nacimiento, curso). Algunos son <em>Delegados</em> (+clase gestionada); otros son de <em>Intercambio</em> (+país de origen y duración estancia). Cursos (código, nombre, descripción) y <em>Matrícula</em> (año, lista de alumnos y curso). Obtener edad con <code class="text-cyan-300">DateTime.now()</code> y rellenar cursos desde <code class="text-cyan-300">https://api.asociacion/cursos</code> primero de forma asíncrona y luego síncrona.
+          </p>
+
+          <!-- Código fuente modelado completo -->
+          <div class="bg-black/40 border border-[var(--border)] rounded-xl p-4 font-mono text-[11px] overflow-x-auto space-y-1 text-slate-200">
+<span class="text-code-keyword">import</span> <span class="text-code-string">'dart:convert'</span>;
+<span class="text-code-keyword">import</span> <span class="text-code-string">'package:http/http.dart'</span> <span class="text-code-keyword">as</span> http;
+
+<span class="text-code-comment">// 1. CLASE CURSO</span>
+<span class="text-code-keyword">class</span> <span class="text-code-type">Curso</span> {
+  <span class="text-code-keyword">final</span> <span class="text-code-type">String</span> codigo;
+  <span class="text-code-keyword">final</span> <span class="text-code-type">String</span> nombre;
+  <span class="text-code-keyword">final</span> <span class="text-code-type">String</span> descripcion;
+
+  <span class="text-code-type">Curso</span>({
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.codigo,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.nombre,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.descripcion,
+  });
+
+  <span class="text-code-comment">// Constructor con nombre (factory) para deserializar desde JSON</span>
+  <span class="text-code-keyword">factory</span> <span class="text-code-type">Curso</span>.fromJson(<span class="text-code-type">Map</span>&lt;<span class="text-code-type">String</span>, <span class="text-code-type">dynamic</span>&gt; json) {
+    <span class="text-code-keyword">return</span> <span class="text-code-type">Curso</span>(
+      codigo: json[<span class="text-code-string">'codigo'</span>] ?? <span class="text-code-string">''</span>,
+      nombre: json[<span class="text-code-string">'nombre'</span>] ?? <span class="text-code-string">''</span>,
+      descripcion: json[<span class="text-code-string">'descripcion'</span>] ?? <span class="text-code-string">''</span>,
+    );
+  }
+}
+
+<span class="text-code-comment">// 2. CLASE ESTUDIANTE (SUPERCLASE)</span>
+<span class="text-code-keyword">class</span> <span class="text-code-type">Estudiante</span> {
+  <span class="text-code-keyword">final</span> <span class="text-code-type">String</span> nombre;
+  <span class="text-code-keyword">final</span> <span class="text-code-type">String</span> apellido;
+  <span class="text-code-keyword">final</span> <span class="text-code-type">String</span> dni;
+  <span class="text-code-keyword">final</span> <span class="text-code-type">DateTime</span> fechaNacimiento;
+  <span class="text-code-type">Curso</span> curso;
+
+  <span class="text-code-type">Estudiante</span>({
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.nombre,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.apellido,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.dni,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.fechaNacimiento,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.curso,
+  });
+
+  <span class="text-code-comment">// MÉTODO GET: Calcula la edad usando DateTime.now()</span>
+  <span class="text-code-type">int</span> <span class="text-code-keyword">get</span> edad {
+    <span class="text-code-keyword">final</span> <span class="text-code-type">DateTime</span> ahora = <span class="text-code-type">DateTime</span>.now();
+    <span class="text-code-type">int</span> calculo = ahora.year - fechaNacimiento.year;
+    <span class="text-code-comment">// Comprueba si ya ha cumplido años este año:</span>
+    <span class="text-code-keyword">if</span> (ahora.month &lt; fechaNacimiento.month ||
+        (ahora.month == fechaNacimiento.month &amp;&amp; ahora.day &lt; fechaNacimiento.day)) {
+      calculo--;
+    }
+    <span class="text-code-keyword">return</span> calculo;
+  }
+}
+
+<span class="text-code-comment">// 3. SUBCLASE DELEGADO (Hereda de Estudiante)</span>
+<span class="text-code-keyword">class</span> <span class="text-code-type">Delegado</span> <span class="text-code-keyword">extends</span> <span class="text-code-type">Estudiante</span> {
+  <span class="text-code-keyword">final</span> <span class="text-code-type">String</span> claseGestionada;
+
+  <span class="text-code-type">Delegado</span>({
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.nombre,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.apellido,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.dni,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.fechaNacimiento,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.curso,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.claseGestionada,
+  });
+}
+
+<span class="text-code-comment">// 4. SUBCLASE ESTUDIANTE DE INTERCAMBIO (Hereda de Estudiante)</span>
+<span class="text-code-keyword">class</span> <span class="text-code-type">EstudianteIntercambio</span> <span class="text-code-keyword">extends</span> <span class="text-code-type">Estudiante</span> {
+  <span class="text-code-keyword">final</span> <span class="text-code-type">String</span> paisOrigen;
+  <span class="text-code-keyword">final</span> <span class="text-code-type">String</span> duracionEstancia;
+
+  <span class="text-code-type">EstudianteIntercambio</span>({
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.nombre,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.apellido,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.dni,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.fechaNacimiento,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">super</span>.curso,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.paisOrigen,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.duracionEstancia,
+  });
+}
+
+<span class="text-code-comment">// 5. CLASE MATRÍCULA</span>
+<span class="text-code-keyword">class</span> <span class="text-code-type">Matricula</span> {
+  <span class="text-code-keyword">final</span> <span class="text-code-type">int</span> anio;
+  <span class="text-code-keyword">final</span> <span class="text-code-type">List</span>&lt;<span class="text-code-type">Estudiante</span>&gt; alumnos;
+  <span class="text-code-keyword">final</span> <span class="text-code-type">Curso</span> curso;
+
+  <span class="text-code-type">Matricula</span>({
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.anio,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.alumnos,
+    <span class="text-code-keyword">required</span> <span class="text-code-keyword">this</span>.curso,
+  });
+}
+          </div>
+
+          <!-- Métodos API Asíncrono vs Síncrono Explicados -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+            <div class="p-3 rounded-xl bg-black/20 border border-[var(--border)] space-y-2">
+              <strong class="text-cyan-400 block font-bold">📡 Método Asíncrono (con .then o async/await)</strong>
+              <p class="text-[var(--muted-foreground)]">
+                No bloquea el hilo principal. La petición se resuelve en el <em>Event Loop</em>:
+              </p>
+              <div class="bg-black/30 p-2 rounded font-mono text-[11px]">
+<span class="text-code-comment">// Opción con .then (como en UD 2.5):</span>
+<span class="text-code-type">void</span> cargarCursosAsync(<span class="text-code-type">List</span>&lt;<span class="text-code-type">Curso</span>&gt; lista) {
+  <span class="text-code-keyword">final</span> url = <span class="text-code-type">Uri</span>.parse(<span class="text-code-string">'https://api.asociacion/cursos'</span>);
+  http.get(url).then((res) {
+    <span class="text-code-keyword">if</span> (res.statusCode == <span class="text-code-string">200</span>) {
+      <span class="text-code-keyword">final</span> raw = jsonDecode(utf8.decode(res.bodyBytes)) <span class="text-code-keyword">as</span> <span class="text-code-type">List</span>;
+      lista.clear();
+      lista.addAll(raw.map((e) =&gt; <span class="text-code-type">Curso</span>.fromJson(e)));
+    }
+  });
+}
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-black/20 border border-[var(--border)] space-y-2">
+              <strong class="text-emerald-400 block font-bold">⏳ Método Síncrono / Secuencial</strong>
+              <p class="text-[var(--muted-foreground)]">
+                En el temario de PMDM, <em>"comportamiento síncrono"</em> se logra con <strong>await</strong> para pausar y esperar la respuesta secuencialmente antes de continuar:
+              </p>
+              <div class="bg-black/30 p-2 rounded font-mono text-[11px]">
+<span class="text-code-comment">// Secuencial con await (comportamiento síncrono):</span>
+<span class="text-code-type">Future</span>&lt;<span class="text-code-type">void</span>&gt; cargarCursosSincrono(<span class="text-code-type">List</span>&lt;<span class="text-code-type">Curso</span>&gt; lista) <span class="text-code-keyword">async</span> {
+  <span class="text-code-keyword">final</span> url = <span class="text-code-type">Uri</span>.parse(<span class="text-code-string">'https://api.asociacion/cursos'</span>);
+  <span class="text-code-keyword">final</span> res = <span class="text-code-keyword">await</span> http.get(url); <span class="text-code-comment">// Espera aquí</span>
+  <span class="text-code-keyword">if</span> (res.statusCode == <span class="text-code-string">200</span>) {
+    <span class="text-code-keyword">final</span> raw = jsonDecode(utf8.decode(res.bodyBytes)) <span class="text-code-keyword">as</span> <span class="text-code-type">List</span>;
+    lista.clear();
+    lista.addAll(raw.map((e) =&gt; <span class="text-code-type">Curso</span>.fromJson(e)));
+  }
+}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOQUE 4: 6 PREGUNTAS FUNCIONALES (2 PUNTOS) -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
+        <div class="flex items-center gap-2 border-b border-[var(--border)] pb-3">
+          <span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">04</span>
+          <div>
+            <h3 class="text-base font-bold text-[var(--foreground)]">Programación Funcional y Colecciones: 6 Preguntas Clave (20% - 2 Puntos)</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Modelos representativos de las 60 preguntas explicados paso a paso</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <!-- P1: where -->
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-1.5">
+            <span class="text-amber-400 font-bold block">1. Filtro con where: Números pares mayores que 0</span>
+            <p class="text-[var(--muted-foreground)]">Retorna un iterable con los elementos que satisfacen la condición booleana:</p>
+            <div class="bg-black/30 p-2 rounded font-mono text-[11px] text-slate-200">
+              <span class="text-code-keyword">final</span> paresPositivos = numeros.where((n) =&gt; n &gt; <span class="text-code-string">0</span> &amp;&amp; n % <span class="text-code-string">2</span> == <span class="text-code-string">0</span>).toList();
+            </div>
+          </div>
+
+          <!-- P2: map -->
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-1.5">
+            <span class="text-cyan-400 font-bold block">2. Transformación con map: Modificar cada elemento</span>
+            <p class="text-[var(--muted-foreground)]">Transforma una lista en otra del mismo tamaño aplicando una función flecha:</p>
+            <div class="bg-black/30 p-2 rounded font-mono text-[11px] text-slate-200">
+              <span class="text-code-keyword">final</span> mayusculas = palabras.map((p) =&gt; p.toUpperCase()).toList();
+            </div>
+          </div>
+
+          <!-- P3: reduce -->
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-1.5">
+            <span class="text-emerald-400 font-bold block">3. Reducción con reduce: Calcular el elemento máximo o suma</span>
+            <p class="text-[var(--muted-foreground)]">Combina iterativamente los elementos dos a dos hasta dejar un único resultado:</p>
+            <div class="bg-black/30 p-2 rounded font-mono text-[11px] text-slate-200">
+              <span class="text-code-keyword">final</span> maximo = numeros.reduce((max, n) =&gt; n &gt; max ? n : max);<br>
+              <span class="text-code-keyword">final</span> sumaTotal = numeros.reduce((acc, n) =&gt; acc + n);
+            </div>
+          </div>
+
+          <!-- P4: fold -->
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-1.5">
+            <span class="text-purple-400 font-bold block">4. Acumulación con fold: Valor inicial y tipado personalizado</span>
+            <p class="text-[var(--muted-foreground)]">Ideal cuando la colección contiene Maps u objetos y quieres calcular un total:</p>
+            <div class="bg-black/30 p-2 rounded font-mono text-[11px] text-slate-200">
+              <span class="text-code-keyword">final</span> totalStock = productos.fold&lt;<span class="text-code-type">double</span>&gt;(<br>
+              &nbsp;&nbsp;<span class="text-code-string">0.0</span>,<br>
+              &nbsp;&nbsp;(acc, item) =&gt; acc + (item[<span class="text-code-string">'precio'</span>] * item[<span class="text-code-string">'stock'</span>])<br>
+              );
+            </div>
+          </div>
+
+          <!-- P5: every y any -->
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-1.5">
+            <span class="text-rose-400 font-bold block">5. Validación con any y every: Predicados booleanos</span>
+            <p class="text-[var(--muted-foreground)]"><code class="text-cyan-300">every</code> (¿cumplen todos?) y <code class="text-cyan-300">any</code> (¿cumple al menos uno?):</p>
+            <div class="bg-black/30 p-2 rounded font-mono text-[11px] text-slate-200">
+              <span class="text-code-keyword">bool</span> hayAgotados = productos.any((p) =&gt; p[<span class="text-code-string">'stock'</span>] == <span class="text-code-string">0</span>);<br>
+              <span class="text-code-keyword">bool</span> todosTienenPrecio = productos.every((p) =&gt; p[<span class="text-code-string">'precio'</span>] &gt; <span class="text-code-string">0</span>);
+            </div>
+          </div>
+
+          <!-- P6: Encadenamiento combinado -->
+          <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] space-y-1.5">
+            <span class="text-blue-400 font-bold block">6. Encadenamiento Combinado: where + map + join</span>
+            <p class="text-[var(--muted-foreground)]">Filtrar por categoría 'Electrónica' con stock disponible y unir sus nombres:</p>
+            <div class="bg-black/30 p-2 rounded font-mono text-[11px] text-slate-200">
+              <span class="text-code-keyword">final</span> texto = productos<br>
+              &nbsp;&nbsp;.where((p) =&gt; p[<span class="text-code-string">'categoria'</span>] == <span class="text-code-string">'Electrónica'</span> &amp;&amp; p[<span class="text-code-string">'stock'</span>] &gt; <span class="text-code-string">0</span>)<br>
+              &nbsp;&nbsp;.map((p) =&gt; p[<span class="text-code-string">'nombre'</span>] <span class="text-code-keyword">as</span> <span class="text-code-type">String</span>)<br>
+              &nbsp;&nbsp;.join(<span class="text-code-string">', '</span>);
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
     <!-- Interactive Execution Guide Footer Card -->
     <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 space-y-4">
       <div class="flex items-center justify-between">
@@ -427,31 +932,31 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
         <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] flex justify-between items-center">
           <div>
-            <strong class="text-emerald-400 block">Menú Maestro (Todos juntos)</strong>
-            <span class="text-[var(--muted-foreground)]">Lanzador interactivo</span>
+            <strong class="text-emerald-400 block">Simulacro Práctico: Asociación de Estudiantes</strong>
+            <span class="text-[var(--muted-foreground)]">Clases, Herencia, Getter edad y API REST</span>
           </div>
-          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/menu_ejercicios.dart</code>
+          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run test_examen/practica_asociacion_estudiantes.dart</code>
+        </div>
+        <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] flex justify-between items-center">
+          <div>
+            <strong class="text-purple-400 block">6 Preguntas de Programación Funcional</strong>
+            <span class="text-[var(--muted-foreground)]">where, map, reduce, fold, any, every</span>
+          </div>
+          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run test_examen/seis_preguntas_funcionales.dart</code>
         </div>
         <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] flex justify-between items-center">
           <div>
             <strong class="text-cyan-400 block">Healthys Express CLI (UD 2.3 & 2.5)</strong>
             <span class="text-[var(--muted-foreground)]">Consumo de API con tarjetas</span>
           </div>
-          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/healthys_cli.dart</code>
-        </div>
-        <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] flex justify-between items-center">
-          <div>
-            <strong class="text-purple-400 block">Las 60 Preguntas (UD 2.2)</strong>
-            <span class="text-[var(--muted-foreground)]">Programación funcional completa</span>
-          </div>
-          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/the_sixty_questions.dart</code>
+          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/ud2_5_projectes_http/act_02_healthys_cli.dart</code>
         </div>
         <div class="p-3 rounded-xl bg-[var(--sidebar)] border border-[var(--border)] flex justify-between items-center">
           <div>
             <strong class="text-amber-400 block">Demostraciones Asíncronas (UD 2.4)</strong>
             <span class="text-[var(--muted-foreground)]">Futures, Event Loop y Streams</span>
           </div>
-          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/exercicis_async.dart</code>
+          <code class="text-[var(--foreground)] font-mono bg-black/20 px-2 py-1 rounded">dart run bin/ud2_4_asincronia/act_04_event_loop.dart</code>
         </div>
       </div>
     </div>
@@ -461,7 +966,7 @@
   <script>
     function switchTab(tabId) {
       // Hide all tabs
-      const tabs = ['tab-intro', 'tab-functions', 'tab-oop', 'tab-async', 'tab-http'];
+      const tabs = ['tab-intro', 'tab-functions', 'tab-oop', 'tab-async', 'tab-http', 'tab-examen'];
       tabs.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.add('hidden');

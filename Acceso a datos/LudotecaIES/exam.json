@@ -1,0 +1,18 @@
+{
+  "word": "exam",
+  "results": [{
+    "synonyms": [
+      "examination",
+      "test"
+    ],
+    "partOfSpeech": "noun",
+    "definition": "a test of knowledge or skill"
+  }],
+  "syllables": {
+    "count": 2,
+    "list": [
+      "ex",
+      "am"
+    ]
+  }
+}

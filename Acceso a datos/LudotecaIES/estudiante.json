@@ -1,11 +1,11 @@
 {
-  "apellidos": "MuñozCorcoles",
+  "apellidos": "Muñoz Corcoles",
   "curso": "2º DAM",
-  "nombre": "Kevin ",
+  "nombre": "Kevin",
   "edad": 21,
   "asignaturas": [
-    "Ingles",
+    "Inglés",
     "Proyecto Intermodular",
-    "Programacion"
+    "Programación"
   ]
 }
