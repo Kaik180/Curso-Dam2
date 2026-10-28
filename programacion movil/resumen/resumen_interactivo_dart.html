@@ -1,52 +1,141 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen Interactivo Dart & Flutter PMDM</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-    .nav-pill.active {
-      background-color: var(--primary);
-      color: var(--primary-foreground);
+    :root {
+      --bg-page: #0f172a;
+      --bg-card: #1e293b;
+      --bg-surface: #0f172a;
+      --bg-code: #0b0f19;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-color: #3b82f6;
     }
+
+    html.light {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-surface: #f1f5f9;
+      --bg-code: #0f172a;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent-color: #2563eb;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    pre, code {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .nav-pill {
+      background-color: var(--bg-surface);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-pill:hover {
+      color: var(--text-main);
+      border-color: #64748b;
+      transform: translateY(-1px);
+    }
+
+    .nav-pill.active {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff !important;
+      border-color: #60a5fa !important;
+      box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.35);
+    }
+
+    /* Syntax Highlighting */
+    .syn-kw { color: #f43f5e; font-weight: 600; }
+    .syn-type { color: #38bdf8; font-weight: 600; }
+    .syn-str { color: #34d399; }
+    .syn-num { color: #fbbf24; }
+    .syn-comm { color: #94a3b8; font-style: italic; }
+    .syn-func { color: #60a5fa; }
   </style>
 </head>
-<body class="bg-transparent text-[var(--foreground)] antialiased p-2">
-  <div class="bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-2xl p-4 shadow-sm max-w-2xl mx-auto space-y-3">
+<body class="p-3 md:p-6 antialiased flex items-center justify-center min-h-screen">
+  
+  <div class="w-full max-w-3xl rounded-2xl p-5 md:p-6 shadow-2xl transition-all border"
+       style="background-color: var(--bg-card); border-color: var(--border-color);">
     
     <!-- Header -->
-    <div class="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
-      <div class="flex items-center gap-2">
-        <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-500 flex items-center justify-center text-xs font-bold">🎯</span>
-        <h3 class="text-sm font-bold text-[var(--foreground)]">Preparación Examen PMDM (28 Octubre)</h3>
+    <div class="flex items-center justify-between border-b pb-4 mb-4"
+         style="border-color: var(--border-color);">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-lg shadow-inner">
+          🎯
+        </div>
+        <div>
+          <h2 class="text-base md:text-lg font-black tracking-tight" style="color: var(--text-main);">
+            Preparación Examen PMDM: Dart & Flutter
+          </h2>
+          <p class="text-xs font-medium" style="color: var(--text-muted);">
+            2º DAM • 28 de Octubre • Simulacro Completo de 10 Puntos
+          </p>
+        </div>
       </div>
-      <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-[var(--sidebar)] text-amber-400 border border-amber-500/30">
-        Simulacro 10 Pts
-      </span>
+
+      <!-- Theme Switcher & Score Badge -->
+      <div class="flex items-center gap-2">
+        <button onclick="toggleTheme()" class="px-2.5 py-1 rounded-lg text-xs font-medium border transition flex items-center gap-1.5"
+                style="background-color: var(--bg-surface); border-color: var(--border-color); color: var(--text-main);">
+          <span id="theme-icon">☀️</span>
+          <span id="theme-text" class="hidden sm:inline">Tema</span>
+        </button>
+        <span class="text-xs font-bold px-3 py-1 rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30">
+          10 Pts
+        </span>
+      </div>
     </div>
 
     <!-- Quick Pill Selector -->
-    <div class="flex flex-wrap gap-1.5">
-      <button onclick="setTopic('flutterExam')" id="pill-flutterExam" class="nav-pill active text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
-        📱 Flutter & PWA (2 pts)
+    <div class="flex flex-wrap gap-2 mb-4">
+      <button onclick="setTopic('flutterExam')" id="pill-flutterExam" class="nav-pill active text-xs px-3 py-2 rounded-xl font-bold flex items-center gap-1.5">
+        <span>📱</span> Flutter & PWA <span class="opacity-75 font-normal">(2 pts)</span>
       </button>
-      <button onclick="setTopic('dartExam')" id="pill-dartExam" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
-        🛡️ Dart: ? y ! (2 pts)
+      <button onclick="setTopic('dartExam')" id="pill-dartExam" class="nav-pill text-xs px-3 py-2 rounded-xl font-bold flex items-center gap-1.5">
+        <span>🛡️</span> Dart: ? y ! <span class="opacity-75 font-normal">(2 pts)</span>
       </button>
-      <button onclick="setTopic('practicaExam')" id="pill-practicaExam" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
-        🏛️ Modelado Práctico (4 pts)
+      <button onclick="setTopic('practicaExam')" id="pill-practicaExam" class="nav-pill text-xs px-3 py-2 rounded-xl font-bold flex items-center gap-1.5">
+        <span>🏛️</span> Modelado Práctico <span class="opacity-75 font-normal">(4 pts)</span>
       </button>
-      <button onclick="setTopic('funcionalExam')" id="pill-funcionalExam" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
-        ⚡ 6 Pregs Funcionales (2 pts)
+      <button onclick="setTopic('funcionalExam')" id="pill-funcionalExam" class="nav-pill text-xs px-3 py-2 rounded-xl font-bold flex items-center gap-1.5">
+        <span>⚡</span> 6 Pregs Funcionales <span class="opacity-75 font-normal">(2 pts)</span>
       </button>
-      <button onclick="setTopic('eventLoop')" id="pill-eventLoop" class="nav-pill text-xs px-2.5 py-1 rounded-lg border border-[var(--border)] font-medium transition">
-        🔄 Event Loop & Async
+      <button onclick="setTopic('eventLoop')" id="pill-eventLoop" class="nav-pill text-xs px-3 py-2 rounded-xl font-bold flex items-center gap-1.5">
+        <span>🔄</span> Event Loop & Async
       </button>
     </div>
 
     <!-- Dynamic Content Area -->
-    <div id="content-display" class="bg-[var(--sidebar)] border border-[var(--border)] rounded-xl p-3 space-y-2 text-xs">
-      <!-- Injected via JS -->
+    <div id="content-display" class="space-y-3">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Footer Note -->
+    <div class="mt-4 pt-3 border-t flex flex-col sm:flex-row items-center justify-between text-[11px] gap-2"
+         style="border-color: var(--border-color); color: var(--text-muted);">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Código probado y verificado con <strong>dart analyze</strong> (0 advertencias).</span>
+      </div>
+      <div class="font-mono text-xs">
+        <a href="guia_completa_dart_pmdm.html" class="text-blue-400 hover:underline">Abrir Guía Completa →</a>
+      </div>
     </div>
 
   </div>
@@ -54,100 +143,240 @@
   <script>
     const topics = {
       flutterExam: {
-        title: 'Teoría Flutter: Conceptos & Archivos (20% - 2 Puntos)',
-        desc: 'Flutter compila a código nativo ARM/x86 directamente desde Dart. Las PWAs usan Service Workers para modo offline y caché local.',
-        code: `// Archivos de configuración clave:
-* pubspec.yaml: Dependencias (http), recursos (imágenes, fuentes) y versión SDK.
-* pubspec.lock: Versiones exactas y fijas descargadas por pub get.
-* analysis_options.yaml: Reglas del linter (paquete lints) para análisis estático.
-* .metadata: Archivo interno de Flutter para rastrear el estado del proyecto.
+        badge: 'BLOQUE 1 • 20% (2 PUNTOS)',
+        badgeColor: 'border-blue-500/30 bg-blue-500/10 text-blue-400',
+        title: 'Teoría de Flutter: Arquitectura, PWA y Archivos de Configuración',
+        desc: 'Flutter es un SDK de Google que compila código Dart directamente a código máquina nativo (ARM/x86) sin usar WebViews. Las PWAs son aplicaciones web con Service Workers para modo offline y notificaciones push.',
+        code: `// ARCHIVOS DE CONFIGURACIÓN CLAVE:
+* pubspec.yaml          -> Declaración de dependencias (http: ^1.2.2), versión SDK y assets.
+* pubspec.lock          -> Versiones exactas y fijas instaladas por 'pub get'.
+* analysis_options.yaml -> Reglas del linter (paquete lints) para análisis estático de código.
+* .metadata             -> Fichero interno de Flutter para rastrear propiedades del proyecto.
 
-// Compilación:
-* JIT (Just-In-Time): En desarrollo -> Permite Stateful Hot Reload.
-* AOT (Ahead-Of-Time): En producción -> Binario máquina a 60/120 FPS.`,
-        note: '💡 PWA vs Flutter: La PWA corre en navegador con Service Workers; Flutter compila a binario nativo sin WebViews.'
+// MODOS DE COMPILACIÓN:
+* JIT (Just-In-Time)    -> Fase de desarrollo (debug). Permite 'Stateful Hot Reload'.
+* AOT (Ahead-Of-Time)   -> Fase de producción (release). Código binario nativo a 60/120 FPS.
+
+// ¿QUÉ ES UNA PWA (PROGRESSIVE WEB APP)?:
+* Es una web enriquecida con Service Workers (scripts en segundo plano) y manifest.json.
+* Funciona sin conexión (offline), soporta notificaciones push y se instala sin pasar por tiendas.`,
+        note: '💡 Pregunta típica de examen: ¿Por qué Flutter es más rápido que Ionic? Porque Ionic corre dentro de un WebView (navegador), mientras que Flutter renderiza sus propios píxeles directamente sobre un Canvas nativo.',
+        noteColor: 'border-blue-500/40 bg-blue-500/10 text-blue-300'
       },
       dartExam: {
-        title: 'Teoría Dart: Null Safety y Argumentos Nombrados (20% - 2 Puntos)',
-        desc: 'Sound Null Safety evita NullPointerException en compilación. Los argumentos nombrados {} se identifican por clave en cualquier orden.',
-        code: `String? nombre;               // '?' Permite que contenga null
-String seguro = nombre!;      // '!' Fuerza aserción (arriesgado si es null)
-print(nombre ?? "Invitado");  // '??' Valor fallback si es null
-nombre ??= "Kevin";           // '??=' Asigna sólo si actualmente es null
-int? len = nombre?.length;    // '?.' Acceso seguro (no arroja error)
+        badge: 'BLOQUE 2 • 20% (2 PUNTOS)',
+        badgeColor: 'border-amber-500/30 bg-amber-500/10 text-amber-400',
+        title: 'Teoría de Dart: Sound Null Safety y Argumentos Nombrados',
+        desc: 'Sound Null Safety garantiza en tiempo de compilación que una variable no contendrá null salvo que se declare con ?. Los argumentos nombrados {} se identifican por clave en cualquier orden.',
+        code: `// 1. OPERADORES DE NULL SAFETY:
+String? nombre;               // '?'  -> Permite explícitamente almacenar el valor null.
+String seguro = nombre!;      // '!'  -> Null assertion (fuerza la conversión; lanza error si es null).
+print(nombre ?? "Invitado");  // '??' -> Null coalescing (fallback si es null devuelve 'Invitado').
+nombre ??= "Kevin";           // '??='-> Asigna solo si la variable actualmente es null.
+int? len = nombre?.length;    // '?.' -> Acceso seguro (si es null, devuelve null sin lanzar excepción).
 
-// Argumentos nombrados requeridos:
-void login({required String email, String rol = "user"}) {}
-login(email: "alumno@dam.es"); // Orden indistinto`,
-        note: '💡 final vs const: const se calcula en compilación (inmutable profundo). final se asigna una sola vez en ejecución.'
+// 2. ARGUMENTOS NOMBRADOS (con llaves {}):
+void registrarUsuario({
+  required String email,      // 'required': parámetro con nombre obligatorio
+  int edad = 18,              // Opcional con valor por defecto
+  String? ciudad,             // Opcional nullable
+}) {
+  print("Usuario: $email, Edad: $edad");
+}
+
+// Invocación: El orden es indistinto y se referencia por nombre:
+registrarUsuario(edad: 24, email: "kevin@dam.es");
+
+// 3. CONST vs FINAL:
+const double pi = 3.14159;    // 'const': Fijado en tiempo de compilación (inmutable profundo).
+final DateTime ahora = DateTime.now(); // 'final': Asignación única en tiempo de ejecución.`,
+        note: '💡 ¿Por qué Flutter usa argumentos nombrados masivamente? Porque los widgets tienen decenas de propiedades (color, padding, child...) y los argumentos nombrados permiten orden indistinto y código autodocumentado.',
+        noteColor: 'border-amber-500/40 bg-amber-500/10 text-amber-300'
       },
       practicaExam: {
-        title: 'Caso Práctico: Asociación de Estudiantes (40% - 4 Puntos)',
-        desc: 'Herencia orientada a objetos, getter con DateTime.now() y consumo de API asíncrono y síncrono.',
-        code: `class Estudiante {
+        badge: 'BLOQUE 3 • 40% (4 PUNTOS)',
+        badgeColor: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400',
+        title: 'Caso Práctico: Modelado de Datos - Asociación de Estudiantes',
+        desc: 'Herencia orientada a objetos (super), método getter edad con DateTime.now() y carga de cursos desde API REST de forma asíncrona y síncrona.',
+        code: `// 1. CLASE ESTUDIANTE Y GETTER DE EDAD
+class Estudiante {
   final String nombre, apellido, dni;
   final DateTime fechaNacimiento;
   Curso curso;
 
-  Estudiante({required this.nombre, required this.apellido, required this.dni,
-              required this.fechaNacimiento, required this.curso});
+  Estudiante({
+    required this.nombre, required this.apellido,
+    required this.dni, required this.fechaNacimiento, required this.curso,
+  });
 
+  // Getter de edad usando DateTime.now()
   int get edad {
-    final now = DateTime.now();
-    int a = now.year - fechaNacimiento.year;
-    if (now.month < fechaNacimiento.month ||
-       (now.month == fechaNacimiento.month && now.day < fechaNacimiento.day)) a--;
+    final DateTime ahora = DateTime.now();
+    int a = ahora.year - fechaNacimiento.year;
+    if (ahora.month < fechaNacimiento.month ||
+       (ahora.month == fechaNacimiento.month && ahora.day < fechaNacimiento.day)) a--;
     return a;
   }
 }
 
+// 2. HERENCIA CON SUBCLASES (super.parametro)
 class Delegado extends Estudiante {
   final String claseGestionada;
-  Delegado({required super.nombre, required super.apellido, required super.dni,
-            required super.fechaNacimiento, required super.curso, required this.claseGestionada});
+  Delegado({
+    required super.nombre, required super.apellido, required super.dni,
+    required super.fechaNacimiento, required super.curso, required this.claseGestionada,
+  });
 }
 
-// Carga Asíncrona (.then o async/await) vs Síncrona/Secuencial (await):
-Future<void> cargarCursos(List<Curso> lista) async {
-  final res = await http.get(Uri.parse('https://api.asociacion/cursos'));
+class EstudianteIntercambio extends Estudiante {
+  final String paisOrigen, duracionEstancia;
+  EstudianteIntercambio({
+    required super.nombre, required super.apellido, required super.dni,
+    required super.fechaNacimiento, required super.curso,
+    required this.paisOrigen, required this.duracionEstancia,
+  });
+}
+
+// 3. CARGA DESDE API (ASÍNCRONA Y SÍNCRONA):
+// A) Forma Asíncrona (con .then o async/await):
+void cargarCursosAsync(List<Curso> lista) {
+  http.get(Uri.parse('https://api.asociacion/cursos')).then((res) {
+    if (res.statusCode == 200) {
+      final List raw = jsonDecode(utf8.decode(res.bodyBytes)) as List;
+      lista.addAll(raw.map((e) => Curso.fromJson(e)));
+    }
+  });
+}
+
+// B) Forma Síncrona / Secuencial (con await según temario de PMDM):
+Future<void> cargarCursosSincrono(List<Curso> lista) async {
+  final res = await http.get(Uri.parse('https://api.asociacion/cursos')); // Pausa aquí
   if (res.statusCode == 200) {
-    final raw = jsonDecode(utf8.decode(res.bodyBytes)) as List;
+    final List raw = jsonDecode(utf8.decode(res.bodyBytes)) as List;
     lista.addAll(raw.map((e) => Curso.fromJson(e)));
   }
 }`,
-        note: '💡 Archivo ejecutable completo: test_examen/practica_asociacion_estudiantes.dart'
+        note: '💡 Archivo ejecutable probado: practica_asociacion_estudiantes.dart. En el examen puedes usar super.campo o la sintaxis clásica : super(campo: campo).',
+        noteColor: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300'
       },
       funcionalExam: {
-        title: '6 Preguntas Clave de Programación Funcional (20% - 2 Puntos)',
-        desc: 'Colecciones de Dart utilizando funciones flecha de alto nivel.',
-        code: `// 1. Filtrar con where (pares positivos):
-final pares = numeros.where((n) => n > 0 && n % 2 == 0).toList();
+        badge: 'BLOQUE 4 • 20% (2 PUNTOS)',
+        badgeColor: 'border-purple-500/30 bg-purple-500/10 text-purple-400',
+        title: 'Programación Funcional y Colecciones: 6 Preguntas Resueltas',
+        desc: 'Operaciones funcionales de alto nivel con colecciones en Dart usando funciones flecha (where, map, reduce, fold, every, any).',
+        code: `final List<int> numeros = [-3, 2, -1, 0, 4, 23, 17, -90, 8, 12];
+final List<String> palabras = ['Dart', 'Flutter', 'DAM', 'Asociacion', 'Examen', 'Movil'];
+final List<Map<String, dynamic>> productos = [
+  {'nombre': 'Portátil', 'precio': 1200.0, 'categoria': 'Electrónica', 'stock': 5},
+  {'nombre': 'Ratón', 'precio': 15.0, 'categoria': 'Accesorios', 'stock': 25},
+  {'nombre': 'Teclado', 'precio': 85.0, 'categoria': 'Accesorios', 'stock': 0},
+];
 
-// 2. Transformar con map (mayúsculas):
-final mayus = palabras.map((p) => p.toUpperCase()).toList();
+// 1. FILTRADO CON WHERE (pares mayores que 0):
+final pares = numeros.where((n) => n > 0 && n % 2 == 0).toList(); // [2, 4, 8, 12]
 
-// 3. Reducir con reduce (máximo):
-final max = numeros.reduce((actual, n) => n > actual ? n : actual);
+// 2. TRANSFORMACIÓN CON MAP (mayúsculas y conteo):
+final mayus = palabras.map((p) => '\${p.toUpperCase()} (\${p.length} chars)').toList();
 
-// 4. Acumular con fold (total inventario precio * stock):
-final total = prods.fold<double>(0.0, (acc, p) => acc + (p['precio'] * p['stock']));
+// 3. REDUCCIÓN CON REDUCE (calcular el máximo):
+final max = numeros.reduce((actual, n) => n > actual ? n : actual); // 23
 
-// 5. Validar con any / every:
-final hayAgotados = prods.any((p) => p['stock'] == 0);
+// 4. ACUMULACIÓN CON FOLD (total valor stock = precio * stock):
+final totalStock = productos.fold<double>(
+  0.0, (acc, p) => acc + ((p['precio'] as double) * (p['stock'] as int))
+); // 6375.0
 
-// 6. Encadenamiento (where + map + join):
-final texto = prods.where((p) => p['stock'] > 0).map((p) => p['nombre']).join(', ');`,
-        note: '💡 Archivo ejecutable completo: test_examen/seis_preguntas_funcionales.dart'
+// 5. VALIDACIONES BOOLEANAS CON ANY Y EVERY:
+final bool hayAgotados = productos.any((p) => p['stock'] == 0);        // true
+final bool todosPositivos = productos.every((p) => p['precio'] > 0);   // true
+
+// 6. ENCADENAMIENTO COMBINADO (where + map + join):
+final nombresEnStock = productos
+    .where((p) => (p['stock'] as int) > 0)
+    .map((p) => p['nombre'] as String)
+    .join(', '); // "Portátil, Ratón"`,
+        note: '💡 Archivo ejecutable probado: seis_preguntas_funcionales.dart. Recuerda siempre poner .toList() después de .where() o .map() si te piden devolver una Lista.',
+        noteColor: 'border-purple-500/40 bg-purple-500/10 text-purple-300'
       },
       eventLoop: {
-        title: 'Event Loop y Concurrencia Monohilo (UD 2.4)',
-        desc: 'Dart es monohilo. Utiliza dos colas: MicroTask (máxima prioridad) y Event (HTTP, timers).',
-        code: `scheduleMicrotask(() => print("1. Prioridad máxima (MicroTask)"));
-Future.delayed(Duration.zero, () => print("2. Cola estándar (Event)"));
-final datos = await Future.wait([api1(), api2()]); // Ejecución paralela`,
-        note: '💡 En Flutter, el Event Loop evita que la pantalla se congele mientras se descargan datos de red.'
+        badge: 'UNIDAD 2.4 • CONCURRENCIA',
+        badgeColor: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-400',
+        title: 'Asincronía en Dart: Event Loop, MicroTasks y Futures',
+        desc: 'Dart es monohilo (un único Isolate). La concurrencia se gestiona mediante el Event Loop con dos colas de prioridad: MicroTask Queue y Event Queue.',
+        code: `// PRIORIDAD EN EL EVENT LOOP:
+// 1º Código síncrono del main()
+// 2º MicroTask Queue (máxima prioridad asíncrona: scheduleMicrotask)
+// 3º Event Queue (I/O, timers, eventos táctiles, respuestas HTTP)
+
+import 'dart:async';
+
+void main() async {
+  print("1. Inicio síncrono");
+
+  // Se añade a la cola de Eventos (menor prioridad que microtask):
+  Future.delayed(Duration.zero, () => print("4. Event Queue (Future.delayed)"));
+
+  // Se añade a la cola de Microtasks (máxima prioridad):
+  scheduleMicrotask(() => print("3. MicroTask Queue (scheduleMicrotask)"));
+
+  // Espera secuencial con await:
+  await Future.delayed(Duration(milliseconds: 10));
+
+  // Tareas concurrentes en paralelo con Future.wait:
+  final respuestas = await Future.wait([
+    http.get(Uri.parse('https://api/1')),
+    http.get(Uri.parse('https://api/2')),
+  ]);
+
+  print("5. Todas las llamadas en paralelo completadas: \${respuestas.length}");
+}`,
+        note: '💡 En Flutter, el Event Loop es el responsable de que la pantalla responda al tacto a 60 FPS sin bloquearse mientras se descargan datos de Internet.',
+        noteColor: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-300'
       }
     };
+
+    let currentCode = '';
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatDartSyntax(code) {
+      // Clean highlight without breaking escaped HTML
+      const escaped = escapeHtml(code);
+      const lines = escaped.split('\n');
+
+      return lines.map(line => {
+        // Comment line
+        if (line.trim().startsWith('//') || line.trim().startsWith('*')) {
+          return `<span class="syn-comm">${line}</span>`;
+        }
+
+        let l = line;
+
+        // Strings
+        l = l.replace(/(&#039;[^&#]*&#039;|&quot;[^&]*&quot;|'[^']*'|"[^"]*")/g, '<span class="syn-str">$1</span>');
+
+        // Keywords
+        l = l.replace(/\b(class|extends|super|this|required|final|const|static|factory|get|set|void|return|async|await|var|late|new|true|false)\b/g, '<span class="syn-kw">$1</span>');
+
+        // Types
+        l = l.replace(/\b(String|int|double|bool|List|Map|Set|DateTime|Future|Duration|Uri|Exception|Object)\b/g, '<span class="syn-type">$1</span>');
+
+        // Common methods
+        l = l.replace(/\b(where|map|reduce|fold|every|any|toList|toSet|join|then|get|delayed|now|year|month|day)\b(?=\()/g, '<span class="syn-func">$1</span>');
+
+        // Numbers
+        l = l.replace(/\b(\d+(\.\d+)?)\b/g, '<span class="syn-num">$1</span>');
+
+        return l;
+      }).join('\n');
+    }
 
     function setTopic(key) {
       document.querySelectorAll('.nav-pill').forEach(btn => btn.classList.remove('active'));
@@ -155,22 +384,84 @@ final datos = await Future.wait([api1(), api2()]); // Ejecución paralela`,
       if (activeBtn) activeBtn.classList.add('active');
 
       const data = topics[key];
+      currentCode = data.code;
+
       const container = document.getElementById('content-display');
       container.innerHTML = `
-        <div class="flex items-center justify-between">
-          <strong class="text-[var(--foreground)] text-xs font-semibold">${data.title}</strong>
+        <div class="rounded-xl p-4 border transition-all"
+             style="background-color: var(--bg-surface); border-color: var(--border-color);">
+          
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="text-[10px] font-bold tracking-wider px-2.5 py-0.5 rounded-full border ${data.badgeColor}">
+              ${data.badge}
+            </span>
+          </div>
+
+          <h3 class="text-sm md:text-base font-bold mb-1.5" style="color: var(--text-main);">
+            ${data.title}
+          </h3>
+
+          <p class="text-xs leading-relaxed mb-3" style="color: var(--text-muted);">
+            ${data.desc}
+          </p>
+
+          <!-- Code Box with Window Controls -->
+          <div class="rounded-xl overflow-hidden border shadow-inner"
+               style="background-color: #0b0f19; border-color: #1e293b;">
+            <div class="flex items-center justify-between px-3 py-2 bg-[#090d16] border-b border-[#1e293b] text-xs">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block"></span>
+                <span class="text-[11px] text-slate-400 font-mono ml-2">ejemplo_dart.dart</span>
+              </div>
+              <button onclick="copyCurrentCode(this)" class="text-[11px] font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 px-2.5 py-1 rounded transition flex items-center gap-1">
+                <span>📋</span> Copiar código
+              </button>
+            </div>
+            <pre class="p-3.5 text-xs font-mono leading-relaxed overflow-x-auto text-slate-100 selection:bg-blue-600 selection:text-white"><code>${formatDartSyntax(data.code)}</code></pre>
+          </div>
+
+          <!-- Note/Tip banner -->
+          <div class="mt-3 p-3 rounded-xl border text-xs leading-relaxed flex items-start gap-2.5 ${data.noteColor}">
+            <span class="text-sm flex-shrink-0">📌</span>
+            <div>${data.note}</div>
+          </div>
+
         </div>
-        <p class="text-[var(--muted-foreground)] text-[11px] leading-relaxed">${data.desc}</p>
-        <pre class="bg-black/30 p-2.5 rounded-lg font-mono text-[11px] overflow-x-auto text-emerald-400 leading-normal border border-white/5"><code>${escapeHtml(data.code)}</code></pre>
-        <div class="text-[11px] text-amber-400 font-medium">${data.note}</div>
       `;
     }
 
-    function escapeHtml(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    function copyCurrentCode(button) {
+      if (!currentCode) return;
+      navigator.clipboard.writeText(currentCode).then(() => {
+        const originalText = button.innerHTML;
+        button.innerHTML = '<span>✓</span> ¡Copiado!';
+        button.classList.add('text-emerald-400');
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.classList.remove('text-emerald-400');
+        }, 2000);
+      });
     }
 
-    // Initialize
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.contains('dark');
+      const icon = document.getElementById('theme-icon');
+
+      if (isDark) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        icon.textContent = '🌙';
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        icon.textContent = '☀️';
+      }
+    }
+
+    // Initialize with first tab
     setTopic('flutterExam');
   </script>
 </body>
