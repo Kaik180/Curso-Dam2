@@ -53,6 +53,20 @@ public class SoftwareAuditadoDAO {
                     e.getMessage());
         }
         return filtrada;
+
+    }
+    public boolean insertarSoftware(SoftwareAuditado app){
+        return false;
+    }
+    public boolean actualizarNivelRiesgo(int codigo, int nuevoNivel){
+        return  false;
+    }
+    public boolean eliminarSoftware(int codigo){
+        return  false;
+    }
+    public List<SoftwareAuditado> buscarSoftwarePorNombre(String palabra){
+        return new ArrayList<>();
     }
 }
+
 
