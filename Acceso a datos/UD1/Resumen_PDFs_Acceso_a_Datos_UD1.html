@@ -3,55 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resumen Completo UD1 — Acceso a Datos (8 Apartados)</title>
+    <title>Resumen Oficial UD1 — Acceso a Datos (10 Apartados Fieles a los PDFs)</title>
     <style>
         :root {
             --primary: #1F4E79;
             --accent: #2E5B88;
             --bg: #EEF2F6;
             --card: #FFFFFF;
+            --code-bg: #1A1D24;
+            --text-dark: #1F2937;
         }
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            margin: 0;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg);
-            color: #1A1A1A;
-            line-height: 1.5;
+            color: var(--text-dark);
+            line-height: 1.6;
         }
         header {
             background: var(--primary);
-            color: #fff;
-            padding: 1.4rem 2rem;
+            color: #ffffff;
+            padding: 1.2rem 2rem;
             position: sticky;
             top: 0;
-            z-index: 10;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 50;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         header h1 {
-            margin: 0 0 0.6rem 0;
-            font-size: 1.35rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
         }
         .nav-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.45rem;
+            gap: 0.4rem;
         }
         .nav-pill {
-            color: #fff;
+            color: #ffffff;
             background: rgba(255,255,255,0.16);
             text-decoration: none;
-            padding: 0.3rem 0.75rem;
+            padding: 0.35rem 0.75rem;
             border-radius: 999px;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 600;
-            transition: background 0.15s;
+            transition: all 0.2s;
         }
         .nav-pill:hover {
-            background: rgba(255,255,255,0.32);
+            background: rgba(255,255,255,0.35);
+            transform: translateY(-1px);
         }
         main {
-            max-width: 960px;
+            max-width: 1000px;
             margin: 2rem auto;
             padding: 0 1.2rem;
             display: flex;
@@ -60,121 +63,258 @@
         }
         .page-card {
             background: var(--card);
-            border-radius: 10px;
-            padding: 2rem 2.2rem;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.07);
-            border-top: 5px solid var(--primary);
-            page-break-after: always;
+            border-radius: 12px;
+            padding: 2.2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 6px solid var(--primary);
         }
         .badge {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            color: #666;
+            color: #4B5563;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.4rem;
+            display: inline-block;
+            background: #E5E7EB;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
         }
         h2 {
-            margin: 0.25rem 0 1rem 0;
+            margin: 0.4rem 0 1.2rem 0;
             color: var(--primary);
-            font-size: 1.45rem;
+            font-size: 1.5rem;
+            line-height: 1.3;
         }
         .summary-box {
             background: #F8FAFC;
             border: 1px solid #D0D7DE;
             border-left: 4px solid var(--primary);
-            border-radius: 6px;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1.4rem;
+        }
+        .analogy-box {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-left: 4px solid #16A34A;
+            border-radius: 8px;
             padding: 1rem 1.2rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.4rem;
+            font-size: 0.95rem;
+            color: #166534;
+        }
+        .analogy-box strong {
+            color: #14532D;
         }
         .point {
-            margin-bottom: 0.65rem;
+            margin-bottom: 0.9rem;
         }
         .point:last-child {
             margin-bottom: 0;
         }
         .point-title {
             color: var(--primary);
-            margin-bottom: 0.15rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            font-size: 1rem;
         }
         .point-body {
-            font-size: 0.95rem;
+            font-size: 0.94rem;
+            color: #374151;
+        }
+        .command-table-container {
+            margin: 1.2rem 0;
+            overflow-x: auto;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+        th {
+            background: #F3F4F6;
+            color: var(--primary);
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid #E5E7EB;
+        }
+        td {
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid #E5E7EB;
+            color: #374151;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        td code {
+            background: #F1F5F9;
+            color: #B91C1C;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            font-size: 0.84rem;
+            font-weight: 600;
         }
         .code-title {
             font-weight: 700;
             color: var(--accent);
-            margin-bottom: 0.4rem;
-            font-size: 0.98rem;
+            margin: 1.2rem 0 0.5rem 0;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         pre {
-            background: #1E1F22;
-            color: #F8F8F2;
-            padding: 1rem 1.2rem;
-            border-radius: 6px;
+            background: var(--code-bg);
+            color: #F8FAFC;
+            padding: 1.2rem;
+            border-radius: 8px;
             overflow-x: auto;
             font-family: Consolas, 'Courier New', monospace;
             font-size: 0.86rem;
-            line-height: 1.45;
-            margin: 0 0 1rem 0;
+            line-height: 1.5;
+            margin: 0 0 1.2rem 0;
+            border: 1px solid #334155;
+        }
+        pre code {
+            color: inherit;
+            background: transparent;
+            padding: 0;
+            font-size: inherit;
         }
         .note-box {
             background: #EEF4FA;
             border: 1px solid #B6C8DC;
+            border-left: 4px solid var(--accent);
             color: var(--primary);
-            padding: 0.75rem 1rem;
+            padding: 0.85rem 1.1rem;
             border-radius: 6px;
-            font-size: 0.93rem;
+            font-size: 0.95rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #64748B;
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Resumen Completo UD1 — Acceso a Datos en Java (1 Página por Apartado)</h1>
+        <h1>Resumen Completo UD1 — Acceso a Datos en Java (Fiel a los 10 PDFs Oficiales)</h1>
         <nav class="nav-bar">
-            <a href="#ap1" class="nav-pill">Apartado 1</a>
-<a href="#ap2" class="nav-pill">Apartado 2</a>
-<a href="#ap3" class="nav-pill">Apartado 3</a>
-<a href="#ap4" class="nav-pill">Apartado 4</a>
-<a href="#ap5" class="nav-pill">Apartado 5</a>
-<a href="#ap6" class="nav-pill">Apartado 6</a>
-<a href="#ap7" class="nav-pill">Apartado 7</a>
-<a href="#ap8" class="nav-pill">Apartado 8</a>
-
+            <a href="#ap1" class="nav-pill">1. Sobre Java</a>
+            <a href="#ap2" class="nav-pill">2. Setup & Main</a>
+            <a href="#ap3" class="nav-pill">3. Fundamentos</a>
+            <a href="#ap4" class="nav-pill">4. Flujos I/O</a>
+            <a href="#ap5" class="nav-pill">5. File & NIO.2</a>
+            <a href="#ap6" class="nav-pill">6. Ficheros RAF</a>
+            <a href="#ap7" class="nav-pill">7. Serialización</a>
+            <a href="#ap8" class="nav-pill">8. XML (DOM & SAX)</a>
+            <a href="#ap9" class="nav-pill">9. Ficheros JSON</a>
+            <a href="#ap10" class="nav-pill">10. JSON & APIs REST</a>
         </nav>
     </header>
     <main>
-        
-        <section class="page-card" id="ap1">
-            <div class="badge">APARTADO 1 DE 8 — PDF: Sobre_Java.pdf</div>
-            <h2>1. ¿Cómo funciona Java? (JVM, JRE y JDK)</h2>
-            <div class="summary-box">
-                <div class="point"><div class="point-title"><b>Proceso de compilación e interpretación:</b></div><div class="point-body">Java combina compilación e interpretación. Primero escribes el código fuente en un fichero <b>.java</b>. El compilador (<b>javac</b>) lo traduce a <b>bytecode</b> (fichero <b>.class</b>), que es independiente del sistema operativo. Finalmente, la <b>JVM (Java Virtual Machine)</b> de cada máquina interpreta y ejecuta ese bytecode.</div></div>
-<div class="point"><div class="point-title"><b>Plataforma y Sintaxis Java:</b></div><div class="point-body">Lenguaje orientado a objetos (POO), claro, legible y multiplataforma (<i>Write Once, Run Anywhere</i>).</div></div>
-<div class="point"><div class="point-title"><b>Diferencia entre JRE y JDK:</b></div><div class="point-body">• <b>JRE (Java Runtime Environment):</b> Contiene la máquina virtual (JVM) y las librerías necesarias únicamente para <b>ejecutar</b> aplicaciones Java.<br/>• <b>JDK (Java Development Kit):</b> Más completo; incluye todo el JRE más las herramientas para <b>desarrollar y compilar</b> (compilador <i>javac</i>, depurador, etc.).</div></div>
 
+        <!-- APARTADO 1 -->
+        <section class="page-card" id="ap1">
+            <span class="badge">APARTADO 1 DE 10 — PDF: Sobre_Java.pdf</span>
+            <h2>1. ¿Cómo funciona Java? (JVM, JRE y JDK)</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> Escribes el código en tu idioma (Java). El compilador lo traduce a un dialecto intermedio llamado <em>bytecode</em> (.class), y la <strong>JVM</strong> es el traductor universal que lo ejecuta en cualquier ordenador (Windows, Mac, Linux).
             </div>
-            <div class="code-title">Ejemplo práctico — HolaJVM.java</div>
-            <pre><code>// 1. Compilar en terminal: javac HolaJVM.java  --&gt; Genera HolaJVM.class (Bytecode)
-// 2. Ejecutar en terminal: java HolaJVM        --&gt; La JVM ejecuta el bytecode
-public class HolaJVM {
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">Proceso de compilación e interpretación:</div>
+                    <div class="point-body">
+                        Java combina compilación e interpretación. Primero escribes el código fuente en un fichero <b>.java</b>. El compilador (<b>javac</b>) lo traduce a <b>bytecode</b> (fichero <b>.class</b>), que es independiente de la plataforma («Write Once, Run Anywhere»). Finalmente, la <b>JVM</b> ejecuta el bytecode en el sistema operativo concreto.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Componentes de la Plataforma Java:</div>
+                    <div class="point-body">
+                        • <b>JVM (Java Virtual Machine):</b> Ejecuta el bytecode traduciéndolo a instrucciones de la máquina física.<br/>
+                        • <b>JRE (Java Runtime Environment):</b> Incluye la JVM y las bibliotecas estándar; necesario para <b>ejecutar</b> aplicaciones.<br/>
+                        • <b>JDK (Java Development Kit):</b> Kit completo; incluye el JRE más las herramientas para <b>desarrollar y compilar</b> (compilador <i>javac</i>, depurador, etc.).
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Sintaxis y Reglas Básicas:</div>
+                    <div class="point-body">
+                        Java es sensible a mayúsculas/minúsculas (<i>case-sensitive</i>), fuertemente tipado, finaliza cada sentencia con punto y coma (<code>;</code>) y agrupa bloques de código entre llaves (<code>{ }</code>).
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Comando de Terminal</th><th>Herramienta</th><th>Función</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>javac HolaJVM.java</code></td><td>Compilador (JDK)</td><td>Compila el archivo fuente y genera el bytecode <code>HolaJVM.class</code>.</td></tr>
+                        <tr><td><code>java HolaJVM</code></td><td>Máquina Virtual (JVM)</td><td>Carga en memoria y ejecuta el bytecode del programa.</td></tr>
+                        <tr><td><code>java -version</code></td><td>Consola</td><td>Muestra la versión instalada del JRE/JDK en el sistema.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — HolaJVM.java</div>
+            <pre><code>public class HolaJVM {
     public static void main(String[] args) {
         System.out.println("¡Hola desde la Máquina Virtual de Java (JVM)!");
         System.out.println("Sistema Operativo: " + System.getProperty("os.name"));
         System.out.println("Versión de Java (JDK/JRE): " + System.getProperty("java.version"));
     }
 }</code></pre>
-            <div class="note-box"><strong>IDEA CLAVE:</strong> El archivo .java lo lee el programador; el archivo .class (bytecode) lo lee y ejecuta la JVM.</div>
+            <div class="note-box"><strong>IDEA CLAVE:</strong> El archivo <code>.java</code> lo lee el programador; el archivo <code>.class</code> (bytecode) lo lee y ejecuta la JVM.</div>
         </section>
-        
-        <section class="page-card" id="ap2">
-            <div class="badge">APARTADO 2 DE 8 — PDF: Setup_Java_y HellowWorld.pdf</div>
-            <h2>2. Configuración del Entorno y Primer Programa (HelloWorld)</h2>
-            <div class="summary-box">
-                <div class="point"><div class="point-title"><b>Requisitos para programar en Java:</b></div><div class="point-body">1. Descargar e instalar la última versión estable del <b>JDK</b>.<br/>2. Instalar <b>IntelliJ IDEA Community</b> (el IDE más utilizado en desarrollo Java).</div></div>
-<div class="point"><div class="point-title"><b>Estructura básica de un proyecto Java:</b></div><div class="point-body">• <b>Carpeta src:</b> Contiene los paquetes (<i>packages</i>) y las clases (<i>.java</i>).<br/>• <b>Clase principal:</b> El nombre de la clase pública (<i>public class Main</i>) debe coincidir exactamente con el nombre del archivo (<i>Main.java</i>).<br/>• <b>Método main:</b> Es el punto de entrada donde comienza la ejecución del programa: <i>public static void main(String[] args)</i>.</div></div>
-<div class="point"><div class="point-title"><b>Salida por pantalla:</b></div><div class="point-body">Se utiliza <i>System.out.println("texto")</i> para imprimir una línea en la consola.</div></div>
 
+        <!-- APARTADO 2 -->
+        <section class="page-card" id="ap2">
+            <span class="badge">APARTADO 2 DE 10 — PDF: Setup_Java_y HellowWorld.pdf</span>
+            <h2>2. Configuración del Entorno y Primer Programa (HelloWorld)</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> IntelliJ es el taller con todas las herramientas organizadas, y el método <code>main</code> es la llave de contacto del coche: sin ella, el motor no puede arrancar.
             </div>
-            <div class="code-title">Ejemplo práctico — Main.java (HelloWorld)</div>
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">Requisitos para programar en Java:</div>
+                    <div class="point-body">
+                        1. Descargar e instalar la versión estable del <b>JDK</b> (ej. Java 21 LTS desde Oracle).<br/>
+                        2. Instalar <b>IntelliJ IDEA Community</b> (el entorno de desarrollo más utilizado por sus ayudas y depuración).
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Estructura de un Proyecto Java:</div>
+                    <div class="point-body">
+                        • <b>Carpeta src:</b> Contiene los paquetes (<i>packages</i>) y clases (<i>.java</i>).<br/>
+                        • <b>Clase principal:</b> El nombre de la clase pública (<i>public class Main</i>) debe coincidir con el fichero (<i>Main.java</i>).<br/>
+                        • <b>Método main:</b> Es el punto de entrada donde comienza la ejecución: <i>public static void main(String[] args)</i>.<br/>
+                        • <b>Salida por pantalla:</b> <i>System.out.println("texto")</i> imprime una línea en la consola.
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Atajo en IntelliJ IDEA</th><th>Expansión Automática</th><th>Descripción</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>psvm</code> o <code>main</code> + Tab</td><td><code>public static void main(String[] args) {}</code></td><td>Genera el método de entrada del programa.</td></tr>
+                        <tr><td><code>sout</code> + Tab</td><td><code>System.out.println();</code></td><td>Genera la instrucción para imprimir por consola.</td></tr>
+                        <tr><td><code>soutv</code> + Tab</td><td><code>System.out.println("var = " + var);</code></td><td>Imprime el nombre y el valor de la variable más cercana.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — Main.java (HelloWorld)</div>
             <pre><code>package org.example;
 
 public class Main {
@@ -184,281 +324,699 @@ public class Main {
         System.out.println("Mi primer proyecto en Acceso a Datos - 2º DAM");
     }
 }</code></pre>
-            <div class="note-box"><strong>IDEA CLAVE:</strong> Atajo útil en IntelliJ IDEA: escribe 'psvm' o 'main' + Tab para generar el método main, y 'sout' + Tab para System.out.println().</div>
+            <div class="note-box"><strong>IDEA CLAVE:</strong> Todo programa ejecutable en Java requiere obligatoriamente un método <code>main</code> con la firma exacta <code>public static void main(String[] args)</code>.</div>
         </section>
-        
-        <section class="page-card" id="ap3">
-            <div class="badge">APARTADO 3 DE 8 — PDF: Introduccion_Java.pdf</div>
-            <h2>3. Fundamentos de Java: Tipos, Colecciones, POO, Lambdas y Excepciones</h2>
-            <div class="summary-box">
-                <div class="point"><div class="point-title"><b>Tipos primitivos, Wrappers, Constantes y Enum:</b></div><div class="point-body">Tipos básicos (<i>byte, short, int, long, float, double, char, boolean</i>) y sus clases equivalentes (<i>Integer, Double, Boolean</i>) para conversiones (<i>Integer.parseInt()</i>). Constantes con <i>static final</i> y conjuntos fijos con <i>enum</i>.</div></div>
-<div class="point"><div class="point-title"><b>Colecciones principales (java.util):</b></div><div class="point-body">• <b>List (ArrayList, LinkedList):</b> Secuencia ordenada que permite elementos duplicados.<br/>• <b>Map (HashMap&lt;K, V&gt;):</b> Pares clave-valor donde la clave es única (<i>put()</i>, <i>get()</i>).<br/>• <b>Set (HashSet):</b> Conjunto desordenado que NO permite duplicados.</div></div>
-<div class="point"><div class="point-title"><b>Expresiones Regulares, POO, Interfaces y Excepciones:</b></div><div class="point-body">• <b>Regex:</b> Validación de patrones con <i>cadena.matches("expresion")</i>.<br/>• <b>POO e Interfaces:</b> Herencia (<i>extends</i>), clases abstractas, interfaces (<i>implements</i>) y expresiones <b>lambda</b> <i>(a, b) -&gt; a + b</i>.<br/>• <b>Excepciones:</b> <i>Checked</i> (obligatorio capturarlas, ej. <i>IOException</i>) vs <i>Unchecked</i> (en ejecución, ej. <i>NullPointerException</i>) con bloques <i>try-catch-finally</i>.</div></div>
 
+        <!-- APARTADO 3 -->
+        <section class="page-card" id="ap3">
+            <span class="badge">APARTADO 3 DE 10 — PDF: Introduccion_Java.pdf</span>
+            <h2>3. Fundamentos de Java: Tipos, Colecciones, POO, Lambdas y Excepciones</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> Un <code>ArrayList</code> es una libreta donde puedes añadir hojas sin límite; un <code>HashMap</code> es un listín telefónico donde buscas el número sabiendo el nombre; y un <code>try-catch</code> es el airbag de seguridad del coche para que el programa no se estrelle si algo falla.
             </div>
-            <div class="code-title">Ejemplo práctico — EjemploColeccionesPOO.java</div>
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">Tipos Primitivos y Clases Wrapper:</div>
+                    <div class="point-body">
+                        • Primitivos: <code>byte</code> (1B), <code>short</code> (2B), <code>int</code> (4B), <code>long</code> (8B), <code>float</code> (4B), <code>double</code> (8B), <code>char</code> (2B), <code>boolean</code> (1B).<br/>
+                        • Wrappers equivalentes: <code>Integer</code>, <code>Double</code>, <code>Boolean</code>... permiten métodos utilitarios como <code>Integer.parseInt("123")</code>.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Colecciones principales (java.util):</div>
+                    <div class="point-body">
+                        • <b>List (ArrayList):</b> Lista ordenada indexada por posición; permite elementos duplicados.<br/>
+                        • <b>Set (HashSet):</b> Colección que <b>NO</b> permite elementos repetidos.<br/>
+                        • <b>Map (HashMap&lt;K, V&gt;):</b> Pares clave-valor donde las claves son únicas (<code>put</code>, <code>get</code>).
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">POO, Lambdas y Manejo de Excepciones:</div>
+                    <div class="point-body">
+                        • <b>POO:</b> Clases con atributos privados, getters/setters, herencia (<i>extends</i>) e interfaces (<i>implements</i>).<br/>
+                        • <b>Lambdas:</b> Funciones compactas para interfaces funcionales: <code>(a, b) -&gt; a + b</code>.<br/>
+                        • <b>Excepciones:</b> <i>Checked</i> (obligatorias de capturar como <code>IOException</code>) vs <i>Unchecked</i> (errores de lógica como <code>NullPointerException</code>) con bloques <code>try-catch-finally</code>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Colección</th><th>Métodos Principales</th><th>Comportamiento</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>ArrayList&lt;T&gt;</code></td><td><code>add(e)</code>, <code>get(i)</code>, <code>remove(i)</code>, <code>size()</code></td><td>Mantiene el orden de inserción y permite repetidos.</td></tr>
+                        <tr><td><code>HashSet&lt;T&gt;</code></td><td><code>add(e)</code>, <code>contains(e)</code>, <code>remove(e)</code></td><td>Sin orden garantizado, descarta automáticamente duplicados.</td></tr>
+                        <tr><td><code>HashMap&lt;K,V&gt;</code></td><td><code>put(k, v)</code>, <code>get(k)</code>, <code>containsKey(k)</code></td><td>Asocia una clave única con un valor.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — EjemploColeccionesPOO.java</div>
             <pre><code>package Ejemplos;
+
 import java.util.*;
 
 public class EjemploColeccionesPOO {
-    @FunctionalInterface
-    interface Operacion { int calcular(int a, int b); }
-
     public static void main(String[] args) {
-        // 1. ArrayList (admite duplicados) y HashSet (sin duplicados)
-        ArrayList&lt;String&gt; lista = new ArrayList&lt;&gt;(List.of("Java", "XML", "Java"));
-        HashSet&lt;String&gt; conjunto = new HashSet&lt;&gt;(lista);
+        // 1. List (permite duplicados)
+        List&lt;String&gt; lista = new ArrayList&lt;&gt;();
+        lista.add("Java");
+        lista.add("XML");
+        lista.add("Java");
+        System.out.println("ArrayList: " + lista);
 
-        // 2. HashMap (Clave -&gt; Valor)
-        HashMap&lt;Integer, String&gt; mapa = new HashMap&lt;&gt;();
-        mapa.put(1, "El principito");
-        System.out.println("Mapa ID 1: " + mapa.get(1));
+        // 2. Set (elimina duplicados)
+        Set&lt;String&gt; conjunto = new HashSet&lt;&gt;(lista);
+        System.out.println("HashSet sin duplicados: " + conjunto);
 
-        // 3. Regex y Lambda
-        boolean emailOk = "alumno@ies.com".matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
-        Operacion suma = (a, b) -&gt; a + b;
-        System.out.println("Email OK: " + emailOk + " | Suma: " + suma.calcular(5, 10));
+        // 3. Map (pares clave-valor)
+        Map&lt;String, Integer&gt; edades = new HashMap&lt;&gt;();
+        edades.put("Kevin", 22);
+        edades.put("Ana", 24);
+        System.out.println("Edad de Kevin: " + edades.get("Kevin"));
 
-        // 4. Excepción controlada con try-catch-finally
+        // 4. Excepciones con try-catch
         try {
-            int n = Integer.parseInt("abc");
-        } catch (NumberFormatException e) {
-            System.out.println("Excepción capturada: formato incorrecto.");
+            int resultado = 10 / 0;
+        } catch (ArithmeticException e) {
+            System.err.println("Error controlado: división por cero.");
         }
     }
 }</code></pre>
-            <div class="note-box"><strong>IDEA CLAVE:</strong> Usa ArrayList para listas ordenadas, HashSet para evitar repetidos y HashMap para búsquedas rápidas por clave.</div>
+            <div class="note-box"><strong>IDEA CLAVE:</strong> Las colecciones de Java solo pueden almacenar objetos; para guardar primitivos se utilizan sus clases Wrapper (ej. <code>ArrayList&lt;Integer&gt;</code>).</div>
         </section>
-        
-        <section class="page-card" id="ap4">
-            <div class="badge">APARTADO 4 DE 8 — PDF: Acceso a ficheros_1.pdf</div>
-            <h2>4. Flujos de Entrada/Salida (Streams): Binarios y de Caracteres</h2>
-            <div class="summary-box">
-                <div class="point"><div class="point-title"><b>Concepto de Stream (Flujo) y E/S Estándar:</b></div><div class="point-body">Un flujo de entrada (<i>Input</i>) lee datos desde un origen y uno de salida (<i>Output</i>) los escribe en un destino. Java incluye <i>System.in</i> (teclado), <i>System.out</i> (consola) y <i>System.err</i> (errores).</div></div>
-<div class="point"><div class="point-title"><b>1. Flujos Binarios (orientados a bytes):</b></div><div class="point-body">• <b>FileOutputStream / FileInputStream:</b> Escriben y leen bytes crudos (<i>read()</i> devuelve -1 al llegar al final).<br/>• <b>BufferedOutputStream / BufferedInputStream:</b> Usan un búfer intermedio para reducir accesos a disco.<br/>• <b>DataOutputStream / DataInputStream:</b> Guardan y leen tipos primitivos (<i>writeInt, writeDouble, readInt, readDouble</i>). <b>Es obligatorio leerlos en el mismo orden exacto en que se escribieron.</b></div></div>
-<div class="point"><div class="point-title"><b>2. Flujos de Caracteres (orientados a texto):</b></div><div class="point-body">• <b>FileWriter / FileReader:</b> Escriben y leen carácter a carácter.<br/>• <b>BufferedWriter / BufferedReader:</b> Permiten trabajar línea a línea (<i>readLine()</i> devuelve <i>null</i> al final del fichero).</div></div>
 
+        <!-- APARTADO 4 -->
+        <section class="page-card" id="ap4">
+            <span class="badge">APARTADO 4 DE 10 — PDF: Acceso a ficheros_1.pdf</span>
+            <h2>4. Flujos de Entrada/Salida (Streams): Binarios y de Caracteres</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> Un flujo es una tubería. Si transporta texto plano usas <code>Reader/Writer</code>; si transporta fotos o binarios usas <code>InputStream/OutputStream</code>. Y el <code>BufferedReader</code> es un cubo para no ir gota a gota al río.
             </div>
-            <div class="code-title">Ejemplo práctico — EjemploFlujosCaracteres.java y EjemploFlujosBinarios.java</div>
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">Concepto de Flujo (Stream) y Persistencia:</div>
+                    <div class="point-body">
+                        Un flujo es una secuencia continua de datos entre el programa y un origen/destino. Un <b>Input Stream</b> maneja datos que entran al programa y un <b>Output Stream</b> maneja los que salen.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Flujos de Bytes frente a Flujos de Caracteres:</div>
+                    <div class="point-body">
+                        • <b>Bytes (8 bits):</b> <code>FileInputStream</code> y <code>FileOutputStream</code>. Para multimedia, binarios o lectura en crudo.<br/>
+                        • <b>Caracteres (16 bits Unicode):</b> <code>FileReader</code> y <code>FileWriter</code>. Diseñados específicamente para documentos de texto.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Optimización con Buffers y Modo Append:</div>
+                    <div class="point-body">
+                        • <code>BufferedReader</code> acumula bloques en memoria RAM y aporta el método <code>readLine()</code>.<br/>
+                        • <code>PrintWriter</code> aporta métodos cómodos como <code>println()</code>.<br/>
+                        • Modo Append: al instanciar <code>new FileWriter("archivo.txt", true)</code> se añade texto al final sin sobrescribir el contenido previo.
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Clase</th><th>Método Clave</th><th>Retorno</th><th>Descripción</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>BufferedReader</code></td><td><code>readLine()</code></td><td><code>String</code></td><td>Lee una línea entera. Devuelve <code>null</code> al llegar al final del archivo (EOF).</td></tr>
+                        <tr><td><code>FileReader</code></td><td><code>read()</code></td><td><code>int</code></td><td>Lee un único carácter como número entero. Devuelve <code>-1</code> al finalizar.</td></tr>
+                        <tr><td><code>PrintWriter</code></td><td><code>println(String)</code></td><td><code>void</code></td><td>Escribe una línea de texto e inserta el salto de línea automático.</td></tr>
+                        <tr><td><code>FileWriter</code></td><td><code>write(String)</code></td><td><code>void</code></td><td>Escribe una cadena de caracteres en el búfer de salida.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — EjemploFlujos.java</div>
             <pre><code>package Ejemplos;
+
 import java.io.*;
 
 public class EjemploFlujos {
     public static void main(String[] args) {
-        // A. Escritura y lectura de TEXTO línea a línea con BufferedWriter/Reader
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("texto.txt"))) {
-            bw.write("Hola desde BufferedWriter");
-            bw.newLine();
-        } catch (IOException e) { e.printStackTrace(); }
+        File f = new File("alumnos.txt");
 
-        try (BufferedReader br = new BufferedReader(new FileReader("texto.txt"))) {
+        // 1. Escritura con buffer y append (true)
+        try (PrintWriter pw = new PrintWriter(new FileWriter(f, true))) {
+            pw.println("1;Kevin;DAM2");
+            pw.println("2;Lucia;DAM2");
+            System.out.println("Líneas añadidas correctamente.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 2. Lectura con BufferedReader línea por línea
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
             String linea;
             while ((linea = br.readLine()) != null) {
-                System.out.println("Texto leído: " + linea);
+                System.out.println("Leído -> " + linea);
             }
-        } catch (IOException e) { e.printStackTrace(); }
-
-        // B. Escritura y lectura BINARIA de tipos primitivos con DataStreams
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("datos.dat"))) {
-            dos.writeInt(42);
-            dos.writeDouble(99.95);
-        } catch (IOException e) { e.printStackTrace(); }
-
-        try (DataInputStream dis = new DataInputStream(new FileInputStream("datos.dat"))) {
-            System.out.println("Int: " + dis.readInt() + " | Double: " + dis.readDouble());
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }</code></pre>
-            <div class="note-box"><strong>IDEA CLAVE:</strong> Regla de oro: Para archivos de texto (.txt, .csv) usa Reader/Writer; para archivos binarios (.dat, imágenes) usa InputStream/OutputStream.</div>
+            <div class="note-box"><strong>IDEA CLAVE:</strong> Para ficheros de texto legible utiliza siempre flujos de caracteres con buffer (<code>BufferedReader</code> y <code>PrintWriter</code>), ya que reducen drásticamente las operaciones de acceso a disco.</div>
         </section>
-        
-        <section class="page-card" id="ap5">
-            <div class="badge">APARTADO 5 DE 8 — PDF: Acceso a ficheros _P2.pdf</div>
-            <h2>5. Clase File, Sentencia try-with-resources y Clase Path (NIO.2)</h2>
-            <div class="summary-box">
-                <div class="point"><div class="point-title"><b>Clase java.io.File:</b></div><div class="point-body">Representa la ruta de un archivo o carpeta (NO lee ni escribe su contenido). Métodos principales: <i>exists()</i>, <i>createNewFile()</i>, <i>mkdir()</i>, <i>renameTo()</i>, <i>delete()</i>, <i>isFile()</i>, <i>isDirectory()</i>, <i>length()</i> y <i>list() / listFiles()</i>.<br/><i>Desventaja:</i> mal manejo de errores (devuelve booleanos sin detallar la causa del fallo).</div></div>
-<div class="point"><div class="point-title"><b>Sentencia try-with-resources:</b></div><div class="point-body">Permite declarar los flujos entre paréntesis tras el <i>try (...)</i> para que Java los cierre automáticamente al terminar el bloque, sin necesidad de <i>finally</i>.</div></div>
-<div class="point"><div class="point-title"><b>Clase Path y Files (java.nio.file):</b></div><div class="point-body">Alternativa moderna a <i>File</i>. Se combina <i>Paths.get("ruta")</i> con los métodos estáticos de <i>Files</i>, como <i>Files.write(path, lista)</i>, <i>Files.readAllLines(path)</i>, <i>Files.newBufferedWriter()</i> y <i>Files.newBufferedReader()</i>.</div></div>
 
+        <!-- APARTADO 5 -->
+        <section class="page-card" id="ap5">
+            <span class="badge">APARTADO 5 DE 10 — PDF: Acceso a ficheros _P2.pdf</span>
+            <h2>5. Clase File, Sentencia try-with-resources y Modernización con NIO.2</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> <code>Path</code> es la dirección de tu casa apuntada en un papel, y <code>Files</code> es el equipo de albañiles que va a esa dirección a hacer obras en 1 sola línea de código.
             </div>
-            <div class="code-title">Ejemplo práctico — EjemploFile.java y EjemploPathNIO.java</div>
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">La clase tradicional java.io.File:</div>
+                    <div class="point-body">
+                        Representa rutas de archivos o carpetas. Métodos: <code>exists()</code>, <code>createNewFile()</code>, <code>mkdir()</code>, <code>delete()</code>, <code>length()</code>. Su gran desventaja es su deficiente manejo de errores (muchos métodos devuelven <code>false</code> sin dar explicaciones del motivo del fallo).
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">La sentencia try-with-resources:</div>
+                    <div class="point-body">
+                        Introducida en Java 7. Todo recurso que implemente la interfaz <code>AutoCloseable</code> declarado dentro de los paréntesis del <code>try (...)</code> se cerrará automáticamente al salir, incluso si ocurre una excepción inesperada, evitando fugas de memoria.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">La API Moderna: java.nio.file (NIO.2):</div>
+                    <div class="point-body">
+                        • <b>Path:</b> Representa la ubicación (sustituto moderno de <i>File</i>). Se obtiene con <code>Paths.get(...)</code> o <code>Path.of(...)</code>.<br/>
+                        • <b>Files:</b> Clase estática con operaciones avanzadas: <code>Files.readAllLines(path)</code> para leer todo el archivo en una sola línea, <code>Files.write(...)</code>, <code>Files.copy(...)</code> y <code>Files.createDirectories(...)</code>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Clase</th><th>Método de NIO.2</th><th>Retorno</th><th>Acción que realiza</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>Paths</code></td><td><code>Paths.get("dir", "f.txt")</code></td><td><code>Path</code></td><td>Construye una ruta portable válida para Windows y Linux.</td></tr>
+                        <tr><td><code>Files</code></td><td><code>Files.exists(path)</code></td><td><code>boolean</code></td><td>Verifica si el fichero o directorio existe realmente en disco.</td></tr>
+                        <tr><td><code>Files</code></td><td><code>Files.createDirectories(path)</code></td><td><code>Path</code></td><td>Crea toda la jerarquía de carpetas necesaria sin fallar.</td></tr>
+                        <tr><td><code>Files</code></td><td><code>Files.readAllLines(path)</code></td><td><code>List&lt;String&gt;</code></td><td>Carga todas las líneas del archivo en una lista en 1 línea.</td></tr>
+                        <tr><td><code>Files</code></td><td><code>Files.write(path, lista, ...)</code></td><td><code>Path</code></td><td>Escribe una lista completa de líneas en disco directamente.</td></tr>
+                        <tr><td><code>Files</code></td><td><code>Files.copy(origen, dest, opciones)</code></td><td><code>Path</code></td><td>Copia un archivo (con <code>StandardCopyOption.REPLACE_EXISTING</code>).</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — EjemploPathNIO.java</div>
             <pre><code>package Ejemplos;
-import java.io.File;
+
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.List;
 
-public class EjemploFileYPath {
+public class EjemploPathNIO {
     public static void main(String[] args) {
+        Path ruta = Paths.get("./datos", "notas.txt");
+
         try {
-            // 1. Crear directorio y archivo con java.io.File
-            File dir = new File("./mi_directorio");
-            if (!dir.exists()) dir.mkdir();
-            File arch = new File(dir, "datos.txt");
-            if (!arch.exists()) arch.createNewFile();
-            System.out.println("¿Es archivo?: " + arch.isFile() + " | Bytes: " + arch.length());
-
-            // 2. Escribir y leer todas las líneas directamente con Path y Files (NIO)
-            Path p = Paths.get("./mi_directorio/datos.txt");
-            Files.write(p, List.of("Primera línea con Path", "Segunda línea con Files"));
-
-            List&lt;String&gt; leidas = Files.readAllLines(p);
-            for (String s : leidas) {
-                System.out.println("Leído con NIO: " + s);
+            // 1. Crear directorios automáticamente
+            if (ruta.getParent() != null && !Files.exists(ruta.getParent())) {
+                Files.createDirectories(ruta.getParent());
             }
+
+            // 2. Escribir lista en 1 sola línea
+            List&lt;String&gt; lineas = List.of("Primera línea NIO.2", "Segunda línea persistente");
+            Files.write(ruta, lineas, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+
+            // 3. Leer todo el fichero de golpe
+            List&lt;String&gt; leidas = Files.readAllLines(ruta, StandardCharsets.UTF_8);
+            leidas.forEach(System.out::println);
+
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }</code></pre>
-            <div class="note-box"><strong>IDEA CLAVE:</strong> Ventaja de Path y Files: Con una sola línea (Files.readAllLines o Files.write) resuelves lo que antes requería un bucle con BufferedReader.</div>
+            <div class="note-box"><strong>IDEA CLAVE:</strong> <code>try-with-resources</code> garantiza el cierre automático de recursos, y <code>java.nio.file.Files</code> simplifica las operaciones masivas a una sola línea de código con mejor tratamiento de excepciones.</div>
         </section>
-        
-        <section class="page-card" id="ap6">
-            <div class="badge">APARTADO 6 DE 8 — PDF: UP1_Ficheros_RAF.pdf</div>
-            <h2>6. Acceso Aleatorio a Ficheros (RandomAccessFile)</h2>
-            <div class="summary-box">
-                <div class="point"><div class="point-title"><b>Acceso Secuencial vs Acceso Aleatorio:</b></div><div class="point-body">A diferencia de los flujos secuenciales, <b>RandomAccessFile</b> funciona como un gran array de bytes con un cursor o <b>puntero interno</b> que podemos desplazar a cualquier posición para leer o sobrescribir un dato concreto sin tocar el resto del fichero.</div></div>
-<div class="point"><div class="point-title"><b>Modos y métodos del puntero:</b></div><div class="point-body">• Modos de apertura: <b>"r"</b> (solo lectura) y <b>"rw"</b> (lectura y escritura).<br/>• <b>getFilePointer():</b> devuelve la posición actual del puntero en bytes.<br/>• <b>seek(long pos):</b> coloca el puntero exactamente en el byte indicado (empezando desde el byte 0).<br/>• <b>length():</b> devuelve el tamaño total del fichero en bytes.</div></div>
-<div class="point"><div class="point-title"><b>Cálculo de posición en registros de tamaño fijo:</b></div><div class="point-body">Sabiendo que <i>int</i> ocupa <b>4 bytes</b> y <i>double</i> ocupa <b>8 bytes</b>, si un registro tiene <i>id (4B) + precio (8B) + stock (4B)</i>, cada registro mide <b>16 bytes</b>. Fórmula del inicio del registro N: <b>(N - 1) * tamañoRegistro</b>.</div></div>
 
+        <!-- APARTADO 6 -->
+        <section class="page-card" id="ap6">
+            <span class="badge">APARTADO 6 DE 10 — PDF: UP1_Ficheros_RAF.pdf</span>
+            <h2>6. Acceso Aleatorio a Ficheros (RandomAccessFile)</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> En vez de escuchar una cinta de casete rebobinando hacia adelante o hacia atrás, tienes un tocadiscos: levantas la aguja y con <code>seek()</code> la clavas directamente en la canción número 5 sin pasar por las 4 primeras.
             </div>
-            <div class="code-title">Ejemplo práctico — EjemploRAF.java (Modificar un dato directo con seek)</div>
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">Acceso Secuencial frente a Acceso Aleatorio:</div>
+                    <div class="point-body">
+                        Los ficheros normales son secuenciales: para leer el registro 10 debes leer obligatoriamente los 9 anteriores. Con <b>RandomAccessFile</b> puedes acceder directamente a cualquier posición física en bytes.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">El Puntero de Lectura/Escritura y Modos de Apertura:</div>
+                    <div class="point-body">
+                        • Se abre en modo <code>"r"</code> (solo lectura) o <code>"rw"</code> (lectura y escritura).<br/>
+                        • El puntero actúa como el cursor de un editor de texto: indica en qué byte se escribirá o leerá el siguiente dato.<br/>
+                        • <code>getFilePointer()</code> devuelve la posición actual y <code>seek(long pos)</code> salta al byte deseado.<br/>
+                        • <code>length()</code> devuelve el tamaño total en bytes del fichero.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Registros de Tamaño Fijo (Ejemplo LudotecaIES):</div>
+                    <div class="point-body">
+                        Para saltar a un registro debemos conocer el tamaño exacto de sus campos primitivos:<br/>
+                        • <code>int</code> = 4 bytes | <code>double</code> = 8 bytes.<br/>
+                        • En un registro con <code>id</code> (4B) + <code>precio</code> (8B) + <code>stock</code> (4B), el tamaño es de <b>16 bytes</b>.<br/>
+                        • Posición de inicio del registro: <code>posicion = (id - 1) * TAMAÑO_REGISTRO</code>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Comando / Método</th><th>Parámetro / Retorno</th><th>Función</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>seek(long pos)</code></td><td><code>void</code></td><td>Mueve el puntero físico del fichero al byte especificado.</td></tr>
+                        <tr><td><code>getFilePointer()</code></td><td><code>long</code></td><td>Devuelve el número de byte en el que está ubicado el cabezal actualmente.</td></tr>
+                        <tr><td><code>length()</code></td><td><code>long</code></td><td>Devuelve el tamaño total en bytes del archivo.</td></tr>
+                        <tr><td><code>setLength(0)</code></td><td><code>void</code></td><td>Trunca el fichero y lo vacía completamente para reiniciar pruebas.</td></tr>
+                        <tr><td><code>writeInt(int v) / readInt()</code></td><td>4 bytes</td><td>Escribe o lee un entero de 32 bits.</td></tr>
+                        <tr><td><code>writeDouble(double v) / readDouble()</code></td><td>8 bytes</td><td>Escribe o lee un número en coma flotante de 64 bits.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — EjemploRandomAccessFile.java</div>
             <pre><code>package Ejemplos;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class EjemploRAF {
-    private static final int TAMANO_REGISTRO = 16; // int(4) + double(8) + int(4) = 16 bytes
+public class EjemploRandomAccessFile {
+    // Registro: id (int = 4B) + precio (double = 8B) + stock (int = 4B) = 16 bytes
+    private static final int TAMANO_REGISTRO = 16;
 
     public static void main(String[] args) {
-        try (RandomAccessFile raf = new RandomAccessFile("videojuegosRAF.dat", "rw")) {
-            // Guardamos 2 registros de 16 bytes cada uno
-            raf.writeInt(1); raf.writeDouble(19.99); raf.writeInt(10); // Reg 1: bytes 0..15
-            raf.writeInt(2); raf.writeDouble(49.99); raf.writeInt(5);  // Reg 2: bytes 16..31
+        String archivo = "videojuegosRAF.dat";
 
-            // Queremos modificar SOLO el stock del 2º videojuego (está en inicioRegistro + 12)
-            long inicioRegistro2 = (2 - 1) * TAMANO_REGISTRO; // byte 16
-            long posStock2 = inicioRegistro2 + 12;            // byte 28
+        // 1. Escribir y modificar el registro ID = 2
+        try (RandomAccessFile raf = new RandomAccessFile(archivo, "rw")) {
+            int idBuscado = 2;
+            long posicion = (idBuscado - 1) * TAMANO_REGISTRO; // (2-1) * 16 = byte 16
 
-            raf.seek(posStock2);
-            System.out.println("Stock actual del juego 2: " + raf.readInt());
-
-            raf.seek(posStock2); // Volvemos al byte 28 y sobrescribimos solo ese entero
-            raf.writeInt(99);
-
-            raf.seek(posStock2);
-            System.out.println("Nuevo stock del juego 2: " + raf.readInt());
+            raf.seek(posicion);     // Saltamos al byte exacto
+            raf.writeInt(idBuscado);
+            raf.writeDouble(49.99); // Precio
+            raf.writeInt(8);        // Stock
+            System.out.println("Registro 2 guardado en el byte: " + posicion);
         } catch (IOException e) {
-            System.out.println("Error RAF: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        // 2. Leer directamente ese registro sin leer el primero
+        try (RandomAccessFile raf = new RandomAccessFile(archivo, "r")) {
+            int idBuscado = 2;
+            raf.seek((idBuscado - 1) * TAMANO_REGISTRO);
+
+            int id = raf.readInt();
+            double precio = raf.readDouble();
+            int stock = raf.readInt();
+            System.out.println("Juego #" + id + " | Precio: " + precio + "€ | Stock: " + stock);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }</code></pre>
-            <div class="note-box"><strong>IDEA CLAVE:</strong> Cuidado: Cada vez que ejecutas readInt() o writeInt(), el puntero avanza 4 bytes automáticamente. Por eso hay que volver a hacer seek() antes de sobrescribir.</div>
+            <div class="note-box"><strong>IDEA CLAVE:</strong> Conocemos el tamaño de cada registro y la posición de cada campo; gracias a ello podemos modificar un dato concreto (como el precio) sin necesidad de reescribir el resto del fichero.</div>
         </section>
-        
-        <section class="page-card" id="ap7">
-            <div class="badge">APARTADO 7 DE 8 — PDF: UP1_Ficheros_SerializacionObjetos.pdf</div>
-            <h2>7. Serialización de Objetos (Serializable y ObjectStreams)</h2>
-            <div class="summary-box">
-                <div class="point"><div class="point-title"><b>¿Qué es serializar y deserializar?:</b></div><div class="point-body">• <b>Serializar:</b> Convertir un objeto Java (o una colección <i>ArrayList</i> completa) en una secuencia de bytes para guardarlo en un fichero binario (<i>.dat</i>).<br/>• <b>Deserializar:</b> Leer esos bytes del fichero y reconstruir los objetos originales en la memoria del programa.</div></div>
-<div class="point"><div class="point-title"><b>La interfaz Serializable y serialVersionUID:</b></div><div class="point-body">La clase cuyos objetos queremos guardar debe implementar <b>java.io.Serializable</b> e incluir el atributo <i>private static final long serialVersionUID = 1L;</i> (que comprueba que la versión de la clase coincide al leer el archivo).</div></div>
-<div class="point"><div class="point-title"><b>Clases ObjectOutputStream y ObjectInputStream:</b></div><div class="point-body">• <b>writeObject(objeto):</b> Guarda un objeto o un <i>ArrayList</i> entero en una sola llamada.<br/>• <b>readObject():</b> Recupera el objeto desde el fichero (requiere hacer <i>casting</i> al tipo original y capturar <i>ClassNotFoundException</i>).</div></div>
 
+        <!-- APARTADO 7 -->
+        <section class="page-card" id="ap7">
+            <span class="badge">APARTADO 7 DE 10 — PDF: UP1_Ficheros_SerializacionObjetos.pdf</span>
+            <h2>7. Serialización de Objetos (Serializable y ObjectStreams)</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> Es como meter una lasaña recién hecha en un tupper y congelarla. Semanas después la descongelas y tienes la lasaña lista para comer exactamente con los mismos ingredientes. <code>transient</code> es la nota de «no congelar el queso rallado».
             </div>
-            <div class="code-title">Ejemplo práctico — EjemploSerializacion.java</div>
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">¿Qué es la Serialización?:</div>
+                    <div class="point-body">
+                        Es el mecanismo que permite transformar el estado de un objeto Java completo en una secuencia de bytes para almacenarlo en un archivo binario (<b>.dat</b> / <b>.ser</b>) y reconstruirlo posteriormente en la memoria RAM (<b>Deserialización</b>).
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">La interfaz Serializable y serialVersionUID:</div>
+                    <div class="point-body">
+                        • <code>implements Serializable</code>: Interfaz marcadora (sin métodos) obligatoria para autorizar a la JVM a guardar el objeto.<br/>
+                        • <code>serialVersionUID</code>: Constante numérica que identifica la versión de la clase. Garantiza que la clase que lee los datos sea compatible con la que los guardó.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Flujos ObjectOutputStream, ObjectInputStream y transient:</div>
+                    <div class="point-body">
+                        • <code>ObjectOutputStream</code> con <code>writeObject()</code> guarda el objeto completo en disco.<br/>
+                        • <code>ObjectInputStream</code> con <code>readObject()</code> recupera el objeto (requiere casteo explícito).<br/>
+                        • El modificador <code>transient</code> marca los campos que <b>NO</b> deben guardarse (ej. contraseñas o datos temporales).<br/>
+                        • Permite guardar colecciones enteras (ej. un <code>ArrayList&lt;Videojuego&gt;</code>) en una sola llamada.
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Componente</th><th>Sintaxis</th><th>Propósito</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>Serializable</code></td><td><code>class Videojuego implements Serializable</code></td><td>Autoriza a Java a descomponer el objeto en bytes para almacenarlo.</td></tr>
+                        <tr><td><code>serialVersionUID</code></td><td><code>private static final long serialVersionUID = 1L;</code></td><td>Control de versión de la clase para evitar <code>InvalidClassException</code>.</td></tr>
+                        <tr><td><code>transient</code></td><td><code>private transient String token;</code></td><td>Excluye el atributo de la persistencia (se recuperará como <code>null</code> o <code>0</code>).</td></tr>
+                        <tr><td><code>ObjectOutputStream</code></td><td><code>oos.writeObject(objeto);</code></td><td>Escribe el objeto o lista de objetos en el flujo binario.</td></tr>
+                        <tr><td><code>ObjectInputStream</code></td><td><code>(MiClase) ois.readObject();</code></td><td>Reconstruye la instancia desde el flujo de bytes en memoria.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — EjemploSerializacion.java</div>
             <pre><code>package Ejemplos;
+
 import java.io.*;
 import java.util.ArrayList;
 
 class Videojuego implements Serializable {
     private static final long serialVersionUID = 1L;
-    private int id; private String titulo; private double precio;
+    private int id;
+    private String titulo;
+    private double precio;
+    private transient String passwordAdmin; // No se guardará
 
-    public Videojuego(int id, String titulo, double precio) {
-        this.id = id; this.titulo = titulo; this.precio = precio;
+    public Videojuego(int id, String titulo, double precio, String pass) {
+        this.id = id;
+        this.titulo = titulo;
+        this.precio = precio;
+        this.passwordAdmin = pass;
     }
+
     @Override
-    public String toString() { return id + " - " + titulo + " - " + precio + " €"; }
+    public String toString() {
+        return "#" + id + " " + titulo + " (" + precio + "€) | Pass: " + passwordAdmin;
+    }
 }
 
 public class EjemploSerializacion {
     public static void main(String[] args) {
-        ArrayList&lt;Videojuego&gt; juegos = new ArrayList&lt;&gt;();
-        juegos.add(new Videojuego(1, "Tetris", 19.99));
-        juegos.add(new Videojuego(2, "Super Mario Bros", 29.99));
+        String fichero = "videojuegos.dat";
+        ArrayList&lt;Videojuego&gt; catalogo = new ArrayList&lt;&gt;();
+        catalogo.add(new Videojuego(1, "Tetris", 19.99, "secret1"));
+        catalogo.add(new Videojuego(2, "Pac-Man", 29.99, "secret2"));
 
-        // 1. Serializar la lista completa con writeObject()
-        try (ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("juegos.dat"))) {
-            out.writeObject(juegos);
-        } catch (IOException e) { System.out.println(e.getMessage()); }
+        // 1. Serializar el ArrayList completo
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichero))) {
+            oos.writeObject(catalogo);
+            System.out.println("Lista de videojuegos serializada con éxito.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        // 2. Deserializar la lista haciendo casting
-        try (ObjectInputStream in = new ObjectInputStream(
-                new FileInputStream("juegos.dat"))) {
-            ArrayList&lt;Videojuego&gt; recuperados = (ArrayList&lt;Videojuego&gt;) in.readObject();
-            for (Videojuego v : recuperados) System.out.println(v);
+        // 2. Deserializar la colección completa
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichero))) {
+            ArrayList&lt;Videojuego&gt; recuperados = (ArrayList&lt;Videojuego&gt;) ois.readObject();
+            for (Videojuego v : recuperados) {
+                System.out.println("Recuperado -> " + v); // passwordAdmin saldrá null
+            }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 }</code></pre>
-            <div class="note-box"><strong>IDEA CLAVE:</strong> Si guardas un ArrayList<Videojuego>, tanto ArrayList como Videojuego deben implementar la interfaz Serializable.</div>
+            <div class="note-box"><strong>IDEA CLAVE:</strong> Con <code>writeObject()</code> podemos guardar una lista completa de objetos (o grafos complejos de objetos relacionados) en una sola llamada sin tener que guardar campo por campo.</div>
         </section>
-        
-        <section class="page-card" id="ap8">
-            <div class="badge">APARTADO 8 DE 8 — PDF: UP1_Ficheros_XML.pdf</div>
-            <h2>8. Ficheros XML: Estructura y Lectura con DOM y SAX</h2>
-            <div class="summary-box">
-                <div class="point"><div class="point-title"><b>Estructura y reglas de un XML bien formado:</b></div><div class="point-body">Compuesto por declaración XML opcional, un <b>único elemento raíz</b>, elementos hijos, <b>atributos</b> entre comillas y contenido texto.<br/>Para estar <b>bien formado</b>: toda etiqueta abierta debe cerrarse, no pueden cruzarse, distingue mayúsculas/minúsculas y solo hay una raíz.</div></div>
-<div class="point"><div class="point-title"><b>Lectura con DOM (Document Object Model):</b></div><div class="point-body">Carga todo el documento XML en memoria como un <b>árbol de nodos</b> (<i>Document</i>). Permite localizar etiquetas con <i>getElementsByTagName()</i>, leer atributos con <i>getAttribute()</i> y extraer su texto con <i>getTextContent()</i>.</div></div>
-<div class="point"><div class="point-title"><b>Lectura con SAX (Simple API for XML):</b></div><div class="point-body">Recorre el XML secuencialmente generando <b>eventos</b> sin cargarlo entero en memoria. Se extiende <i>DefaultHandler</i> sobrescribiendo <i>startElement()</i>, <i>characters()</i> y <i>endElement()</i>.</div></div>
 
+        <!-- APARTADO 8 -->
+        <section class="page-card" id="ap8">
+            <span class="badge">APARTADO 8 DE 10 — PDF: UP1_Ficheros_XML.pdf</span>
+            <h2>8. Ficheros XML: Estructura y Lectura con DOM y SAX</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> El DOM despliega el árbol genealógico completo sobre una mesa para que puedas mirar y cambiar cualquier hoja (ocupa mucha mesa/RAM). SAX es mirar por la ventanilla de un tren bala: ves pasar las etiquetas a toda velocidad sin gastar memoria, pero no puedes frenar ni volver atrás.
             </div>
-            <div class="code-title">Ejemplo práctico — EjemploXML_DOM_SAX.java (Lectura con DOM y con SAX)</div>
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">¿Qué es XML y cuándo está bien formado?:</div>
+                    <div class="point-body">
+                        Es un lenguaje de marcas estructurado para intercambio de datos. Está <b>bien formado</b> si tiene un único elemento raíz, todas las etiquetas de apertura tienen su cierre correspondiente, respeta el anidamiento y los atributos van entre comillas.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Parser DOM (Document Object Model):</div>
+                    <div class="point-body">
+                        Carga el documento XML <b>completo en memoria RAM</b> representando su estructura en forma de árbol de nodos (<code>Document</code>, <code>Element</code>, <code>NodeList</code>). Permite navegar en cualquier dirección y modificar nodos. Clases: <code>DocumentBuilderFactory</code> y <code>DocumentBuilder</code>.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Parser SAX (Simple API for XML):</div>
+                    <div class="point-body">
+                        Lectura secuencial basada en eventos (<code>startElement</code>, <code>characters</code>, <code>endElement</code>) mediante un <code>DefaultHandler</code>. No almacena el documento en memoria, por lo que es ultrarrápido y consume memoria mínima, pero es de solo lectura.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Escritura a disco con Transformer:</div>
+                    <div class="point-body">
+                        Para persistir un árbol DOM modificado en disco se utiliza <code>TransformerFactory</code> y <code>Transformer</code> conectando un <code>DOMSource(doc)</code> con un <code>StreamResult(new File("salida.xml"))</code>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Clase</th><th>Método de DOM</th><th>Retorno</th><th>Función</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>DocumentBuilder</code></td><td><code>builder.parse(File)</code></td><td><code>Document</code></td><td>Parsea el XML físico y devuelve el árbol en memoria RAM.</td></tr>
+                        <tr><td><code>Document</code></td><td><code>doc.getElementsByTagName("libro")</code></td><td><code>NodeList</code></td><td>Obtiene todos los nodos con esa etiqueta.</td></tr>
+                        <tr><td><code>Element</code></td><td><code>elem.getAttribute("isbn")</code></td><td><code>String</code></td><td>Recupera el valor del atributo indicado.</td></tr>
+                        <tr><td><code>Node / Element</code></td><td><code>elem.getTextContent()</code></td><td><code>String</code></td><td>Devuelve el contenido textual entre las etiquetas.</td></tr>
+                        <tr><td><code>Transformer</code></td><td><code>tf.transform(source, result)</code></td><td><code>void</code></td><td>Escribe el árbol DOM en memoria a un fichero XML físico en disco.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — EjemploXML_DOM_SAX.java</div>
             <pre><code>package Ejemplos;
+
 import java.io.File;
-import javax.xml.parsers.*;
+import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
-import org.xml.sax.Attributes;
-import org.xml.sax.helpers.DefaultHandler;
 
 public class EjemploXML_DOM_SAX {
     public static void main(String[] args) {
-        // A. LECTURA CON DOM (Árbol en memoria)
+        File archivoXML = new File("libros.xml");
+
+        // Lectura con DOM (carga el árbol completo en memoria)
         try {
             Document doc = DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder().parse(new File("libros.xml"));
+                    .newDocumentBuilder().parse(archivoXML);
+            doc.getDocumentElement().normalize();
+
             NodeList libros = doc.getElementsByTagName("libro");
             for (int i = 0; i &lt; libros.getLength(); i++) {
                 Element libro = (Element) libros.item(i);
+                String id = libro.getAttribute("id");
                 String titulo = libro.getElementsByTagName("titulo").item(0).getTextContent();
-                System.out.println("DOM -&gt; ID: " + libro.getAttribute("id") + " | " + titulo);
+                System.out.println("Libro #" + id + ": " + titulo);
             }
-        } catch (Exception e) { System.out.println("Error DOM: " + e.getMessage()); }
-
-        // B. LECTURA CON SAX (Eventos secuenciales)
-        try {
-            SAXParser analizador = SAXParserFactory.newInstance().newSAXParser();
-            analizador.parse(new File("libros.xml"), new DefaultHandler() {
-                private StringBuilder texto = new StringBuilder();
-                public void startElement(String u, String l, String q, Attributes a) {
-                    texto.setLength(0);
-                }
-                public void characters(char[] ch, int s, int len) { texto.append(ch, s, len); }
-                public void endElement(String u, String l, String q) {
-                    if (q.equals("titulo")) {
-                        System.out.println("SAX -&gt; Título: " + texto.toString().trim());
-                    }
-                }
-            });
-        } catch (Exception e) { System.out.println("Error SAX: " + e.getMessage()); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }</code></pre>
-            <div class="note-box"><strong>IDEA CLAVE:</strong> DOM carga todo el XML como un árbol en memoria (permite buscar y escribir); SAX lo lee de principio a fin por eventos.</div>
+            <div class="note-box"><strong>RECUERDA:</strong> DOM representa todo el XML como un árbol en memoria (ideal para editar y consultar) y SAX lo procesa secuencialmente mediante eventos (ideal para ficheros muy grandes donde la memoria es crítica).</div>
         </section>
-        
+
+        <!-- APARTADO 9 -->
+        <section class="page-card" id="ap9">
+            <span class="badge">APARTADO 9 DE 10 — PDF: UP1_Ficheros_JSON.pdf</span>
+            <h2>9. Ficheros JSON: Sintaxis, Clases org.json y Catálogo LudotecaIES</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> JSON es una ficha de cartulina: las llaves <code>{ }</code> son la ficha con los datos de una persona y los corchetes <code>[ ]</code> son una lista de la compra de varias cosas en fila.
+            </div>
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">¿Qué es JSON y para qué sirve?:</div>
+                    <div class="point-body">
+                        JSON (<i>JavaScript Object Notation</i>) es un formato de texto ligero y universal para almacenar e intercambiar datos. Es más legible y compacto que XML, convirtiéndose en el estándar dominante en la web.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Estructuras principales de JSON:</div>
+                    <div class="point-body">
+                        • <b>Objeto (<code>{ }</code>):</b> Colección no ordenada de pares clave-valor (ej. <code>{"nombre": "Pepito", "edad": 25}</code>).<br/>
+                        • <b>Array (<code>[ ]</code>):</b> Lista ordenada de valores separados por comas (ej. <code>["Tetris", "Pac-Man"]</code>).<br/>
+                        • Tipos de datos válidos: cadena (String), número, booleano (true/false), null, objeto y array.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Librería org.json y métodos principales:</div>
+                    <div class="point-body">
+                        • <code>JSONObject</code>: métodos <code>put("clave", valor)</code>, <code>getString("clave")</code>, <code>getInt("clave")</code>.<br/>
+                        • <code>JSONArray</code>: métodos <code>put(valor)</code>, <code>getJSONObject(posicion)</code>, <code>length()</code>.<br/>
+                        • Formateo con sangría: <code>objeto.toString(2)</code> añade 2 espacios de sangría para que sea legible por humanos.<br/>
+                        • Guardar/leer con NIO.2: <code>Files.writeString(path, json.toString(2))</code> y <code>Files.readString(path)</code>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Clase</th><th>Método de org.json</th><th>Retorno</th><th>Descripción</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>JSONObject</code></td><td><code>put("clave", valor)</code></td><td><code>JSONObject</code></td><td>Inserta o actualiza un par clave-valor en el objeto JSON.</td></tr>
+                        <tr><td><code>JSONObject</code></td><td><code>getString("clave") / getInt()</code></td><td><code>String / int</code></td><td>Obtiene el valor asociado tipado. Lanza <code>JSONException</code> si no existe.</td></tr>
+                        <tr><td><code>JSONObject</code></td><td><code>getJSONArray("clave")</code></td><td><code>JSONArray</code></td><td>Recupera una lista o array anidado dentro del objeto.</td></tr>
+                        <tr><td><code>JSONArray</code></td><td><code>getJSONObject(int i)</code></td><td><code>JSONObject</code></td><td>Devuelve el objeto situado en la posición <code>i</code> de la lista.</td></tr>
+                        <tr><td><code>JSONObject</code></td><td><code>toString(int indent)</code></td><td><code>String</code></td><td>Serializa a String formateado con la sangría indicada.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — LeerCatalogo.java (LudotecaIES)</div>
+            <pre><code>package TF7;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class LeerCatalogo {
+    public static void main(String[] args) {
+        try {
+            // 1. Leer el fichero completo como String con NIO.2
+            String contenido = Files.readString(Path.of("catalogo.json"));
+
+            // 2. Convertir el texto a JSONObject
+            JSONObject catalogo = new JSONObject(contenido);
+            System.out.println("Catálogo: " + catalogo.getString("nombre"));
+
+            // 3. Recorrer el array de videojuegos
+            JSONArray videojuegos = catalogo.getJSONArray("videojuegos");
+            for (int i = 0; i &lt; videojuegos.length(); i++) {
+                JSONObject juego = videojuegos.getJSONObject(i);
+                int id = juego.getInt("id");
+                String titulo = juego.getString("titulo");
+                double precio = juego.getDouble("precio");
+                System.out.println("Juego #" + id + ": " + titulo + " - " + precio + "€");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+            <div class="note-box"><strong>IDEA CLAVE:</strong> En JSON, las llaves <code>{ }</code> representan una entidad con propiedades y los corchetes <code>[ ]</code> representan listas; combinando <code>JSONObject</code> y <code>JSONArray</code> podemos representar cualquier estructura del proyecto.</div>
+        </section>
+
+        <!-- APARTADO 10 -->
+        <section class="page-card" id="ap10">
+            <span class="badge">APARTADO 10 DE 10 — PDF: UP1_Ficheros_JSON_API.pdf</span>
+            <h2>10. Introducción a las APIs y Conexión con SWAPI desde Java</h2>
+            <div class="analogy-box">
+                <strong>💡 Explicación sencilla:</strong> Una API es el camarero de un restaurante: tú no entras a la cocina (servidor), le pides la comida al camarero con una dirección web, y el camarero te trae el plato en una bandeja en formato JSON.
+            </div>
+            <div class="summary-box">
+                <div class="point">
+                    <div class="point-title">¿Qué es una API REST y para qué sirve?:</div>
+                    <div class="point-body">
+                        Una API (<i>Application Programming Interface</i>) es un conjunto de reglas y endpoints web que permiten a dos aplicaciones comunicarse entre sí a través de Internet. La gran mayoría devuelven la información empaquetada en formato <b>JSON</b>.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Ejemplo de API pública: Star Wars API (SWAPI):</div>
+                    <div class="point-body">
+                        SWAPI proporciona información pública sobre películas, planetas y personajes. Por ejemplo, al consultar la URL <code>https://swapi.dev/api/people/1/</code> obtenemos el JSON correspondiente al personaje <b>Luke Skywalker</b>.
+                    </div>
+                </div>
+                <div class="point">
+                    <div class="point-title">Conexión HTTP desde Java (HttpClient):</div>
+                    <div class="point-body">
+                        Desde Java 11 se utiliza la API estándar <code>java.net.http</code>:<br/>
+                        1. Crear el cliente: <code>HttpClient.newHttpClient()</code>.<br/>
+                        2. Construir la petición GET: <code>HttpRequest.newBuilder().uri(URI.create(url)).GET().build()</code>.<br/>
+                        3. Enviar la petición y obtener el body como texto: <code>client.send(...)</code>.<br/>
+                        4. Parsear el cuerpo de la respuesta con <code>new JSONObject(response.body())</code>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="command-table-container">
+                <table>
+                    <thead>
+                        <tr><th>Clase</th><th>Método de java.net.http</th><th>Retorno</th><th>Función</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>HttpClient</code></td><td><code>HttpClient.newHttpClient()</code></td><td><code>HttpClient</code></td><td>Crea un cliente HTTP para enviar peticiones web.</td></tr>
+                        <tr><td><code>HttpRequest</code></td><td><code>HttpRequest.newBuilder().uri(...).GET().build()</code></td><td><code>HttpRequest</code></td><td>Configura la URL de destino y el método de consulta (GET).</td></tr>
+                        <tr><td><code>HttpResponse</code></td><td><code>client.send(request, BodyHandlers.ofString())</code></td><td><code>HttpResponse&lt;String&gt;</code></td><td>Envía la solicitud a través de la red y espera la respuesta.</td></tr>
+                        <tr><td><code>HttpResponse</code></td><td><code>response.body()</code></td><td><code>String</code></td><td>Devuelve el contenido en texto plano recibido del servidor web.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="code-title">📄 Ejemplo práctico — ConsultaStarWars.java (SWAPI)</div>
+            <pre><code>package TF7;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import org.json.JSONObject;
+
+public class ConsultaStarWars {
+    public static void main(String[] args) {
+        String url = "https://swapi.dev/api/people/1/";
+
+        try {
+            // 1. Crear el cliente y la petición HTTP GET
+            HttpClient cliente = HttpClient.newHttpClient();
+            HttpRequest peticion = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .GET()
+                    .build();
+
+            // 2. Enviar la consulta y obtener la respuesta en texto
+            HttpResponse&lt;String&gt; respuesta = cliente.send(
+                    peticion,
+                    HttpResponse.BodyHandlers.ofString()
+            );
+
+            // 3. Interpretar el JSON recibido
+            JSONObject personaje = new JSONObject(respuesta.body());
+            System.out.println("--- Datos de Star Wars (SWAPI) ---");
+            System.out.println("Nombre: " + personaje.getString("name"));
+            System.out.println("Altura: " + personaje.getString("height") + " cm");
+            System.out.println("Color de ojos: " + personaje.getString("eye_color"));
+            System.out.println("Año de nacimiento: " + personaje.getString("birth_year"));
+
+        } catch (Exception e) {
+            System.err.println("Error al conectar con la API: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            <div class="note-box"><strong>IDEA CLAVE:</strong> Java permite conectar con cualquier servicio web del mundo mediante <code>HttpClient</code> y transformar la respuesta JSON recibida en objetos interactivos para nuestra aplicación.</div>
+        </section>
+
     </main>
+
+    <footer>
+        <p>Resumen Oficial UD1 — Acceso a Datos · 2º DAM (2026-2027) · mutxamel_pg / LudotecaIES</p>
+    </footer>
 </body>
 </html>
