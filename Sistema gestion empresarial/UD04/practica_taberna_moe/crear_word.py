@@ -11,14 +11,14 @@ DOCX_PATH = DEST_DIR / "Memoria_Practica_UD04_Kevin_Odoo.docx"
 
 doc = docx.Document()
 
-# Configurar márgenes estrechos/estándar (2 cm)
+# Configurar márgenes estándar (0.75 pulgadas / ~1.9 cm)
 for section in doc.sections:
-    section.top_margin = Inches(0.8)
-    section.bottom_margin = Inches(0.8)
-    section.left_margin = Inches(0.8)
-    section.right_margin = Inches(0.8)
+    section.top_margin = Inches(0.75)
+    section.bottom_margin = Inches(0.75)
+    section.left_margin = Inches(0.75)
+    section.right_margin = Inches(0.75)
 
-# Colores y estilos
+# Colores institucionales
 COLOR_PRIMARY = RGBColor(0x71, 0x4B, 0x67)  # Odoo Purple
 COLOR_MUTED = RGBColor(0x55, 0x55, 0x55)
 COLOR_TEXT = RGBColor(0x22, 0x22, 0x22)
@@ -61,10 +61,12 @@ for row_idx, (col1, col2) in enumerate(data):
     r2.font.name = "Arial"
     r2.font.size = Pt(9.5)
 
-doc.add_paragraph() # Espacio separador
+sep = doc.add_paragraph()
+sep.paragraph_format.space_before = Pt(4)
+sep.paragraph_format.space_after = Pt(12)
 
-# Función para insertar sección directa: Título + Imagen + Pie
-def add_item(num_text, img_name, caption_text, max_height_inches=3.6):
+# Función para insertar sección directa: Título + Imagen grande y nítida + Pie
+def add_item(num_text, img_name, caption_text):
     img_path = CAPTURES_DIR / img_name
     if not img_path.exists():
         print(f"Aviso: {img_name} no existe")
@@ -72,36 +74,38 @@ def add_item(num_text, img_name, caption_text, max_height_inches=3.6):
 
     # Título del requisito
     p_title = doc.add_paragraph()
-    p_title.paragraph_format.space_before = Pt(12)
-    p_title.paragraph_format.space_after = Pt(4)
+    p_title.paragraph_format.space_before = Pt(16)
+    p_title.paragraph_format.space_after = Pt(6)
     p_title.paragraph_format.keep_with_next = True
     run_t = p_title.add_run(num_text)
     run_t.font.name = "Arial"
-    run_t.font.size = Pt(11)
+    run_t.font.size = Pt(11.5)
     run_t.font.bold = True
     run_t.font.color.rgb = COLOR_PRIMARY
 
-    # Calcular dimensiones manteniendo ratio
+    # Dimensionar la imagen adecuadamente (entre 5.5 y 6.0 pulgadas de ancho)
     with Image.open(img_path) as im:
         orig_w, orig_h = im.size
-    
-    max_w = 6.4
-    scale = min(max_w / orig_w, (max_height_inches * 96) / orig_h, 1.0)
-    w_inches = (orig_w * scale) / 96.0
+
+    aspect_ratio = orig_h / orig_w
+    target_width_inches = 5.8
+    # Si la imagen es muy alta (ej. vertical), limitamos el alto para que quepa en la página
+    if target_width_inches * aspect_ratio > 4.2:
+        target_width_inches = 4.2 / aspect_ratio
 
     # Imagen centrada
     p_img = doc.add_paragraph()
     p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_img.paragraph_format.space_before = Pt(2)
-    p_img.paragraph_format.space_after = Pt(2)
+    p_img.paragraph_format.space_before = Pt(4)
+    p_img.paragraph_format.space_after = Pt(4)
     p_img.paragraph_format.keep_with_next = True
-    p_img.add_run().add_picture(str(img_path), width=Inches(w_inches))
+    p_img.add_run().add_picture(str(img_path), width=Inches(target_width_inches))
 
     # Pie de imagen descriptivo
     p_cap = doc.add_paragraph()
     p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_cap.paragraph_format.space_before = Pt(2)
-    p_cap.paragraph_format.space_after = Pt(10)
+    p_cap.paragraph_format.space_after = Pt(14)
     run_c = p_cap.add_run(caption_text)
     run_c.font.name = "Arial"
     run_c.font.size = Pt(9)
@@ -207,7 +211,7 @@ ITEMS = [
     )
 ]
 
-print("Generando documento Word (.docx)...")
+print("Generando documento Word (.docx) con imágenes a tamaño completo...")
 for item in ITEMS:
     add_item(*item)
 
