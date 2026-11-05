@@ -1,25 +1,32 @@
 package com.mutxamel.secops;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DatabaseConnection {
-    private static Connection connection = null;
-    private DatabaseConnection() {}
-    static {
-        //las claves de acceso para poder conectarse, las 3 cosas de abajo son la clave para conecction
-        String url = "jdbc:postgresql://localhost:5432/mutxamel_pg";
-        String user = "postgres";
-        String password = "postgres";
-        try {
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+    private DatabaseConnection() { }
+
+    public static Connection getConnection() throws SQLException, IOException {
+        Properties propiedades = new Properties();
+        try (InputStream entrada = Files.newInputStream(Path.of("config.properties"))) {
+            propiedades.load(entrada);
         }
-    }
-    public static Connection getConnection() {
-        return connection;
+
+        String url = propiedades.getProperty("db.url");
+        String usuario = propiedades.getProperty("db.user");
+        String password = propiedades.getProperty("db.password");
+
+        if (url == null || usuario == null || password == null) {
+            throw new IOException("Faltan propiedades de conexión.");
+        }
+
+        return DriverManager.getConnection(url, usuario, password);
     }
 }
-

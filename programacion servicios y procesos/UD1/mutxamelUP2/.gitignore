@@ -37,3 +37,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Archivo de configuracion con credenciales reales (Sesion 4)
+config.properties
