@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SoftwareAuditadoDAO {
 
-    // 1. READ: Listar todo el inventario de software auditado
+    // 1.Listar todo el inventario de software auditado
     public List<SoftwareAuditado> obtenerTodos() {
         List<SoftwareAuditado> lista = new ArrayList<>();
         String sql = "SELECT codigo, nombre, nivel_exposicion FROM software_auditado ORDER BY codigo ASC";
@@ -29,7 +29,7 @@ public class SoftwareAuditadoDAO {
         return lista;
     }
 
-    // 2. READ (Filtrado): Buscar aplicaciones cuyo riesgo sea mayor o igual al mínimo indicado
+    // 2. Buscar aplicaciones cuyo riesgo sea mayor o igual al mínimo indicado
     public List<SoftwareAuditado> buscarPorRiesgoMinimo(int riesgoMinimo) {
         List<SoftwareAuditado> filtrada = new ArrayList<>();
         String sql = "SELECT codigo, nombre, nivel_exposicion FROM software_auditado WHERE nivel_exposicion >= ?";

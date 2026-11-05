@@ -1,4 +1,4 @@
-package com.mutxamel.secops;
+package com.mutxamel.secops.Practica1.ud2.model;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -8,12 +8,12 @@ public class Login {
     private String password;
     private Timestamp createdAt;
     public Login() {}
-    // Constructor para dar de alta un nuevo analista (id y created_at los asigna PostgreSQL)
+    // Constructor para dar de alta un nuevo analista
     public Login(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
-    // Constructor completo para reconstruir (hidratar) el objeto desde un ResultSet
+    // Constructor completo para reconstruir el objeto desde un ResultSet
     public Login(int id, String userName, String password, Timestamp createdAt) {
         this.id = id;
         this.userName = userName;

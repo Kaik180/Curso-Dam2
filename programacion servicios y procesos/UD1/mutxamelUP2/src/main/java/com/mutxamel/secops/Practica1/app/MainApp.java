@@ -1,4 +1,11 @@
-package com.mutxamel.secops;
+package com.mutxamel.secops.Practica1.app;
+
+import com.mutxamel.secops.*;
+import com.mutxamel.secops.Practica1.dao.LoginDAO;
+import com.mutxamel.secops.Practica1.dao.SoftwareAuditadoDAO;
+import com.mutxamel.secops.Practica1.model.Login;
+import com.mutxamel.secops.Practica1.model.SoftwareAuditado;
+import com.mutxamel.secops.Practica1.util.DatabaseConnection;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,23 +17,19 @@ public class MainApp {
     static SoftwareAuditadoDAO softwareDAO = new SoftwareAuditadoDAO();
 
     public static void main(String[] args) {
-        System.out.println("=============================================================");
-        System.out.println("  UP 2 - SESIÓN 4: CONFIGURACIÓN EXTERNA Y TRANSACCIONES JDBC");
-        System.out.println("=============================================================\n");
-
-        // 1.5. PRUEBA DE CONEXIÓN LEYENDO config.properties
+        // 1. PRUEBA DE CONEXIÓN LEYENDO config.properties
         System.out.println("--- 1. Prueba de conexión externa (config.properties) ---");
         try (Connection con = DatabaseConnection.getConnection()) {
-            System.out.println("✓ Conexión correcta con PostgreSQL desde config.properties.\n");
+            System.out.println(" Conexión correcta con PostgreSQL desde config.properties.\n");
         } catch (IOException e) {
-            System.out.println("✗ Error de configuración: " + e.getMessage());
+            System.out.println(" Error de configuración: " + e.getMessage());
             return;
         } catch (SQLException e) {
-            System.out.println("✗ Error SQL: " + e.getMessage());
+            System.out.println(" Error SQL: " + e.getMessage());
             return;
         }
 
-        // Operaciones de analistas (LoginDAO)
+        // 2. Operaciones de analistas (LoginDAO)
         System.out.println("=== PLANTILLA DE ANALISTAS (TABLA LOGIN) ===");
         if (loginDAO.buscarPorUserName("Silvia") == null) {
             Login silvia = new Login("Silvia", "silvia@silvia.es");
@@ -36,14 +39,14 @@ public class MainApp {
             System.out.println(a);
         }
 
-        // Estado inicial de la tabla software_auditado
+        // 3. Estado inicial de la tabla software_auditado
         System.out.println("\n=== ESTADO INICIAL DE SOFTWARE AUDITADO ===");
         List<SoftwareAuditado> inventarioInicial = softwareDAO.obtenerTodos();
         for (SoftwareAuditado app : inventarioInicial) {
             System.out.println(app);
         }
 
-        // Aseguramos que existan al menos dos registros para las pruebas transaccionales
+        // 4.Aseguramos que existan al menos dos registros para las pruebas transaccionales
         if (inventarioInicial.size() < 2) {
             softwareDAO.insertarSoftware(new SoftwareAuditado("Aplicación Base 1", 1));
             softwareDAO.insertarSoftware(new SoftwareAuditado("Aplicación Base 2", 1));
@@ -53,14 +56,10 @@ public class MainApp {
         int codigo1 = inventarioInicial.get(0).getCodigo();
         int codigo2 = inventarioInicial.get(1).getCodigo();
 
-        // ==============================================================
-        // 4.2. COMPROBACIÓN DE TRANSACCIONES (commit y rollback)
-        // ==============================================================
-        System.out.println("\n=============================================================");
+        // 5. COMPROBACIÓN DE TRANSACCIONES
         System.out.println("=== COMPROBACIÓN TRANSACCIONAL: commit() Y rollback() ======");
-        System.out.println("=============================================================");
 
-        // --- PRUEBA A: Dos códigos existentes y distintos (commit) ---
+        // 6.1 PRUEBA A: Dos códigos existentes y distintos (commit) ---
         System.out.println("\n--- PRUEBA A: Transacción Exitosa (Códigos " + codigo1 + " y " + codigo2 + ") ---");
         System.out.println("Se actualizará código " + codigo1 + " a riesgo 4 y código " + codigo2 + " a riesgo 5.");
         boolean resultadoA = softwareDAO.actualizarDosNiveles(codigo1, 4, codigo2, 5);
@@ -73,7 +72,7 @@ public class MainApp {
             }
         }
 
-        // --- PRUEBA B: El segundo código no existe (rollback) ---
+        // 6.2 PRUEBA B: El segundo código no existe (rollback) ---
         int codigoInexistente = 99999;
         System.out.println("\n--- PRUEBA B: Transacción Fallida Provocada (Códigos " + codigo1 + " y " + codigoInexistente + ") ---");
         System.out.println("Se intenta cambiar código " + codigo1 + " a riesgo 2 y código " + codigoInexistente + " a riesgo 3.");
