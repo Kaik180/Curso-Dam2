@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen Completo PMDM - Programación Móvil DAM2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #02569B;
+      --primary-light: #0175C2;
+      --primary-dark: #013b68;
+      --secondary: #00B4AB;
+      --accent: #FF6D00;
+      --bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --surface: #EDF2F7;
+      --text: #1E293B;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --code-bg: #0F172A;
+      --code-text: #F1F5F9;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0F172A;
+      --card-bg: #1E293B;
+      --surface: #334155;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border: #334155;
+      --code-bg: #020617;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Navegación y Header */
+    header.hero-header {
+      background: linear-gradient(135deg, #013b68 0%, #02569B 50%, #0175C2 100%);
+      color: white;
+      padding: 3rem 2rem 2.5rem;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .badge-course {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    h1.hero-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    p.hero-subtitle {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 800px;
+      margin-bottom: 1.5rem;
+    }
+
+    .meta-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 1.2rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Barra de herramientas flotante */
+    .toolbar-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-light);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover {
+      background: var(--surface);
+    }
+
+    /* Layout principal */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+    }
+
+    /* Índice lateral sticky */
+    aside.sidebar {
+      position: sticky;
+      top: 4.5rem;
+      height: calc(100vh - 6rem);
+      overflow-y: auto;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    aside.sidebar h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .toc-nav {
+      list-style: none;
+    }
+
+    .toc-nav li {
+      margin-bottom: 0.5rem;
+    }
+
+    .toc-nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: block;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .toc-nav a:hover, .toc-nav a.active {
+      color: var(--primary);
+      background: var(--surface);
+      font-weight: 600;
+    }
+
+    .toc-nav .sub-item {
+      padding-left: 1.2rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Contenido principal */
+    main.content {
+      min-width: 0;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 2.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .unit-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+
+    .tag-blue { background: #E0F2FE; color: #0284C7; }
+    .tag-teal { background: #CCFBF1; color: #0D9488; }
+    .tag-purple { background: #F3E8FF; color: #9333EA; }
+    .tag-amber { background: #FEF3C7; color: #D97706; }
+    .tag-rose { background: #FFE4E6; color: #E11D48; }
+
+    h2.section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-bottom: 2px solid var(--surface);
+      padding-bottom: 0.6rem;
+    }
+
+    h3.sub-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    h4.topic-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Cajas destacadas / Callouts */
+    .callout {
+      border-left: 4px solid var(--primary);
+      background: var(--surface);
+      padding: 1rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1.2rem 0;
+      font-size: 0.95rem;
+    }
+
+    .callout-warning {
+      border-left-color: var(--warning);
+      background: #FFFBEB;
+      color: #92400E;
+    }
+
+    .callout-success {
+      border-left-color: var(--success);
+      background: #ECFDF5;
+      color: #065F46;
+    }
+
+    .callout-activity {
+      border-left-color: var(--accent);
+      background: #FFF7ED;
+      color: #9A3412;
+    }
+
+    /* Tablas elegantes */
+    .table-container {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    table.data-table th, table.data-table td {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+    }
+
+    table.data-table th {
+      background: var(--surface);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    table.data-table tr:hover {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    /* Bloques de Código */
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 1.2rem;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.86rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      line-height: 1.5;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+      font-size: 0.75rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    code.inline-code {
+      background: var(--surface);
+      color: var(--primary);
+      font-family: 'Fira Code', monospace;
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+      font-weight: 600;
+    }
+
+    /* Grid de tarjetas para temas */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 1.2rem 0;
+    }
+
+    .card-mini {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+    }
+
+    .card-mini h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-light);
+    }
+
+    /* Sección de Memoria */
+    .rubric-box {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin: 1rem 0;
+    }
+
+    /* Print Stylesheet (Optimizado para generar PDF perfecto con A4) */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+        font-size: 10.5pt;
+      }
+
+      .toolbar-bar, aside.sidebar, .btn, .search-input {
+        display: none !important;
+      }
+
+      .container {
+        display: block !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      header.hero-header {
+        background: #02569B !important;
+        color: white !important;
+        padding: 2rem !important;
+        page-break-after: avoid;
+      }
+
+      .section-card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        padding: 1.2rem !important;
+        margin-bottom: 1.5rem !important;
+        page-break-inside: avoid;
+      }
+
+      .code-block {
+        background: #F1F5F9 !important;
+        color: #0F172A !important;
+        border: 1px solid #CBD5E1 !important;
+        page-break-inside: avoid;
+      }
+
+      h2.section-title {
+        page-break-before: auto;
+        page-break-after: avoid;
+      }
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      aside.sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO HEADER FORMAL (CONFORME A INSTRUCCIONES.MEMORIA.MD) -->
+  <header class="hero-header">
+    <div class="header-content">
+      <span class="badge-course">2º DAM • Ciclo Formativo de Grado Superior</span>
+      <h1 class="hero-title">Programación Multimedia y Dispositivos Móviles</h1>
+      <p class="hero-subtitle">
+        Memoria técnica integral y resumen exhaustivo del temario oficial: Entorno y SDKs (Unit 1), Dart y Arquitectura Asíncrona (Unit 2), e Interfaces Declarativas y Navegación con Flutter (Unit 3).
+      </p>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span>📚 <strong>Módulo:</strong> PMDM (100% Temario)</span>
+        </div>
+        <div class="meta-item">
+          <span>🔗 <strong>Repositorio:</strong> github.com/arturoalbero/PMDM</span>
+        </div>
+        <div class="meta-item">
+          <span>📱 <strong>Tecnologías:</strong> Flutter 3.x, Dart 3.x, Material 3, GoRouter</span>
+        </div>
+        <div class="meta-item">
+          <span>🚀 <strong>Proyecto Práctico:</strong> unit3_activities_app</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BARRA DE HERRAMIENTAS STICKY -->
+  <div class="toolbar-bar">
+    <div class="toolbar-left">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar temas, widgets, comandos o conceptos..." onkeyup="filterContent()">
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn btn-primary" onclick="window.print()">
+        🖨️ Exportar a PDF / Imprimir
+      </button>
+      <button class="btn btn-outline" onclick="toggleTheme()" id="themeBtn">
+        🌙 Modo Oscuro
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- ÍNDICE INTERACTIVO / TOC -->
+    <aside class="sidebar">
+      <h3>Tabla de Contenidos</h3>
+      <ul class="toc-nav">
+        <li><a href="#memoria-normas">📋 Criterios de la Memoria</a></li>
+        <li><a href="#unit-01">📦 Unidad 1: Entorno & SDKs</a></li>
+        <li><a href="#u1-vscode" class="sub-item">1.1 VS Code y Atajos</a></li>
+        <li><a href="#u1-devices" class="sub-item">1.2 Dispositivos y ADB</a></li>
+        <li><a href="#u1-project" class="sub-item">1.3 Anatomía de un Proyecto</a></li>
+        <li><a href="#unit-02">🎯 Unidad 2: Lenguaje Dart & HTTP</a></li>
+        <li><a href="#u2-syntax" class="sub-item">2.1 Tipos y Null Safety</a></li>
+        <li><a href="#u2-collections" class="sub-item">2.2 Funciones y Colecciones</a></li>
+        <li><a href="#u2-oop" class="sub-item">2.3 POO, Factory y Mixins</a></li>
+        <li><a href="#u2-async" class="sub-item">2.4 Async, Futures y Streams</a></li>
+        <li><a href="#u2-http" class="sub-item">2.5 Consumo HTTP y Modelos</a></li>
+        <li><a href="#unit-03">🚀 Unidad 3: Widgets & Navegación</a></li>
+        <li><a href="#u3-widgets" class="sub-item">3.1 Widgets y UI Declarativa</a></li>
+        <li><a href="#u3-act1" class="sub-item">★ Actividad 3.1: Contador Triple</a></li>
+        <li><a href="#u3-futurebuilder" class="sub-item">3.2 FutureBuilder & Pull-to-refresh</a></li>
+        <li><a href="#u3-nav1" class="sub-item">3.3 Navigator 1.0 & Formularios</a></li>
+        <li><a href="#u3-widgetsnav" class="sub-item">3.4 NavigationBar, Tabs & Diálogos</a></li>
+        <li><a href="#u3-gorouter" class="sub-item">3.5 GoRouter & Animaciones Hero</a></li>
+        <li><a href="#proyecto-unit3">📱 Proyecto 'unit3_activities_app'</a></li>
+      </ul>
+    </aside>
+
+    <!-- CUERPO PRINCIPAL DE LA GUÍA -->
+    <main class="content">
+
+      <!-- SECCIÓN 0: CRITERIOS DE LA MEMORIA OFICIAL -->
+      <section id="memoria-normas" class="section-card">
+        <span class="unit-tag tag-rose">Normativa de Evaluación</span>
+        <h2 class="section-title">0. Criterios de Calificación y Memoria Técnica</h2>
+        <p>
+          Según el documento oficial <code class="inline-code">instrucciones.memoria.md</code> del repositorio, la memoria no solo es obligatoria para el seguimiento, sino que asienta los conocimientos adquiridos mediante documentación rigurosa:
+        </p>
+        <div class="rubric-box">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Elemento de la Memoria</th>
+                <th>Ponderación</th>
+                <th>Requisitos Exigidos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Portada</strong></td>
+                <td>5%</td>
+                <td>Nombre del alumno, curso (DAM2), fecha de entrega y denominación de la unidad.</td>
+              </tr>
+              <tr>
+                <td><strong>Índice</strong></td>
+                <td>10%</td>
+                <td>Generado automáticamente mediante jerarquía de encabezados (H2 / H3).</td>
+              </tr>
+              <tr>
+                <td><strong>Páginas Numeradas</strong></td>
+                <td>5%</td>
+                <td>Paginación uniforme en el documento.</td>
+              </tr>
+              <tr>
+                <td><strong>Desarrollo de Actividades</strong></td>
+                <td>80%</td>
+                <td>Ordenadas por bloques temáticos, capturas de código relevante, ejecución final, dificultades encontradas y registro de herramientas de asistencia técnica/IA empleadas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- UNIDAD 1 -->
+      <section id="unit-01" class="section-card">
+        <span class="unit-tag tag-blue">Unidad Temática 01</span>
+        <h2 class="section-title">1. Entorno de Desarrollo, SDKs y Herramientas</h2>
+        <p>
+          La primera unidad cubre el aprovisionamiento del entorno para el desarrollo multiplataforma profesional (Android, iOS, Web, Windows).
+        </p>
+
+        <h3 id="u1-vscode" class="sub-title">1.1 Visual Studio Code y Productividad</h3>
+        <p>
+          Flutter se integra de forma nativa con VS Code mediante los plugins oficiales de <strong>Dart</strong> y <strong>Flutter</strong>.
+        </p>
+        <div class="grid-2">
+          <div class="card-mini">
+            <h4>Atajos Esenciales</h4>
+            <ul>
+              <li><code class="inline-code">Ctrl + Shift + P</code>: Paleta de comandos (<em>Flutter: New Project</em>, <em>Flutter: Select Device</em>).</li>
+              <li><code class="inline-code">Ctrl + .</code>: Acciones rápidas (Extraer widget, envolver con Padding/Container, convertir a StatefulWidget).</li>
+              <li><code class="inline-code">r</code>: <em>Hot Reload</em> (recarga en &lt; 500ms preservando el estado de la app).</li>
+              <li><code class="inline-code">R</code>: <em>Hot Restart</em> (reconstrucción completa reiniciando el estado).</li>
+            </ul>
+          </div>
+          <div class="card-mini">
+            <h4>Snippets Clave</h4>
+            <ul>
+              <li><code class="inline-code">stless</code>: Genera la estructura básica de un <code class="inline-code">StatelessWidget</code>.</li>
+              <li><code class="inline-code">stful</code>: Genera un <code class="inline-code">StatefulWidget</code> con su clase de estado asociada.</li>
+              <li><code class="inline-code">futureBld</code>: Esqueleto estándar para el widget <code class="inline-code">FutureBuilder</code>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 id="u1-devices" class="sub-title">1.2 Dispositivos Físicos, Emuladores y ADB</h3>
+        <p>
+          Para la depuración se emplean dos alternativas de virtualización: el emulador oficial de Android Studio (AVD con aceleración HAXM/Hyper-V) o <strong>Genymotion</strong> (basado en VirtualBox, muy fluido en equipos con recursos moderados).
+        </p>
+        <div class="code-block">
+          <div class="code-header">Comandos de Diagnóstico y Control de Dispositivos</div>
+<pre><code># Verificación general del estado del SDK, herramientas y licencias Android
+flutter doctor -v
+
+# Listado de dispositivos reconocidos por el sistema
+flutter devices
+
+# Comandos de Android Debug Bridge (ADB)
+adb devices              # Lista los terminales y emuladores conectados
+adb kill-server          # Reinicia el servidor ADB en caso de cuelgues
+adb logcat               # Muestra el flujo de logs en tiempo real del dispositivo</code></pre>
+        </div>
+
+        <h3 id="u1-project" class="sub-title">1.3 Anatomía Integral de un Proyecto Flutter</h3>
+        <ul>
+          <li><code class="inline-code">lib/</code>: Directorio donde reside el 100% de la lógica Dart y la interfaz. El punto de entrada indiscutible es <code class="inline-code">lib/main.dart</code>.</li>
+          <li><code class="inline-code">pubspec.yaml</code>: Manifiesto central donde se configuran los metadatos, versiones del SDK, dependencias (<code class="inline-code">dependencies</code> / <code class="inline-code">dev_dependencies</code>), fuentes y recursos estáticos (imágenes/assets).</li>
+          <li><code class="inline-code">analysis_options.yaml</code>: Reglas del linter oficial (<code class="inline-code">flutter_lints</code>) para asegurar buenas prácticas y código limpio.</li>
+          <li><code class="inline-code">android/</code>, <code class="inline-code">ios/</code>, <code class="inline-code">web/</code>, <code class="inline-code">windows/</code>: Capas puente (*host runners*) que permiten compilar código máquina nativo para cada plataforma.</li>
+        </ul>
+      </section>
+
+      <!-- UNIDAD 2 -->
+      <section id="unit-02" class="section-card">
+        <span class="unit-tag tag-teal">Unidad Temática 02</span>
+        <h2 class="section-title">2. Lenguaje Dart, POO y Arquitectura de Datos HTTP</h2>
+        <p>
+          Dart es el lenguaje tipado, orientado a objetos y de alto rendimiento que impulsa Flutter.
+        </p>
+
+        <h3 id="u2-syntax" class="sub-title">2.1 Variables, Tipos y Sound Null Safety</h3>
+        <p>
+          Dart implementa <em>Sound Null Safety</em> en tiempo de compilación. Ninguna variable puede contener <code class="inline-code">null</code> a menos que se declare explícitamente como anulable.
+        </p>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Operador / Modificador</th>
+                <th>Significado</th>
+                <th>Ejemplo de Código</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="inline-code">final</code> vs <code class="inline-code">const</code></td>
+                <td><code class="inline-code">final</code> se asigna una sola vez en tiempo de ejecución. <code class="inline-code">const</code> es inmutable en tiempo de compilación.</td>
+                <td><code class="inline-code">final now = DateTime.now(); const pi = 3.1416;</code></td>
+              </tr>
+              <tr>
+                <td><code class="inline-code">late</code></td>
+                <td>Inicialización perezosa de una variable no anulable antes de su primer uso.</td>
+                <td><code class="inline-code">late Future&lt;String&gt; _datos;</code></td>
+              </tr>
+              <tr>
+                <td>Tipo Anulable (<code class="inline-code">?</code>)</td>
+                <td>Permite que la variable admita tanto el tipo como el valor <code class="inline-code">null</code>.</td>
+                <td><code class="inline-code">String? nombre;</code></td>
+              </tr>
+              <tr>
+                <td>Acceso Seguro (<code class="inline-code">?.</code>)</td>
+                <td>Evalúa la propiedad o método solo si el objeto no es nulo; si lo es, retorna nulo sin lanzar excepción.</td>
+                <td><code class="inline-code">int? longitud = nombre?.length;</code></td>
+              </tr>
+              <tr>
+                <td>Coalescencia Nula (<code class="inline-code">??</code>)</td>
+                <td>Proporciona un valor por defecto si la expresión izquierda resulta nula.</td>
+                <td><code class="inline-code">String texto = nombre ?? 'Anónimo';</code></td>
+              </tr>
+              <tr>
+                <td>Aserción no nula (<code class="inline-code">!</code>)</td>
+                <td>Fuerza al compilador a tratar la variable como no nula (lanza excepción si es nula).</td>
+                <td><code class="inline-code">int longitud = nombre!.length;</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="u2-collections" class="sub-title">2.2 Funciones, Parámetros y Operaciones Funcionales</h3>
+        <p>
+          En Dart las funciones son ciudadanos de primera clase y admiten parámetros posicionales y nombrados:
+        </p>
+        <div class="code-block">
+          <div class="code-header">Dart: Parámetros Nombrados y Programación Funcional</div>
+<pre><code>// Parámetros nombrados obligatorios (required) y opcionales con valor por defecto
+void configurarUsuario({required String id, String rol = 'invitado', int? edad}) {
+  print('Usuario $id con rol $rol');
+}
+
+// Operaciones funcionales en colecciones (List, Set, Map)
+final numeros = [1, 2, 3, 4, 5, 6];
+final pares = numeros.where((n) => n % 2 == 0).toList(); // [2, 4, 6]
+final duplicados = pares.map((n) => n * 2).toList();     // [4, 8, 12]
+final total = duplicados.fold(0, (acc, n) => acc + n);   // 24
+
+// Spread operator (...) y collection if/for
+final extra = [100, if (total > 20) ...duplicados];</code></pre>
+        </div>
+
+        <h3 id="u2-oop" class="sub-title">2.3 Programación Orientada a Objetos: Factory, Interfaces y Mixins</h3>
+        <ul>
+          <li><strong>Constructores con Nombre:</strong> Permiten definir múltiples puntos de inicialización (<code class="inline-code">Usuario.desdeAdmin(...)</code>).</li>
+          <li><strong>Constructores Factory:</strong> Utilizan la palabra clave <code class="inline-code">factory</code> para retornar instancias cacheadas o deserializar modelos JSON sin crear necesariamente una instancia nueva directa.</li>
+          <li><strong>Clases Abstractas e Interfaces Implícitas:</strong> En Dart toda clase define implícitamente una interfaz. Con <code class="inline-code">implements</code> es obligatorio sobreescribir todos sus miembros.</li>
+          <li><strong>Mixins:</strong> Reutilización de código entre jerarquías disjuntas usando <code class="inline-code">with</code> (p.ej. <code class="inline-code">class Perro extends Mamifero with Nadador</code>).</li>
+        </ul>
+
+        <h3 id="u2-async" class="sub-title">2.4 Programación Asíncrona: Event Loop, Futures y Streams</h3>
+        <p>
+          Dart se ejecuta en un único hilo con un <strong>Event Loop</strong> respaldado por dos colas: la <em>Microtask Queue</em> (alta prioridad) y la <em>Event Queue</em> (eventos de I/O, timers, clicks).
+        </p>
+        <div class="code-block">
+          <div class="code-header">Dart: Async/Await y Consumo de Streams</div>
+<pre><code>// Operación asíncrona que retorna un Future
+Future&lt;String&gt; cargarDatosRemotos() async {
+  await Future.delayed(const Duration(seconds: 1));
+  return 'Respuesta desde el servidor';
+}
+
+// Flujo continuo de eventos con Stream
+Stream&lt;int&gt; contadorContinuo() async* {
+  for (int i = 1; i <= 3; i++) {
+    await Future.delayed(const Duration(seconds: 1));
+    yield i; // Emite un nuevo valor en el stream
+  }
+}</code></pre>
+        </div>
+
+        <h3 id="u2-http" class="sub-title">2.5 Consumo de APIs HTTP y Arquitectura Limpia</h3>
+        <p>
+          En el caso práctico del repositorio (<code class="inline-code">healthys_app</code>), se utiliza el paquete oficial <code class="inline-code">http</code> y una separación en capas:
+        </p>
+        <ul>
+          <li><strong>Domain Layer:</strong> Entidades y modelos inmutables con métodos <code class="inline-code">fromJson</code> y <code class="inline-code">toJson</code>.</li>
+          <li><strong>Data Layer:</strong> Servicios remotos (<code class="inline-code">http.get</code>, <code class="inline-code">http.post</code>) con decodificación de <code class="inline-code">jsonDecode(response.body)</code>.</li>
+          <li><strong>Repository Layer:</strong> Abstracción que provee los datos a los widgets aislando el origen de red o caché local.</li>
+        </ul>
+      </section>
+
+      <!-- UNIDAD 3 -->
+      <section id="unit-03" class="section-card">
+        <span class="unit-tag tag-purple">Unidad Temática 03 (Núcleo Práctico)</span>
+        <h2 class="section-title">3. Interfaces Declarativas y Navegación en Flutter</h2>
+        <p>
+          La Unidad 3 aborda la creación de interfaces modernas mediante la composición de widgets y los modelos de enrutamiento y transición.
+        </p>
+
+        <h3 id="u3-widgets" class="sub-title">3.1 El Paradigma Declarativo: Widgets y Ciclo de Vida</h3>
+        <p>
+          A diferencia del estilo imperativo tradicional (donde se busca un elemento en el DOM/XML y se muta directamente), en Flutter rige la fórmula:
+        </p>
+        <div class="callout callout-success">
+          <strong>UI = f(State)</strong><br>
+          La interfaz de usuario es una representación pura del estado actual de la aplicación. Cuando el estado cambia mediante <code class="inline-code">setState()</code>, el framework reconstruye y renderiza la interfaz calculando las diferencias mínimas sobre el árbol de renderizado.
+        </div>
+
+        <div class="grid-2">
+          <div class="card-mini">
+            <h4>StatelessWidget</h4>
+            <p>Widget inmutable cuyo aspecto visual depende únicamente de los argumentos recibidos en su constructor. No almacena estado interno mutable.</p>
+            <p><strong>Método principal:</strong> <code class="inline-code">build(BuildContext context)</code>.</p>
+          </div>
+          <div class="card-mini">
+            <h4>StatefulWidget</h4>
+            <p>Se compone de dos clases: la del widget (inmutable, que implementa <code class="inline-code">createState()</code>) y la del estado (<code class="inline-code">_MyState</code>) que perdura y almacena datos mutables.</p>
+            <p><strong>Ciclo de vida:</strong> <code class="inline-code">initState()</code> &rarr; <code class="inline-code">build()</code> &rarr; <code class="inline-code">dispose()</code>.</p>
+          </div>
+        </div>
+
+        <!-- ACTIVIDAD OFICIAL 3.1 -->
+        <div id="u3-act1" class="callout callout-activity">
+          <h4>★ ACTIVIDAD OFICIAL RESUELTA (Unit 03 - 01): Contador Extendido</h4>
+          <p>
+            <strong>Enunciado oficial del repositorio:</strong><br>
+            <em>"Añadir otro botón para decrementar el contador y otro botón para reiniciar su valor a 0."</em>
+          </p>
+          <p>
+            <strong>Solución arquitectónica implementada en <code class="inline-code">unit3_activities_app</code>:</strong><br>
+            La propiedad <code class="inline-code">floatingActionButton</code> del <code class="inline-code">Scaffold</code> se compone de un contenedor <code class="inline-code">Row</code> con 3 instancias de <code class="inline-code">FloatingActionButton.extended</code> (Restar, Reiniciar, Sumar), con sus respectivos <code class="inline-code">heroTag</code> únicos y posicionados en el centro inferior mediante <code class="inline-code">FloatingActionButtonLocation.centerFloat</code>.
+          </p>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">Fragmento Clave: Solución del Contador Triple (lib/screens/counter_activity_screen.dart)</div>
+<pre><code>floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+floatingActionButton: Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    FloatingActionButton.extended(
+      heroTag: 'btn_dec',
+      onPressed: () => setState(() => _counter--),
+      label: const Text('Restar (-1)'),
+      icon: const Icon(Icons.remove),
+    ),
+    const SizedBox(width: 10),
+    FloatingActionButton.extended(
+      heroTag: 'btn_reset',
+      onPressed: () => setState(() => _counter = 0),
+      label: const Text('Reiniciar (0)'),
+      icon: const Icon(Icons.refresh),
+    ),
+    const SizedBox(width: 10),
+    FloatingActionButton.extended(
+      heroTag: 'btn_inc',
+      onPressed: () => setState(() => _counter++),
+      label: const Text('Sumar (+1)'),
+      icon: const Icon(Icons.add),
+    ),
+  ],
+)</code></pre>
+        </div>
+
+        <h3 id="u3-futurebuilder" class="sub-title">3.2 FutureBuilder y el Patrón Pull-to-Refresh</h3>
+        <p>
+          <code class="inline-code">FutureBuilder&lt;T&gt;</code> es el widget estándar para vincular la UI al ciclo de vida de un <code class="inline-code">Future</code>.
+        </p>
+        <div class="callout callout-warning">
+          <strong>⚠️ Anti-patrón Crítico señalado en los apuntes:</strong><br>
+          Nunca invoques la función asíncrona directamente dentro del método <code class="inline-code">build()</code> (ej: <code class="inline-code">future: obtenerDatos()</code>). Dado que <code class="inline-code">build()</code> se ejecuta ante cualquier animación o repintado, la petición se dispararía en bucle. <strong>La regla de oro es instanciar el Future una sola vez en el <code class="inline-code">initState()</code> de un StatefulWidget</strong>.
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">Manejo Riguroso de ConnectionState y RefreshIndicator</div>
+<pre><code>@override
+void initState() {
+  super.initState();
+  _itemsFuture = _fetchApiData(); // Se inicializa solo una vez
+}
+
+Future&lt;void&gt; _onRefresh() async {
+  setState(() {
+    _itemsFuture = _fetchApiData(); // Recarga explícita bajo demanda
+  });
+}
+
+@override
+Widget build(BuildContext context) {
+  return RefreshIndicator(
+    onRefresh: _onRefresh,
+    child: FutureBuilder&lt;List&lt;Item&gt;&gt;(
+      future: _itemsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        if (snapshot.hasData) {
+          return ListView.builder(...);
+        }
+        return const SizedBox.shrink();
+      },
+    ),
+  );
+}</code></pre>
+        </div>
+
+        <h3 id="u3-nav1" class="sub-title">3.3 Navegación Clásica (Navigator 1.0), Formularios y Retorno de Valores</h3>
+        <p>
+          Navigator gestiona una pila LIFO (*Last In, First Out*) de pantallas (*Routes*):
+        </p>
+        <ul>
+          <li><strong>Abrir pantalla:</strong> <code class="inline-code">Navigator.push(context, MaterialPageRoute(builder: (context) => PantallaDetalle(datos)))</code>.</li>
+          <li><strong>Cerrar pantalla:</strong> <code class="inline-code">Navigator.pop(context, resultado)</code>.</li>
+          <li><strong>Seguridad de pila:</strong> <code class="inline-code">if (Navigator.canPop(context)) Navigator.pop(context);</code> evita dejar la aplicación con pantalla en negro si solo queda una ruta en la pila.</li>
+          <li><strong>Retorno Asíncrono:</strong> La llamada a <code class="inline-code">Navigator.push</code> es asíncrona. Al utilizar <code class="inline-code">final res = await Navigator.push(...)</code>, la pantalla de origen queda a la espera y captura el resultado transmitido en el <code class="inline-code">Navigator.pop()</code>.</li>
+          <li><strong>Validación con Form:</strong> Se asocia un <code class="inline-code">GlobalKey&lt;FormState&gt;</code> al widget <code class="inline-code">Form</code> y se ejecuta <code class="inline-code">_formKey.currentState!.validate()</code> para activar las reglas de los <code class="inline-code">TextFormField</code>.</li>
+        </ul>
+
+        <h3 id="u3-widgetsnav" class="sub-title">3.4 Widgets de Navegación Material 3 y Diálogos</h3>
+        <div class="grid-2">
+          <div class="card-mini">
+            <h4>Estructura de Navegación</h4>
+            <ul>
+              <li><strong>NavigationBar:</strong> Barra inferior estándar de Material 3 con <code class="inline-code">NavigationDestination</code> para terminales móviles.</li>
+              <li><strong>NavigationRail:</strong> Barra lateral en columna recomendada para tablets, monitores y modo horizontal.</li>
+              <li><strong>NavigationDrawer:</strong> Menú desplegable lateral tradicional.</li>
+              <li><strong>TabBar y TabBarView:</strong> Navegación secundaria por pestañas vinculadas mediante un <code class="inline-code">DefaultTabController</code>.</li>
+            </ul>
+          </div>
+          <div class="card-mini">
+            <h4>Catálogo de Diálogos (showDialog)</h4>
+            <ul>
+              <li><strong>AlertDialog:</strong> Diálogo con icono, título, contenido y botones de acción (<code class="inline-code">TextButton</code>) para confirmaciones.</li>
+              <li><strong>SimpleDialog:</strong> Presenta una lista de alternativas con <code class="inline-code">SimpleDialogOption</code>.</li>
+              <li><strong>Dialog:</strong> Ventana emergente con contenido totalmente personalizable (formularios, imágenes).</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 id="u3-gorouter" class="sub-title">3.5 Navegación Avanzada: GoRouter y Animaciones Hero</h3>
+        <p>
+          En proyectos medianos/grandes y entornos Web se utiliza <strong>GoRouter</strong>, una biblioteca oficial que implementa la API declarativa de Navigator 2.0:
+        </p>
+        <div class="code-block">
+          <div class="code-header">GoRouter: Definición de Rutas Dinámicas y ShellRoute</div>
+<pre><code>final GoRouter router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const HomeScreen(),
+    ),
+    // Ruta dinámica con parámetro de URL y objeto extra
+    GoRoute(
+      path: '/detalle/:id',
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        final item = state.extra as ItemModel?;
+        return DetalleScreen(id: id, item: item);
+      },
+    ),
+  ],
+);
+
+// Navegación declarativa desde cualquier widget:
+context.push('/detalle/ENT01', extra: miPlato);</code></pre>
+        </div>
+
+        <div class="callout callout-success">
+          <strong>Animaciones Hero (Transición de Elementos Compartidos):</strong><br>
+          Al envolver un widget (ej. una imagen o tarjeta) con <code class="inline-code">Hero(tag: 'id-unico', child: ...)</code> en la pantalla origen, y colocar otro <code class="inline-code">Hero</code> con el <strong>mismo tag</strong> en la pantalla de destino, Flutter interpola automáticamente su posición y tamaño durante la navegación, logrando una transición visualmente cinematográfica.
+        </div>
+      </section>
+
+      <!-- SECCIÓN DEL NUEVO PROYECTO CREADO -->
+      <section id="proyecto-unit3" class="section-card">
+        <span class="unit-tag tag-amber">Entregable Práctico Desarrollado</span>
+        <h2 class="section-title">4. Nuevo Proyecto: 'unit3_activities_app'</h2>
+        <p>
+          En respuesta al requerimiento del usuario, se ha creado e inicializado un nuevo proyecto Flutter completo en el workspace:
+        </p>
+        <p>
+          📁 <strong>Ruta en el workspace:</strong> <code class="inline-code">programacion movil/Programas/unit3_activities_app</code>
+        </p>
+        
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Archivo / Módulo</th>
+                <th>Responsabilidad en la Unidad 3</th>
+                <th>Estado de Calidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="inline-code">lib/main.dart</code></td>
+                <td>Punto de entrada configurado con <code class="inline-code">MaterialApp.router</code>, soporte de temas Material 3 (Claro / Oscuro) y enlace al router.</td>
+                <td>✅ Verificado</td>
+              </tr>
+              <tr>
+                <td><code class="inline-code">lib/routes/app_router.dart</code></td>
+                <td>Definición declarativa de todas las rutas de la Unidad 3 con <code class="inline-code">GoRouter</code> y parámetros de URL (<code class="inline-code">/detail/:id</code>).</td>
+                <td>✅ Verificado</td>
+              </tr>
+              <tr>
+                <td><code class="inline-code">lib/screens/home_dashboard_screen.dart</code></td>
+                <td>Cuadro de mando con banner ilustrativo, métricas de la asignatura y tarjetas interactivas de lanzamiento.</td>
+                <td>✅ Verificado</td>
+              </tr>
+              <tr>
+                <td><code class="inline-code">lib/screens/counter_activity_screen.dart</code></td>
+                <td><strong>Actividad 3.1:</strong> Contador triple con botones para sumar, restar y reiniciar a 0 en <code class="inline-code">FloatingActionButtonLocation.centerFloat</code>.</td>
+                <td>✅ Verificado</td>
+              </tr>
+              <tr>
+                <td><code class="inline-code">lib/screens/future_builder_activity_screen.dart</code></td>
+                <td><strong>Actividad 3.2:</strong> Petición asíncrona con <code class="inline-code">FutureBuilder</code>, <code class="inline-code">RefreshIndicator</code> (Pull-to-refresh) y selector de errores.</td>
+                <td>✅ Verificado</td>
+              </tr>
+              <tr>
+                <td><code class="inline-code">lib/screens/navigation_form_activity_screen.dart</code></td>
+                <td><strong>Actividad 3.3:</strong> Formulario con validación <code class="inline-code">GlobalKey&lt;FormState&gt;</code>, envío de argumentos y captura asíncrona de retorno.</td>
+                <td>✅ Verificado</td>
+              </tr>
+              <tr>
+                <td><code class="inline-code">lib/screens/nav_widgets_dialogs_activity_screen.dart</code></td>
+                <td><strong>Actividad 3.4:</strong> Navegación responsiva con <code class="inline-code">NavigationBar</code>, <code class="inline-code">NavigationRail</code>, <code class="inline-code">NavigationDrawer</code>, Tabs y diálogos.</td>
+                <td>✅ Verificado</td>
+              </tr>
+              <tr>
+                <td><code class="inline-code">lib/screens/gorouter_hero_activity_screen.dart</code></td>
+                <td><strong>Actividad 3.5:</strong> Catálogo de platos gastronómicos con navegación GoRouter y transición compartida con <code class="inline-code">Hero</code>.</td>
+                <td>✅ Verificado</td>
+              </tr>
+              <tr>
+                <td><code class="inline-code">test/widget_test.dart</code></td>
+                <td>Batería de pruebas unitarias y de widgets ejecutada con éxito (<em>All tests passed!</em>).</td>
+                <td>✅ 100% Passed</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">Comandos para ejecutar el proyecto en local</div>
+<pre><code># Acceder al directorio del proyecto creado
+cd "programacion movil/Programas/unit3_activities_app"
+
+# Ejecutar el analizador estático oficial (0 advertencias)
+flutter analyze
+
+# Ejecutar la suite de pruebas
+flutter test
+
+# Iniciar la aplicación en el dispositivo o plataforma deseada
+flutter run -d windows    # En aplicación de escritorio Windows
+flutter run -d chrome     # En navegador web con Hot Reload
+flutter run -d android    # En emulador o smartphone Android</code></pre>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer style="text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem;">
+    Documento técnico generado para el curso <strong>DAM2 • Programación Multimedia y Dispositivos Móviles</strong>.<br>
+    Basado en el repositorio oficial de Arturo Albero (<code class="inline-code">arturoalbero/PMDM</code>).
+  </footer>
+
+  <script>
+    // Filtro interactivo de búsqueda
+    function filterContent() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.section-card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Toggle de tema claro / oscuro
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      document.getElementById('themeBtn').innerText = next === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Oscuro';
+    }
+
+    // ScrollSpy activo para el TOC lateral
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section[id], h3[id]');
+      const navLinks = document.querySelectorAll('.toc-nav a');
+      let currentId = '';
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top <= 120) {
+          currentId = sec.getAttribute('id');
+        }
+      });
+      if (currentId) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + currentId) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
