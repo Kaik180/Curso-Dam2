@@ -1,0 +1,8 @@
+env: prod
+flutterflow_ai_build: 5d2cdcda
+flutterflow_ai_version: 0.0.41+1
+project_id: my-app-t7u7sr
+api_base_url: https://api.flutterflow.io/v2
+main_project_id: my-app-t7u7sr
+branch_info_ref: branch_infos/W0VO1SsYvxiuIeNDYheZ
+head_commit_id: eml8PWCadK5HQQRGeqAV

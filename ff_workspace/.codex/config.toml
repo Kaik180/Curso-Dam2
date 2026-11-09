@@ -1,0 +1,3 @@
+[mcp_servers.flutterflow_ai]
+command = "D:\\flutter\\bin\\cache\\dart-sdk\\bin\\dart.exe"
+args = ["C:\\Users\\kevin\\OneDrive\\Documentos\\GitHub\\Curso-Dam2\\ff_workspace\\.flutterflow/sdk/flutterflow_ai\\mcp\\server.dill", "--dir", "C:\\Users\\kevin\\OneDrive\\Documentos\\GitHub\\Curso-Dam2\\ff_workspace"]

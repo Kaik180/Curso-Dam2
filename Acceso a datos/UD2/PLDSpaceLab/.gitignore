@@ -1,0 +1,9 @@
+target/
+*.class
+*.jar
+.idea/
+*.iml
+.vscode/
+
+# Proteger credenciales locales reales
+config.properties
