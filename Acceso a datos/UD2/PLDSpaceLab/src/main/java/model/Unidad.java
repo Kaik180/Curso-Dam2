@@ -8,7 +8,7 @@ public class Unidad {
     private String modelo;
     private String estado;
     private int responsableId;
-    private String responsableUsuario; // Nombre de usuario resuelto vía JOIN para visualización
+    private String responsableUsuario;
 
     public Unidad() {
     }

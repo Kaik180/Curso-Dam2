@@ -23,7 +23,6 @@ public class MainApp {
 
         Usuario usuarioAutenticado = null;
 
-        // FASE I: Autenticación por consola
         while (usuarioAutenticado == null) {
             System.out.println("--- Inicio de Sesión de Personal Técnico ---");
             System.out.print("Nombre de usuario: ");
@@ -62,7 +61,6 @@ public class MainApp {
             }
         }
 
-        // FASE II: Menú de gestión de unidades MIURA
         boolean salir = false;
         while (!salir) {
             mostrarMenu();
@@ -99,7 +97,6 @@ public class MainApp {
         System.out.println("-------------------------------------------------------------");
     }
 
-    // Opción 1: Listar todas las unidades
     private static void listarUnidades() {
         System.out.println("\n=== INVENTARIO COMPLETO DE UNIDADES MIURA ===");
         try {
@@ -116,7 +113,6 @@ public class MainApp {
         }
     }
 
-    // Opción 2: Buscar unidad por identificador
     private static void buscarUnidadPorId() {
         System.out.println("\n=== BÚSQUEDA DE UNIDAD ===");
         System.out.print("Introduzca el ID numérico de la unidad (o 'c' para buscar por código): ");
@@ -134,10 +130,10 @@ public class MainApp {
             }
 
             if (unidad != null) {
-                System.out.println("✓ Unidad localizada:");
+                System.out.println("Unidad localizada:");
                 System.out.println("  " + unidad);
             } else {
-                System.out.println("✗ No se encontró ninguna unidad con el identificador indicado.");
+                System.out.println("No se encontró ninguna unidad con el identificador indicado.");
             }
         } catch (NumberFormatException e) {
             System.out.println("Identificador no válido. Debe ser un número entero.");
@@ -146,7 +142,6 @@ public class MainApp {
         }
     }
 
-    // Opción 3: Insertar nueva unidad
     private static void insertarNuevaUnidad() {
         System.out.println("\n=== REGISTRO DE NUEVA UNIDAD MIURA ===");
         try {
@@ -178,7 +173,6 @@ public class MainApp {
                 default -> estOpc.toUpperCase();
             };
 
-            // Mostrar usuarios existentes para asignar responsable válido
             System.out.println("Técnicos responsables disponibles:");
             List<Usuario> usuarios = usuarioDAO.obtenerTodos();
             for (Usuario u : usuarios) {
@@ -189,7 +183,7 @@ public class MainApp {
             int responsableId = Integer.parseInt(scanner.nextLine().trim());
 
             if (!usuarioDAO.existePorId(responsableId)) {
-                System.out.println("✗ Error: El ID de responsable " + responsableId + " no existe.");
+                System.out.println("Error: El ID de responsable " + responsableId + " no existe.");
                 return;
             }
 
@@ -197,9 +191,9 @@ public class MainApp {
             boolean exito = unidadDAO.insertar(nueva);
 
             if (exito) {
-                System.out.println("✓ Unidad registrada con éxito en el sistema.");
+                System.out.println("Unidad registrada con éxito en el sistema.");
             } else {
-                System.out.println("✗ No se pudo registrar la unidad.");
+                System.out.println("No se pudo registrar la unidad.");
             }
 
         } catch (NumberFormatException e) {
@@ -209,7 +203,6 @@ public class MainApp {
         }
     }
 
-    // Opción 4: Modificar estado de una unidad
     private static void modificarEstadoUnidad() {
         System.out.println("\n=== MODIFICAR ESTADO DE UNIDAD ===");
         try {
@@ -218,7 +211,7 @@ public class MainApp {
 
             Unidad actual = unidadDAO.buscarPorId(id);
             if (actual == null) {
-                System.out.println("✗ No existe ninguna unidad con el ID " + id);
+                System.out.println("No existe ninguna unidad con el ID " + id);
                 return;
             }
 
@@ -236,9 +229,9 @@ public class MainApp {
 
             boolean exito = unidadDAO.modificarEstado(id, nuevoEstado);
             if (exito) {
-                System.out.println("✓ Estado actualizado correctamente a '" + nuevoEstado + "'.");
+                System.out.println("Estado actualizado correctamente a '" + nuevoEstado + "'.");
             } else {
-                System.out.println("✗ No se pudo actualizar el estado de la unidad.");
+                System.out.println("No se pudo actualizar el estado de la unidad.");
             }
 
         } catch (NumberFormatException e) {
@@ -248,7 +241,6 @@ public class MainApp {
         }
     }
 
-    // Opción 5: Eliminar unidad por identificador
     private static void eliminarUnidad() {
         System.out.println("\n=== ELIMINAR UNIDAD ===");
         try {
@@ -257,7 +249,7 @@ public class MainApp {
 
             Unidad actual = unidadDAO.buscarPorId(id);
             if (actual == null) {
-                System.out.println("✗ No existe ninguna unidad con el ID " + id);
+                System.out.println("No existe ninguna unidad con el ID " + id);
                 return;
             }
 
@@ -268,9 +260,9 @@ public class MainApp {
             if (confirmacion.equalsIgnoreCase("s")) {
                 boolean exito = unidadDAO.eliminarPorId(id);
                 if (exito) {
-                    System.out.println("✓ Unidad eliminada correctamente de la base de datos.");
+                    System.out.println("Unidad eliminada correctamente de la base de datos.");
                 } else {
-                    System.out.println("✗ No se pudo eliminar la unidad.");
+                    System.out.println("No se pudo eliminar la unidad.");
                 }
             } else {
                 System.out.println("Operación de eliminación cancelada.");
@@ -283,7 +275,6 @@ public class MainApp {
         }
     }
 
-    // Opción 6: Campaña conjunta de pruebas (Transacción con rollback y commit)
     private static void iniciarCampaniaPruebas() {
         System.out.println("\n=== TRANSACCIÓN: CAMPAÑA CONJUNTA DE PRUEBAS ===");
         System.out.println("Esta operación actualizará ATÓMICAMENTE dos unidades al estado 'EN_ENSAYOS'.");
@@ -299,9 +290,9 @@ public class MainApp {
             boolean resultado = unidadDAO.iniciarCampaniaPruebas(id1, id2);
 
             if (resultado) {
-                System.out.println("✓ Ambas unidades se encuentran ahora en 'EN_ENSAYOS'.");
+                System.out.println("Ambas unidades se encuentran ahora en 'EN_ENSAYOS'.");
             } else {
-                System.out.println("✗ La campaña conjunta NO se aplicó. La base de datos permanece intacta.");
+                System.out.println("La campaña conjunta NO se aplicó. La base de datos permanece intacta.");
             }
 
         } catch (NumberFormatException e) {

@@ -13,10 +13,6 @@ import java.util.List;
 
 public class UnidadDAO {
 
-    /**
-     * 1. Listar todas las unidades (código, modelo, estado y responsable).
-     * Emplea un JOIN con usuarios para obtener también el nombre del técnico responsable.
-     */
     public List<Unidad> obtenerTodas() throws IOException, SQLException {
         List<Unidad> lista = new ArrayList<>();
         String sql = "SELECT u.id, u.codigo, u.modelo, u.estado, u.responsable_id, us.usuario AS resp_nombre " +
@@ -42,9 +38,6 @@ public class UnidadDAO {
         return lista;
     }
 
-    /**
-     * 2. Buscar una unidad por su identificador numérico (id).
-     */
     public Unidad buscarPorId(int id) throws IOException, SQLException {
         String sql = "SELECT u.id, u.codigo, u.modelo, u.estado, u.responsable_id, us.usuario AS resp_nombre " +
                      "FROM unidades u " +
@@ -71,9 +64,6 @@ public class UnidadDAO {
         return null;
     }
 
-    /**
-     * Búsqueda complementaria por código alfanumérico (ej: M1-AULA01).
-     */
     public Unidad buscarPorCodigo(String codigo) throws IOException, SQLException {
         String sql = "SELECT u.id, u.codigo, u.modelo, u.estado, u.responsable_id, us.usuario AS resp_nombre " +
                      "FROM unidades u " +
@@ -100,10 +90,6 @@ public class UnidadDAO {
         return null;
     }
 
-    /**
-     * 3. Insertar una nueva unidad, asignándola a un responsable existente.
-     * Retorna true si se insertó exactamente una fila.
-     */
     public boolean insertar(Unidad unidad) throws IOException, SQLException {
         String sql = "INSERT INTO unidades (codigo, modelo, estado, responsable_id) VALUES (?, ?, ?, ?)";
 
@@ -120,10 +106,6 @@ public class UnidadDAO {
         }
     }
 
-    /**
-     * 4. Modificar el estado de una unidad existente.
-     * Retorna true si se actualizó el registro.
-     */
     public boolean modificarEstado(int id, String nuevoEstado) throws IOException, SQLException {
         String sql = "UPDATE unidades SET estado = ? WHERE id = ?";
 
@@ -138,10 +120,6 @@ public class UnidadDAO {
         }
     }
 
-    /**
-     * 5. Eliminar una unidad por su identificador.
-     * Retorna true si se borró con éxito.
-     */
     public boolean eliminarPorId(int id) throws IOException, SQLException {
         String sql = "DELETE FROM unidades WHERE id = ?";
 
@@ -154,53 +132,42 @@ public class UnidadDAO {
         }
     }
 
-    /**
-     * 6. Transacción obligatoria: campaña conjunta de pruebas (Apartado 6 del PDF).
-     * Pasa conjuntamente dos unidades distintas al estado 'EN_ENSAYOS'.
-     * Utiliza una única conexión con setAutoCommit(false).
-     * Si ambas sentencias modifican exactamente 1 fila, confirma con commit().
-     * Si falla cualquier sentencia o afecta a 0 filas, ejecuta rollback().
-     */
     public boolean iniciarCampaniaPruebas(int id1, int id2) throws IOException, SQLException {
         if (id1 == id2) {
-            System.err.println("✗ Error: Debe indicar dos identificadores de unidades distintos.");
+            System.err.println("Error: Debe indicar dos identificadores de unidades distintos.");
             return false;
         }
 
         String sql = "UPDATE unidades SET estado = 'EN_ENSAYOS' WHERE id = ?";
 
         try (Connection con = DatabaseConnection.getConnection()) {
-            con.setAutoCommit(false); // Inicia control manual de la transacción
+            con.setAutoCommit(false);
 
             try (PreparedStatement ps = con.prepareStatement(sql)) {
-                // 1. Actualizar primera unidad
                 ps.setInt(1, id1);
                 int filas1 = ps.executeUpdate();
                 if (filas1 != 1) {
                     throw new SQLException("La primera unidad con ID " + id1 + " no existe (filas afectadas: " + filas1 + ").");
                 }
 
-                // 2. Actualizar segunda unidad
                 ps.setInt(1, id2);
                 int filas2 = ps.executeUpdate();
                 if (filas2 != 1) {
                     throw new SQLException("La segunda unidad con ID " + id2 + " no existe (filas afectadas: " + filas2 + ").");
                 }
 
-                // 3. Confirmar la transacción completa
                 con.commit();
-                System.out.println("✓ Transacción confirmada (commit): Las unidades " + id1 + " y " + id2 + " han pasado a 'EN_ENSAYOS'.");
+                System.out.println("Transacción confirmada (commit): Las unidades " + id1 + " y " + id2 + " han pasado a 'EN_ENSAYOS'.");
                 return true;
 
             } catch (SQLException e) {
-                // 4. Revertir cambios en caso de fallo técnico o lógico (filas != 1)
                 try {
                     con.rollback();
-                    System.err.println("⚠ Se ha ejecutado rollback() para mantener la atomicidad.");
+                    System.err.println("Se ha ejecutado rollback() para mantener la atomicidad.");
                 } catch (SQLException rbEx) {
-                    System.err.println("Error grave durante rollback: " + rbEx.getMessage());
+                    System.err.println("Error durante rollback: " + rbEx.getMessage());
                 }
-                System.err.println("✗ Transacción cancelada: " + e.getMessage());
+                System.err.println("Transacción cancelada: " + e.getMessage());
                 return false;
             }
         }

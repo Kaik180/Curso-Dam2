@@ -14,18 +14,9 @@ public class DatabaseConnection {
     private DatabaseConnection() {
     }
 
-    /**
-     * Obtiene una nueva conexión a PostgreSQL leyendo la configuración externa desde config.properties.
-     * Cada llamada devuelve una conexión independiente para gestionar su ciclo de vida con try-with-resources.
-     *
-     * @return Connection activa con PostgreSQL
-     * @throws SQLException si ocurre un error en la conexión o autenticación de la base de datos
-     * @throws IOException  si no se encuentra o no se puede leer el archivo config.properties
-     */
     public static Connection getConnection() throws SQLException, IOException {
         Properties propiedades = new Properties();
 
-        // Intenta abrir config.properties en la raíz del proyecto
         Path rutaConfig = Path.of("config.properties");
         try (InputStream entrada = Files.newInputStream(rutaConfig)) {
             propiedades.load(entrada);
