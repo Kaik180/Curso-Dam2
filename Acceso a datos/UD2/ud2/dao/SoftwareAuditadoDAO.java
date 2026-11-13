@@ -1,9 +1,7 @@
-package com.mutxamel.secops.Practica1.ud2.dao;
+package ud2.dao;
 
-
-
-import com.mutxamel.secops.Practica1.ud2.model.SoftwareAuditado;
-import com.mutxamel.secops.Practica1.ud2.util.DatabaseConnection;
+import ud2.model.SoftwareAuditado;
+import ud2.util.DatabaseConnection;
 
 import java.io.IOException;
 import java.sql.*;
@@ -12,7 +10,6 @@ import java.util.List;
 
 public class SoftwareAuditadoDAO {
 
-    // 1.Listar todo el inventario de software auditado
     public List<SoftwareAuditado> obtenerTodos() {
         List<SoftwareAuditado> lista = new ArrayList<>();
         String sql = "SELECT codigo, nombre, nivel_exposicion FROM software_auditado ORDER BY codigo ASC";
@@ -23,7 +20,7 @@ public class SoftwareAuditadoDAO {
                 SoftwareAuditado app = new SoftwareAuditado(
                         rs.getInt("codigo"),
                         rs.getString("nombre"),
-                        rs.getObject("nivel_exposicion", Integer.class) // Lectura segura de posibles NULL
+                        rs.getObject("nivel_exposicion", Integer.class)
                 );
                 lista.add(app);
             }
@@ -34,7 +31,6 @@ public class SoftwareAuditadoDAO {
         return lista;
     }
 
-    // 2. Buscar aplicaciones cuyo riesgo sea mayor o igual al mínimo indicado
     public List<SoftwareAuditado> buscarPorRiesgoMinimo(int riesgoMinimo) {
         List<SoftwareAuditado> filtrada = new ArrayList<>();
         String sql = "SELECT codigo, nombre, nivel_exposicion FROM software_auditado WHERE nivel_exposicion >= ?";
@@ -58,11 +54,6 @@ public class SoftwareAuditadoDAO {
         return filtrada;
     }
 
-    // ==========================================
-    // OPERACIONES CRUD (Sesión 3)
-    // ==========================================
-
-    // 1. Inserción con control de nulos
     public boolean insertarSoftware(SoftwareAuditado app) {
         String sql = "INSERT INTO software_auditado (nombre, nivel_exposicion) VALUES (?, ?)";
         try (Connection con = DatabaseConnection.getConnection();
@@ -84,7 +75,6 @@ public class SoftwareAuditadoDAO {
         }
     }
 
-    // 2. Actualización de una sola aplicación
     public boolean actualizarNivelRiesgo(int codigo, int nuevoNivel) {
         String sql = "UPDATE software_auditado SET nivel_exposicion = ? WHERE codigo = ?";
         try (Connection con = DatabaseConnection.getConnection();
@@ -101,7 +91,6 @@ public class SoftwareAuditadoDAO {
         }
     }
 
-    // 3. Borrado por clave primaria
     public boolean eliminarSoftware(int codigo) {
         String sql = "DELETE FROM software_auditado WHERE codigo = ?";
         try (Connection con = DatabaseConnection.getConnection();
@@ -117,7 +106,6 @@ public class SoftwareAuditadoDAO {
         }
     }
 
-    // 4. Búsqueda por aproximación (LIKE/ILIKE)
     public List<SoftwareAuditado> buscarSoftwarePorNombre(String palabra) {
         List<SoftwareAuditado> filtrada = new ArrayList<>();
         String sql = "SELECT codigo, nombre, nivel_exposicion FROM software_auditado WHERE nombre ILIKE ?";
@@ -142,9 +130,6 @@ public class SoftwareAuditadoDAO {
         return filtrada;
     }
 
-    // ==============================================================
-    // SESIÓN 4: CONTROL TRANSACCIONAL (commit() y rollback())
-    // ==============================================================
     public boolean actualizarDosNiveles(int codigo1, int nivel1, int codigo2, int nivel2) {
         String sql = "UPDATE software_auditado SET nivel_exposicion = ? WHERE codigo = ?";
         if (codigo1 == codigo2) {
@@ -153,10 +138,9 @@ public class SoftwareAuditadoDAO {
         }
 
         try (Connection con = DatabaseConnection.getConnection()) {
-            con.setAutoCommit(false); // Inicia el control manual de la transacción
+            con.setAutoCommit(false);
 
             try (PreparedStatement ps = con.prepareStatement(sql)) {
-                // Primer UPDATE
                 ps.setInt(1, nivel1);
                 ps.setInt(2, codigo1);
                 int filas1 = ps.executeUpdate();
@@ -164,7 +148,6 @@ public class SoftwareAuditadoDAO {
                     throw new SQLException("Primer registro inexistente.");
                 }
 
-                // Segundo UPDATE
                 ps.setInt(1, nivel2);
                 ps.setInt(2, codigo2);
                 int filas2 = ps.executeUpdate();
@@ -172,11 +155,9 @@ public class SoftwareAuditadoDAO {
                     throw new SQLException("Segundo registro inexistente.");
                 }
 
-                // Si ambos tienen éxito, confirmamos los cambios
                 con.commit();
                 return true;
             } catch (SQLException e) {
-                // En caso de fallo de cualquiera de las dos sentencias, revertimos todo
                 try {
                     con.rollback();
                 } catch (SQLException errorRollback) {
@@ -187,6 +168,79 @@ public class SoftwareAuditadoDAO {
             }
         } catch (IOException | SQLException e) {
             System.out.println("Error de conexión o configuración: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public int insertarYObtenerCodigo(String nombre, int nivel) {
+        String sql = "INSERT INTO software_auditado (nombre, nivel_exposicion) VALUES (?, ?)";
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, nombre);
+            ps.setInt(2, nivel);
+
+            if (ps.executeUpdate() != 1) {
+                return -1;
+            }
+
+            try (ResultSet claves = ps.getGeneratedKeys()) {
+                if (claves.next()) {
+                    return claves.getInt(1);
+                }
+            }
+        } catch (IOException | SQLException e) {
+            System.out.println("No se pudo insertar: " + e.getMessage());
+        }
+        return -1;
+    }
+
+    public boolean registrarSoftwareConIncidencia(String nombre, int nivel, String descripcion) {
+        String sqlSoftware = "INSERT INTO software_auditado (nombre, nivel_exposicion) VALUES (?, ?)";
+        String sqlIncidencia = "INSERT INTO incidencias (software_codigo, descripcion) VALUES (?, ?)";
+
+        try (Connection con = DatabaseConnection.getConnection()) {
+            con.setAutoCommit(false);
+            try {
+                int codigo;
+                try (PreparedStatement ps = con.prepareStatement(sqlSoftware, Statement.RETURN_GENERATED_KEYS)) {
+                    ps.setString(1, nombre);
+                    ps.setInt(2, nivel);
+
+                    if (ps.executeUpdate() != 1) {
+                        throw new SQLException("No se insertó el software.");
+                    }
+
+                    try (ResultSet claves = ps.getGeneratedKeys()) {
+                        if (!claves.next()) {
+                            throw new SQLException("No se obtuvo la clave.");
+                        }
+                        codigo = claves.getInt(1);
+                    }
+                }
+
+                try (PreparedStatement ps = con.prepareStatement(sqlIncidencia)) {
+                    ps.setInt(1, codigo);
+                    ps.setString(2, descripcion);
+
+                    if (ps.executeUpdate() != 1) {
+                        throw new SQLException("No se insertó la incidencia.");
+                    }
+                }
+
+                con.commit();
+                return true;
+
+            } catch (SQLException e) {
+                try {
+                    con.rollback();
+                } catch (SQLException errorRollback) {
+                    System.err.println("Error al deshacer: " + errorRollback.getMessage());
+                }
+                System.err.println("Registro cancelado: " + e.getMessage());
+                return false;
+            }
+        } catch (IOException | SQLException e) {
+            System.err.println("Error de conexión: " + e.getMessage());
             return false;
         }
     }
