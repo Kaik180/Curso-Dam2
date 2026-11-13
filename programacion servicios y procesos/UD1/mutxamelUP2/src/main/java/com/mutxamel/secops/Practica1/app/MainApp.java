@@ -32,7 +32,7 @@ public class MainApp {
             return;
         }
 
-        // 2. Operaciones de analistas (LoginDAO)
+        // 2. Operaciones de analistas
         System.out.println("=== PLANTILLA DE ANALISTAS (TABLA LOGIN) ===");
         if (loginDAO.buscarPorUserName("Silvia") == null) {
             Login silvia = new Login("Silvia", "silvia@silvia.es");
