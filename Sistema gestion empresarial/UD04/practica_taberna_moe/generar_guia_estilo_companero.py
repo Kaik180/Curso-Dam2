@@ -12,27 +12,25 @@ PDF_PATH = DEST_DIR / "Guia_Backup_Restauracion_Docker_Kevin.pdf"
 
 doc = docx.Document()
 
-# Márgenes estándar (1 pulgada / 2.54 cm)
 for section in doc.sections:
-    section.top_margin = Inches(0.9)
-    section.bottom_margin = Inches(0.9)
+    section.top_margin = Inches(0.85)
+    section.bottom_margin = Inches(0.85)
     section.left_margin = Inches(1.0)
     section.right_margin = Inches(1.0)
 
-# Colores fieles al estilo del compañero
 COLOR_TEXT = RGBColor(0x11, 0x11, 0x11)
 COLOR_MUTED = RGBColor(0x55, 0x55, 0x55)
 COLOR_SHELL_LABEL = RGBColor(0x88, 0x88, 0x88)
-COLOR_COMMENT = RGBColor(0xB0, 0x30, 0x60)   # Magenta suave para comentarios bash
+COLOR_COMMENT = RGBColor(0xB0, 0x30, 0x60)
 COLOR_CMD = RGBColor(0x22, 0x22, 0x22)
-COLOR_DEST = RGBColor(0x00, 0x5A, 0x9E)  # Azul oscuro para rutas de destino
+COLOR_DEST = RGBColor(0x00, 0x5A, 0x9E)
 BG_CODE_HEX = "F6F7F9"
 
 def set_cell_background(cell, fill_hex):
     shading_xml = f'<w:shd {nsdecls("w")} w:fill="{fill_hex}"/>'
     cell._tc.get_or_add_tcPr().append(parse_xml(shading_xml))
 
-def set_cell_margins(cell, top=120, bottom=120, left=180, right=180):
+def set_cell_margins(cell, top=110, bottom=110, left=180, right=180):
     tcPr = cell._tc.get_or_add_tcPr()
     tcMar = OxmlElement('w:tcMar')
     for m, val in [('top', top), ('bottom', bottom), ('left', left), ('right', right)]:
@@ -50,7 +48,7 @@ def add_code_block(doc, code_lines):
     cell = table.rows[0].cells[0]
     cell.width = Inches(6.2)
     set_cell_background(cell, BG_CODE_HEX)
-    set_cell_margins(cell, top=120, bottom=120, left=180, right=180)
+    set_cell_margins(cell, top=110, bottom=110, left=180, right=180)
     
     p_shell = cell.paragraphs[0]
     p_shell.paragraph_format.space_before = Pt(0)
@@ -81,8 +79,8 @@ def add_code_block(doc, code_lines):
 
 def add_h1(text):
     p = doc.add_paragraph()
-    p.paragraph_format.space_before = Pt(16)
-    p.paragraph_format.space_after = Pt(5)
+    p.paragraph_format.space_before = Pt(15)
+    p.paragraph_format.space_after = Pt(4)
     p.paragraph_format.keep_with_next = True
     r = p.add_run(text)
     r.font.name = "Arial"
@@ -92,7 +90,7 @@ def add_h1(text):
 
 def add_h2(text):
     p = doc.add_paragraph()
-    p.paragraph_format.space_before = Pt(11)
+    p.paragraph_format.space_before = Pt(10)
     p.paragraph_format.space_after = Pt(3)
     p.paragraph_format.keep_with_next = True
     r = p.add_run(text)
@@ -129,9 +127,8 @@ def add_bullet(text, dest_text=""):
 
 # ==================== CONTENIDO COMPLETO ====================
 
-# TÍTULO PRINCIPAL
 p_title = doc.add_paragraph()
-p_title.paragraph_format.space_before = Pt(8)
+p_title.paragraph_format.space_before = Pt(6)
 p_title.paragraph_format.space_after = Pt(10)
 r_title = p_title.add_run("Guía de Copia de Seguridad y\nRestauración en Docker")
 r_title.font.name = "Arial"
@@ -145,106 +142,102 @@ add_body("Esta guía detalla el procedimiento paso a paso para realizar una copi
 add_h1("1. Copia de Seguridad (Backup)")
 
 add_h2("1.1 Exportar la base de datos (Directo desde el Host)")
-add_body("Ejecute pg_dump directamente sobre el contenedor de PostgreSQL desde la terminal anfitriona sin necesidad de acceder a la terminal interna bash:")
+add_body("Detenga el contenedor de Odoo web y ejecute pg_dump sobre PostgreSQL para volcar la base de datos 'taverna' en formato .sql:")
 add_code_block(doc, [
-    "# Realizar el dump de la BD 'taverna' directamente hacia el archivo local",
+    "# 1. Parar contenedor web de Odoo",
+    "docker stop odood-web-1",
+    "",
+    "# 2. Realizar el dump de la BD 'taverna' hacia ./baks/backup_bd.sql",
     "docker exec -t odood-db-1 pg_dump -U odoo taverna > ./baks/backup_bd.sql"
 ])
 
-add_h2("1.2 Copiar configuración y archivos adjuntos por comandos")
-add_body("Copie el archivo de configuración odoo.conf desde el contenedor hacia su directorio local de backup:")
+add_h2("1.2 Copiar configuración y empaquetar carpetas con tar -C")
+add_body("Copie el archivo de configuración odoo.conf hacia su directorio local de backup:")
 add_code_block(doc, [
     "docker cp odood-web-1:/etc/odoo/odoo.conf ./baks/odoo.conf"
 ])
 
-add_body("A continuación, obtenga mediante comandos docker cp las carpetas con los archivos multimedia, sesiones y módulos:")
+add_body("Comprima las carpetas filestore, sessions y addons usando el flag -C para que no se guarden subcarpetas contenedoras extra dentro del .tar:")
 add_code_block(doc, [
-    "# 1. Obtener filestore (logotipo de Moe, imágenes de productos y empleados)",
-    "docker cp odood-web-1:/var/lib/odoo/filestore ./baks/filestore",
-    "",
-    "# 2. Obtener sesiones activas de usuario",
-    "docker cp odood-web-1:/var/lib/odoo/sessions ./baks/sessions",
-    "",
-    "# 3. Obtener módulos adicionales (addons)",
-    "docker cp odood-web-1:/mnt/extra-addons ./baks/addons"
+    "# Comprimir filestore, sessions y addons limpios",
+    "tar -cvf ./baks/backupfile.tar -C ./volumesOdoo/odoo filestore",
+    "tar -cvf ./baks/backupsessions.tar -C ./volumesOdoo/odoo sessions",
+    "tar -cvf ./baks/backupaddons.tar -C ./volumesOdoo addons"
 ])
-
-add_body("Carpetas guardadas en el directorio de backup (./baks/):")
-add_bullet("filestore ", "(imágenes de Duff, Barney, Smithers y logotipo corporativo)")
-add_bullet("sessions ", "(tokens de inicio de sesión de Odoo)")
-add_bullet("addons ", "(módulos personalizados instalados)")
 
 # SECCIÓN 2
-add_h1("2. Restauración del Entorno")
+add_h1("2. Restauración del Entorno (Migración)")
 
 add_h2("2.1 Detener y reconfigurar el servicio")
-add_body("Detenga los servicios actuales de Docker Compose:")
+add_body("Detenga todos los servicios actuales y edite docker-compose.yml cambiando puerto (8080:8069) y rutas nuevas:")
 add_code_block(doc, [
-    "docker compose down"
+    "docker compose down",
+    "nano docker-compose.yml"
 ])
-add_body("Modifique el puerto al 8070 y la configuración de los volúmenes para Odoo dentro del archivo docker-compose.yml según sea necesario:")
 add_code_block(doc, [
-    "# Fragmento modificado en docker-compose.yml:",
+    "# Rutas nuevas en docker-compose.yml:",
     "ports:",
-    '  - "8070:8069"  # Nuevo puerto de acceso',
+    '  - "8080:8069"',
     "volumes:",
-    "  - ./volumesOdoo_Nuevo/addons:/mnt/extra-addons",
-    "  - ./volumesOdoo_Nuevo/odoo/filestore:/var/lib/odoo/filestore",
-    "  - ./volumesOdoo_Nuevo/odoo/sessions:/var/lib/odoo/sessions"
+    "  - ./volumesOdoo_migracion2/addons:/mnt/extra-addons",
+    "  - ./volumesOdoo_migracion2/odoo/filestore:/var/lib/odoo/filestore",
+    "  - ./volumesOdoo_migracion2/odoo/sessions:/var/lib/odoo/sessions"
 ])
 
 add_h2("2.2 Iniciar servicio de BD y crear base de datos limpia")
-add_body("Levante únicamente el servicio de base de datos e instancie la base de datos con el mismo nombre original:")
+add_body("Levante únicamente el servicio de base de datos e instancie la base de datos vacía 'taverna':")
 add_code_block(doc, [
-    "# Iniciar contenedor de la base de datos",
     "docker compose up -d db",
+    'docker compose exec -T db psql -U odoo -d postgres -c "CREATE DATABASE taverna OWNER odoo;"'
+])
+
+add_h2("2.3 Restaurar el dump de la BD y limpiar caché de estilos")
+add_body("Inyecte el archivo backup_bd.sql y limpie la caché de adjuntos (/web/assets) para garantizar que se muestren las cajas de inicio de sesión:")
+add_code_block(doc, [
+    "# 1. Inyectar el volcado relacional a la base de datos taverna",
+    "docker compose exec -T db psql -U odoo -d taverna < ./baks/backup_bd.sql",
     "",
-    "# Crear la base de datos destino con nombre 'taverna'",
-    'docker compose -p odood exec -T db psql -U odoo -d postgres -c "CREATE DATABASE taverna OWNER odoo;"'
+    "# 2. Limpiar caché de estilos para que aparezcan las cajas de Correo y Contraseña",
+    'docker compose exec -T db psql -U odoo -d taverna -c "DELETE FROM ir_attachment WHERE url LIKE \'/web/assets/%\';"'
 ])
 
-add_h2("2.3 Restaurar el dump de la base de datos (Directo desde el Host)")
-add_body("Inyecte el archivo backup_bd.sql directamente en la nueva base de datos sin necesidad de acceder a la terminal bash del contenedor:")
-add_code_block(doc, [
-    "# Inyectar el volcado relacional a la base de datos taverna",
-    "cat ./baks/backup_bd.sql | docker compose -p odood exec -T db psql -U odoo -d taverna"
-])
+add_h2("2.4 Extraer archivos de datos y levantar Odoo")
+add_body("Rutas exactas donde deben quedar las 3 carpetas:")
+add_bullet("filestore ➔ ", "./volumesOdoo_migracion2/odoo/filestore")
+add_bullet("sessions ➔ ", "./volumesOdoo_migracion2/odoo/sessions")
+add_bullet("addons ➔ ", "./volumesOdoo_migracion2/addons")
 
-add_h2("2.4 Restablecer archivos de datos y configuración de Odoo")
-add_body("Mueva las carpetas del backup a sus rutas de destino correspondientes dentro de los nuevos volúmenes montados:")
-add_bullet("filestore ➔ ", "./volumesOdoo_Nuevo/odoo/filestore")
-add_bullet("sessions ➔ ", "./volumesOdoo_Nuevo/odoo/sessions")
-add_bullet("addons ➔ ", "./volumesOdoo_Nuevo/addons")
-
-add_body("Comandos para copiar las carpetas a sus rutas definitivas:")
 add_code_block(doc, [
-    "# Crear directorios de destino en el host",
-    "mkdir -p ./volumesOdoo_Nuevo/odoo ./volumesOdoo_Nuevo/addons",
+    "# Crear carpetas de destino y dar permisos",
+    "mkdir -p ./volumesOdoo_migracion2/odoo ./volumesOdoo_migracion2/addons",
+    "sudo chmod -R 777 ./volumesOdoo_migracion2",
     "",
-    "# Mover/copiar las carpetas a sus rutas definitivas",
-    "cp -r ./baks/filestore ./volumesOdoo_Nuevo/odoo/",
-    "cp -r ./baks/sessions ./volumesOdoo_Nuevo/odoo/",
-    "cp -r ./baks/addons/* ./volumesOdoo_Nuevo/addons/ 2>/dev/null || true"
+    "# Descomprimir archivos .tar en sus destinos",
+    "sudo tar -xvf ./baks/backupfile.tar -C ./volumesOdoo_migracion2/odoo/",
+    "sudo tar -xvf ./baks/backupsessions.tar -C ./volumesOdoo_migracion2/odoo/",
+    "sudo tar -xvf ./baks/backupaddons.tar -C ./volumesOdoo_migracion2/",
+    "",
+    "# (Si el tar creó una subcarpeta volumesOdoo extra, mover su contenido así):",
+    "sudo cp -r ./volumesOdoo_migracion2/odoo/volumesOdoo/odoo/filestore/* ./volumesOdoo_migracion2/odoo/filestore/ 2>/dev/null || true",
+    "sudo rm -rf ./volumesOdoo_migracion2/odoo/volumesOdoo ./volumesOdoo_migracion2/odoo/addons"
 ])
 
-add_body("Inicie todos los servicios definidos en el Compose:")
+add_body("Inicie todo el sistema, copie el archivo odoo.conf y reinicie el contenedor web:")
 add_code_block(doc, [
-    "docker compose up -d"
+    "docker compose up -d",
+    "docker compose cp ./baks/odoo.conf web:/etc/odoo/odoo.conf",
+    "sudo chmod -R 777 ./volumesOdoo_migracion2",
+    "docker compose restart web"
 ])
 
-add_body("Sustituya el archivo de configuración odoo.conf dentro del contenedor:")
+add_h2("2.5 Credenciales de acceso y limpieza final")
+add_bullet("URL de acceso: ", "http://localhost:8080 (pulsar Ctrl + F5 para recargar)")
+add_bullet("Usuario / Correo: ", "a@a.com")
+add_bullet("Contraseña: ", "a  (o 'admin')")
 add_code_block(doc, [
-    "docker cp ./baks/odoo.conf odood-web-1:/etc/odoo/odoo.conf"
+    "# Eliminar el volumen antiguo una vez comprobado que todo funciona",
+    "sudo rm -rf ./volumesOdoo"
 ])
 
-p_final = doc.add_paragraph()
-p_final.paragraph_format.space_before = Pt(14)
-p_final.paragraph_format.space_after = Pt(8)
-r_final = p_final.add_run("Ya puedes acceder a tu instancia de Odoo a través del puerto configurado (http://localhost:8070) y verificar que el proceso se ha completado con éxito con todos los datos y fotos recuperados.")
-r_final.font.name = "Arial"
-r_final.font.size = Pt(9.5)
-r_final.font.color.rgb = COLOR_TEXT
-
-# Guardar DOCX
 doc.save(str(DOCX_PATH))
-print(f"Word guardado en: {DOCX_PATH}")
+print(f"Word Guia guardado en: {DOCX_PATH}")
