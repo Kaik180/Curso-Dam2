@@ -1,6 +1,5 @@
 package com.mutxamel.secops.Practica1.app;
 
-import com.mutxamel.secops.*;
 import com.mutxamel.secops.Practica1.dao.LoginDAO;
 import com.mutxamel.secops.Practica1.dao.SoftwareAuditadoDAO;
 import com.mutxamel.secops.Practica1.model.Login;
@@ -29,7 +28,7 @@ public class MainApp {
             return;
         }
 
-        // 2. Operaciones de analistas (LoginDAO)
+        // 2. Operaciones de analistas
         System.out.println("=== PLANTILLA DE ANALISTAS (TABLA LOGIN) ===");
         if (loginDAO.buscarPorUserName("Silvia") == null) {
             Login silvia = new Login("Silvia", "silvia@silvia.es");

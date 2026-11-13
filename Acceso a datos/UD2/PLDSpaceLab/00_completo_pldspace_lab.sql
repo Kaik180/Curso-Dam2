@@ -1,8 +1,3 @@
--- ==============================================================================
--- PLD Space: Gestión de Unidades y Ensayos MIURA
--- Script Único Completo: Creación de tablas + Inserción de datos iniciales
--- Ejecutar en pgAdmin sobre la base de datos: pldspace_lab
--- ==============================================================================
 
 -- 1. LIMPIEZA DE TABLAS PREVIAS (si existen)
 DROP TABLE IF EXISTS unidades CASCADE;
