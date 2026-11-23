@@ -15,19 +15,26 @@ public class DatabaseConnection {
 
     public static Connection getConnection() throws SQLException, IOException {
         Properties propiedades = new Properties();
-        try (InputStream entrada = Files.newInputStream(Path.of("config.properties"))) {
-            propiedades.load(entrada);
+        Path ruta = Path.of("config.properties");
+
+        if (!Files.exists(ruta)) {
+            // Intento alternativo en caso de ejecutarse desde una subcarpeta o raíz distinta
+            Path rutaAlt = Path.of("Acceso a datos/UD2/UP2_AlmacenPedidos/config.properties");
+            if (Files.exists(rutaAlt)) {
+                ruta = rutaAlt;
+            }
         }
 
-        String url = propiedades.getProperty("db.url");
-        String usuario = propiedades.getProperty("db.user");
-        String password = propiedades.getProperty("db.password");
-
-        if (url == null || usuario == null || password == null) {
-            throw new IOException("Faltan propiedades de conexión.");
+        if (Files.exists(ruta)) {
+            try (InputStream entrada = Files.newInputStream(ruta)) {
+                propiedades.load(entrada);
+            }
         }
+
+        String url = propiedades.getProperty("db.url", "jdbc:postgresql://localhost:5432/almacen_pedidos");
+        String usuario = propiedades.getProperty("db.user", "postgres");
+        String password = propiedades.getProperty("db.password", "postgres");
 
         return DriverManager.getConnection(url, usuario, password);
     }
 }
-

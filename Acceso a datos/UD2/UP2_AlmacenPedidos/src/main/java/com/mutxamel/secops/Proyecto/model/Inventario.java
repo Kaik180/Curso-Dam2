@@ -1,6 +1,24 @@
 package com.mutxamel.secops.Proyecto.model;
 
 public class Inventario {
+    private int idInventario;
+    private int stock;
+    private int idProducto;
+
+    public Inventario() {
+    }
+
+    public Inventario(int stock, int idProducto) {
+        this.stock = stock;
+        this.idProducto = idProducto;
+    }
+
+    public Inventario(int idInventario, int stock, int idProducto) {
+        this.idInventario = idInventario;
+        this.stock = stock;
+        this.idProducto = idProducto;
+    }
+
     public int getIdInventario() {
         return idInventario;
     }
@@ -25,23 +43,8 @@ public class Inventario {
         this.idProducto = idProducto;
     }
 
-    public Inventario(int idInventario, int stock, int idProducto) {
-        this.idInventario = idInventario;
-        this.stock = stock;
-        this.idProducto = idProducto;
-    }
-
     @Override
     public String toString() {
-        return "Inventario{" +
-                "idInventario=" + idInventario +
-                ", stock=" + stock +
-                ", idProducto=" + idProducto +
-                '}';
+        return "Inventario [idInventario=" + idInventario + ", stock=" + stock + ", idProducto=" + idProducto + "]";
     }
-
-    private int idInventario;
-    private int stock;
-    private int idProducto;
-
 }

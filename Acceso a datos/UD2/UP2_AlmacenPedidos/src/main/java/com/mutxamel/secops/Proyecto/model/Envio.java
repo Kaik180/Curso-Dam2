@@ -1,8 +1,26 @@
 package com.mutxamel.secops.Proyecto.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Envio {
+    private int idEnvio;
+    private Date fechaEnvio;
+    private int idProducto;
+
+    public Envio() {
+    }
+
+    public Envio(Date fechaEnvio, int idProducto) {
+        this.fechaEnvio = fechaEnvio;
+        this.idProducto = idProducto;
+    }
+
+    public Envio(int idEnvio, Date fechaEnvio, int idProducto) {
+        this.idEnvio = idEnvio;
+        this.fechaEnvio = fechaEnvio;
+        this.idProducto = idProducto;
+    }
+
     public int getIdEnvio() {
         return idEnvio;
     }
@@ -27,22 +45,8 @@ public class Envio {
         this.idProducto = idProducto;
     }
 
-    public Envio(int idEnvio, Date fechaEnvio, int idProducto) {
-        this.idEnvio = idEnvio;
-        this.fechaEnvio = fechaEnvio;
-        this.idProducto = idProducto;
-    }
-
     @Override
     public String toString() {
-        return "Envio{" +
-                "idEnvio=" + idEnvio +
-                ", fechaEnvio=" + fechaEnvio +
-                ", idProducto=" + idProducto +
-                '}';
+        return "Envio [idEnvio=" + idEnvio + ", fechaEnvio=" + fechaEnvio + ", idProducto=" + idProducto + "]";
     }
-
-    private int idEnvio;
-    private Date fechaEnvio;
-    private int idProducto;
 }
