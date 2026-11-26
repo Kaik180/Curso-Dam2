@@ -31,10 +31,8 @@ public class MainApp {
 
             switch (opcion) {
                 case "1" -> procesarNuevoPedido();
-                case "2" -> consultarPedidosPorEstado();
-                case "3" -> consultarPedidosPorProducto();
-                case "4" -> listarTodosLosPedidos();
-                case "5" -> consultarStockProducto();
+                case "2" -> listarTodosLosPedidos();
+                case "3" -> consultarStockProducto();
                 case "0" -> {
                     System.out.println("\nPrograma finalizado. ¡Hasta pronto!");
                     salir = true;
@@ -49,10 +47,8 @@ public class MainApp {
         System.out.println("               MENÚ PRINCIPAL - ALMACÉN DE PEDIDOS           ");
         System.out.println("-------------------------------------------------------------");
         System.out.println("1. Procesar un nuevo pedido (Transacción con regla de stock >= 10)");
-        System.out.println("2. Consultar pedidos por estado (MODELO A - pendiente, enviado)");
-        System.out.println("3. Consultar pedidos por producto (MODELO B - por idProducto)");
-        System.out.println("4. Listar todos los pedidos registrados");
-        System.out.println("5. Consultar stock disponible de un producto");
+        System.out.println("2. Listar todos los pedidos registrados");
+        System.out.println("3. Consultar stock disponible de un producto");
         System.out.println("0. Salir");
         System.out.println("-------------------------------------------------------------");
     }
@@ -63,11 +59,30 @@ public class MainApp {
             System.out.print("Introduce el ID del cliente: ");
             int idCliente = Integer.parseInt(teclado.nextLine().trim());
 
+            System.out.println("Historial de pedidos");
+            List<Pedido> listaPedidos = pedidoDAO.obtenerCliente(idCliente);
+
+            if (listaPedidos.isEmpty()){
+                System.out.println("--no existen pedidos para este Cliente");
+            }else {
+                for (Pedido p : listaPedidos) {
+                    System.out.printf("  - ID del Pedido: %-4d , Cliente: %-4d , Fecha: %s , Producto: %-4d , Cantidad: %-4d , Estado: %s%n",
+                            p.getIdPedido(), p.getIdCliente(), p.getFecha(), p.getIdProducto(), p.getCantidad(), p.getStatus());
+                }
+
+            }
+
             System.out.print("Introduce el ID del producto: ");
             int idProducto = Integer.parseInt(teclado.nextLine().trim());
 
             System.out.print("Introduce la cantidad solicitada: ");
             int cantidad = Integer.parseInt(teclado.nextLine().trim());
+            List<Pedido> listaPendiente = pedidoDAO.obtenerPendiente(idCliente);
+
+            if (!listaPendiente.isEmpty()){
+                System.out.println("Pedido cancelado: El cliente ya tiene pedido pendiente de este producto");
+                return;
+            }
 
             if (cantidad <= 0) {
                 System.out.println("✗ Error: La cantidad debe ser mayor que 0.");
@@ -105,61 +120,6 @@ public class MainApp {
         }
     }
 
-    private static void consultarPedidosPorEstado() {
-        System.out.println("\n=== CONSULTA DE PEDIDOS POR ESTADO (MODELO A) ===");
-        System.out.println("Estados habituales: 1) pendiente | 2) enviado");
-        System.out.print("Introduce el estado a consultar (1 o 2, o escribe el nombre): ");
-        String entrada = teclado.nextLine().trim();
-
-        String status = switch (entrada) {
-            case "1" -> "pendiente";
-            case "2" -> "enviado";
-            default -> entrada.toLowerCase();
-        };
-
-        if (status.isBlank()) {
-            System.out.println("✗ Debe introducir un estado válido.");
-            return;
-        }
-
-        try {
-            List<Pedido> pedidos = pedidoDAO.buscarPorEstado(status);
-            if (pedidos.isEmpty()) {
-                System.out.println("No existen pedidos que cumplan la condición para el estado '" + status + "'.");
-            } else {
-                System.out.printf("%nPedidos encontrados con estado '%s' (%d):%n", status, pedidos.size());
-                for (Pedido p : pedidos) {
-                    System.out.printf("  - ID Pedido: %-4d | Cliente: %-4d | Fecha: %s | Producto: %-4d | Cantidad: %-4d | Estado: %s%n",
-                            p.getIdPedido(), p.getIdCliente(), p.getFecha(), p.getIdProducto(), p.getCantidad(), p.getStatus());
-                }
-            }
-        } catch (IOException | SQLException e) {
-            mostrarErrorBD(e);
-        }
-    }
-
-    private static void consultarPedidosPorProducto() {
-        System.out.println("\n=== CONSULTA DE PEDIDOS POR PRODUCTO (MODELO B) ===");
-        System.out.print("Introduce el ID del producto: ");
-        try {
-            int idProducto = Integer.parseInt(teclado.nextLine().trim());
-            List<Pedido> pedidos = pedidoDAO.buscarPorProducto(idProducto);
-
-            if (pedidos.isEmpty()) {
-                System.out.println("No existen pedidos registrados para el producto con ID " + idProducto + ".");
-            } else {
-                System.out.printf("%nPedidos encontrados para el producto ID %d (%d):%n", idProducto, pedidos.size());
-                for (Pedido p : pedidos) {
-                    System.out.printf("  - ID Pedido: %-4d | Cliente: %-4d | Fecha: %s | Cantidad: %-4d | Estado: %s%n",
-                            p.getIdPedido(), p.getIdCliente(), p.getFecha(), p.getCantidad(), p.getStatus());
-                }
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("✗ Error: El ID del producto debe ser un número entero.");
-        } catch (IOException | SQLException e) {
-            mostrarErrorBD(e);
-        }
-    }
 
     private static void listarTodosLosPedidos() {
         System.out.println("\n=== LISTADO GENERAL DE PEDIDOS ===");

@@ -139,49 +139,49 @@ public class PedidoDao {
         return lista;
     }
 
-    public List<Pedido> buscarPorEstado(String status) throws IOException, SQLException {
+
+    public List<Pedido> obtenerCliente( int id) throws IOException, SQLException {
         List<Pedido> lista = new ArrayList<>();
-        String sql = "SELECT idPedido, idCliente, fecha, status, idProducto, cantidad FROM Pedido WHERE UPPER(status) = UPPER(?) ORDER BY idPedido ASC";
+        String sql = "SELECT idPedido, idCliente, fecha, status, idProducto, cantidad FROM Pedido WHERE idcliente = ? ";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
 
-            ps.setString(1, status.trim());
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    lista.add(new Pedido(
-                            rs.getInt("idPedido"),
-                            rs.getInt("idCliente"),
-                            rs.getDate("fecha"),
-                            rs.getString("status"),
-                            rs.getInt("idProducto"),
-                            rs.getInt("cantidad")
-                    ));
-                }
+
+            while (rs.next()) {
+                lista.add(new Pedido(
+                        rs.getInt("idPedido"),
+                        rs.getInt("idCliente"),
+                        rs.getDate("fecha"),
+                        rs.getString("status"),
+                        rs.getInt("idProducto"),
+                        rs.getInt("cantidad")
+                ));
             }
         }
         return lista;
     }
-
-    public List<Pedido> buscarPorProducto(int idProducto) throws IOException, SQLException {
+    public List<Pedido> obtenerPendiente(int id) throws IOException, SQLException {
         List<Pedido> lista = new ArrayList<>();
-        String sql = "SELECT idPedido, idCliente, fecha, status, idProducto, cantidad FROM Pedido WHERE idProducto = ? ORDER BY idPedido ASC";
+        String sql = "SELECT idPedido, idCliente, fecha, status, idProducto, cantidad FROM Pedido WHERE idcliente = ? and status = ? ";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.setString(2,"pendiente" );
+            ResultSet rs = ps.executeQuery();
 
-            ps.setInt(1, idProducto);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    lista.add(new Pedido(
-                            rs.getInt("idPedido"),
-                            rs.getInt("idCliente"),
-                            rs.getDate("fecha"),
-                            rs.getString("status"),
-                            rs.getInt("idProducto"),
-                            rs.getInt("cantidad")
-                    ));
-                }
+            while (rs.next()) {
+                lista.add(new Pedido(
+                        rs.getInt("idPedido"),
+                        rs.getInt("idCliente"),
+                        rs.getDate("fecha"),
+                        rs.getString("status"),
+                        rs.getInt("idProducto"),
+                        rs.getInt("cantidad")
+                ));
             }
         }
         return lista;
