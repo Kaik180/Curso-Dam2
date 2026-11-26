@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'routes/app_router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +48,6 @@ class Unit3ActivitiesApp extends StatelessWidget {
         ),
       ),
       themeMode: ThemeMode.system,
-      routerConfig: appRouter,
     );
   }
 }
