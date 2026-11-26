@@ -1,0 +1,7 @@
+# ¡NUNCA subas el token a GitHub!
+.env
+data/*.db
+data/*.db-wal
+data/*.db-shm
+__pycache__/
+*.pyc

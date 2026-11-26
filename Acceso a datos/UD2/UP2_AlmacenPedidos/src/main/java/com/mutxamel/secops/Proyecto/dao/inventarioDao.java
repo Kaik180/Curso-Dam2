@@ -1,11 +1,15 @@
 package com.mutxamel.secops.Proyecto.dao;
 
+import com.mutxamel.secops.Proyecto.util.DatabaseConnection;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class inventarioDao {
+
     public int consultarStock(Connection conn, int idProducto) throws SQLException {
         String sql = "SELECT stock FROM Inventario WHERE idProducto = ?";
 
@@ -19,5 +23,23 @@ public class inventarioDao {
             }
         }
         return -1; // El producto no existe en la tabla Inventario
+    }
+
+    public int consultarStock(int idProducto) throws IOException, SQLException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            return consultarStock(conn, idProducto);
+        }
+    }
+
+    public boolean actualizarStock(Connection conn, int idProducto, int nuevoStock) throws SQLException {
+        String sql = "UPDATE Inventario SET stock = ? WHERE idProducto = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, nuevoStock);
+            ps.setInt(2, idProducto);
+
+            int filas = ps.executeUpdate();
+            return filas == 1;
+        }
     }
 }

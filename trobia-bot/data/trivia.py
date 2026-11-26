@@ -1,0 +1,48 @@
+"""Preguntas de trivia: (categoría, pregunta, respuesta correcta, [3 incorrectas])."""
+
+QUESTIONS = [
+    # Comunitat Valenciana
+    ("🍊 Valencia", "¿Qué fiesta valenciana termina con la «Cremà»?", "Las Fallas", ["La Tomatina", "Moros y Cristianos", "Las Hogueras"]),
+    ("🍊 Valencia", "¿Qué bebida típica valenciana se elabora con chufa?", "Horchata", ["Agua de Valencia", "Mistela", "Granizado de limón"]),
+    ("🍊 Valencia", "¿Cómo se llama el estadio del Valencia CF?", "Mestalla", ["Ciutat de València", "Riazor", "La Cerámica"]),
+    ("🍊 Valencia", "¿Qué día es la «Nit de la Cremà» de las Fallas?", "19 de marzo", ["15 de marzo", "24 de junio", "9 de octubre"]),
+    ("🍊 Valencia", "¿Qué parque natural con un gran lago está al sur de la ciudad de Valencia?", "La Albufera", ["El Lago de Sanabria", "Doñana", "Las Tablas de Daimiel"]),
+    ("🍊 Valencia", "¿Qué edificio de Valencia es Patrimonio de la Humanidad desde 1996?", "La Lonja de la Seda", ["El Miguelete", "L'Oceanogràfic", "La Estación del Norte"]),
+    ("🍊 Valencia", "¿En qué pueblo se celebra la Tomatina?", "Buñol", ["Xàtiva", "Alzira", "Requena"]),
+    ("🍊 Valencia", "¿En qué ciudad se celebran las Fogueres de Sant Joan como fiesta mayor?", "Alicante", ["Castellón", "Valencia", "Elche"]),
+    ("🍊 Valencia", "¿Qué edificio de la Ciudad de las Artes y las Ciencias tiene forma de ojo y es cine/planetario?", "L'Hemisfèric", ["El Palau de les Arts", "L'Àgora", "El Umbracle"]),
+    # Videojuegos
+    ("🎮 Videojuegos", "¿Qué compañía creó League of Legends?", "Riot Games", ["Blizzard", "Valve", "Epic Games"]),
+    ("🎮 Videojuegos", "¿Cuántos jugadores tiene cada equipo en una partida normal de Valorant?", "5", ["4", "6", "3"]),
+    ("🎮 Videojuegos", "¿Cuál es el videojuego más vendido de la historia?", "Minecraft", ["GTA V", "Tetris", "Wii Sports"]),
+    ("🎮 Videojuegos", "¿Cómo se llama el protagonista jugable de The Legend of Zelda?", "Link", ["Zelda", "Ganon", "Epona"]),
+    ("🎮 Videojuegos", "¿Qué empresa desarrolla Fortnite?", "Epic Games", ["Riot Games", "EA", "Ubisoft"]),
+    ("🎮 Videojuegos", "¿Qué personaje es la mascota de SEGA?", "Sonic", ["Mario", "Crash Bandicoot", "Spyro"]),
+    ("🎮 Videojuegos", "En Counter-Strike, ¿cuál es el rifle de francotirador más famoso?", "AWP", ["AK-47", "M4A4", "Desert Eagle"]),
+    ("🎮 Videojuegos", "En Pokémon, ¿de qué tipo es Pikachu?", "Eléctrico", ["Fuego", "Normal", "Planta"]),
+    ("🎮 Videojuegos", "¿En qué año salió la PlayStation 5?", "2020", ["2019", "2021", "2018"]),
+    ("🎮 Videojuegos", "¿En qué año salió la versión 1.0 oficial de Minecraft?", "2011", ["2009", "2013", "2010"]),
+    ("🎮 Videojuegos", "¿Cómo se llama el hermano de Mario?", "Luigi", ["Wario", "Toad", "Yoshi"]),
+    # Cine y series
+    ("🎬 Cine y series", "¿Quién dirigió «Titanic» (1997)?", "James Cameron", ["Steven Spielberg", "Christopher Nolan", "Ridley Scott"]),
+    ("🎬 Cine y series", "¿Qué película ganó el Óscar a Mejor Película en la gala de 2020?", "Parásitos", ["Joker", "1917", "Érase una vez en Hollywood"]),
+    ("🎬 Cine y series", "¿Cómo se llama el protagonista de «El Rey León»?", "Simba", ["Mufasa", "Scar", "Nala"]),
+    ("🎬 Cine y series", "¿En qué saga se dice «Que la Fuerza te acompañe»?", "Star Wars", ["Star Trek", "Dune", "Harry Potter"]),
+    ("🎬 Cine y series", "¿Qué actor interpretó a Iron Man en el Universo Cinematográfico de Marvel?", "Robert Downey Jr.", ["Chris Evans", "Chris Hemsworth", "Mark Ruffalo"]),
+    ("🎬 Cine y series", "¿Qué serie española trata de un atraco a la Fábrica Nacional de Moneda y Timbre?", "La Casa de Papel", ["Élite", "Vis a Vis", "El Ministerio del Tiempo"]),
+    ("🎬 Cine y series", "¿Cómo se llama el mago protagonista de la saga de J. K. Rowling?", "Harry Potter", ["Gandalf", "Merlín", "Frodo"]),
+    ("🎬 Cine y series", "¿En qué serie aparece el pueblo de Hawkins?", "Stranger Things", ["Dark", "The Walking Dead", "Breaking Bad"]),
+    ("🎬 Cine y series", "¿Cuántas películas tiene la trilogía de «El Señor de los Anillos» de Peter Jackson?", "3", ["2", "4", "6"]),
+    # Cultura general
+    ("🧠 Cultura general", "¿Qué planeta es conocido como el planeta rojo?", "Marte", ["Júpiter", "Venus", "Mercurio"]),
+    ("🧠 Cultura general", "¿Cuál es el océano más grande del mundo?", "Pacífico", ["Atlántico", "Índico", "Ártico"]),
+    ("🧠 Cultura general", "¿Cuál es el símbolo químico del oro?", "Au", ["Ag", "Or", "Go"]),
+    ("🧠 Cultura general", "¿Quién pintó «La noche estrellada»?", "Vincent van Gogh", ["Pablo Picasso", "Claude Monet", "Salvador Dalí"]),
+    ("🧠 Cultura general", "¿En qué año llegó el ser humano a la Luna por primera vez?", "1969", ["1959", "1972", "1965"]),
+    ("🧠 Cultura general", "¿Cuántos huesos tiene el cuerpo humano adulto?", "206", ["186", "226", "300"]),
+    ("🧠 Cultura general", "¿Cuál es la capital de Australia?", "Canberra", ["Sídney", "Melbourne", "Perth"]),
+    ("🧠 Cultura general", "¿Cuántos lados tiene un hexágono?", "6", ["5", "7", "8"]),
+    ("🧠 Cultura general", "¿Qué significa la sigla HTML?", "HyperText Markup Language", ["High Tech Modern Language", "Hyper Transfer Main Link", "Home Tool Markup Language"]),
+    ("🧠 Cultura general", "¿Qué lenguaje de programación tiene dos serpientes en su logo?", "Python", ["Java", "Ruby", "Go"]),
+    ("🧠 Cultura general", "¿Cuántos jugadores tiene un equipo de fútbol en el campo?", "11", ["10", "9", "12"]),
+]
