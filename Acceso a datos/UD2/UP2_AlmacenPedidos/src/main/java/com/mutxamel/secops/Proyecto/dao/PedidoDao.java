@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PedidoDao {
 
@@ -113,5 +115,75 @@ public class PedidoDao {
         } catch (SQLException e) {
             System.err.println("Error de conexión a la base de datos: " + e.getMessage());
         }
+    }
+
+    public List<Pedido> obtenerTodos() throws IOException, SQLException {
+        List<Pedido> lista = new ArrayList<>();
+        String sql = "SELECT idPedido, idCliente, fecha, status, idProducto, cantidad FROM Pedido ORDER BY idPedido ASC";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(new Pedido(
+                        rs.getInt("idPedido"),
+                        rs.getInt("idCliente"),
+                        rs.getDate("fecha"),
+                        rs.getString("status"),
+                        rs.getInt("idProducto"),
+                        rs.getInt("cantidad")
+                ));
+            }
+        }
+        return lista;
+    }
+
+    public List<Pedido> buscarPorEstado(String status) throws IOException, SQLException {
+        List<Pedido> lista = new ArrayList<>();
+        String sql = "SELECT idPedido, idCliente, fecha, status, idProducto, cantidad FROM Pedido WHERE UPPER(status) = UPPER(?) ORDER BY idPedido ASC";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, status.trim());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(new Pedido(
+                            rs.getInt("idPedido"),
+                            rs.getInt("idCliente"),
+                            rs.getDate("fecha"),
+                            rs.getString("status"),
+                            rs.getInt("idProducto"),
+                            rs.getInt("cantidad")
+                    ));
+                }
+            }
+        }
+        return lista;
+    }
+
+    public List<Pedido> buscarPorProducto(int idProducto) throws IOException, SQLException {
+        List<Pedido> lista = new ArrayList<>();
+        String sql = "SELECT idPedido, idCliente, fecha, status, idProducto, cantidad FROM Pedido WHERE idProducto = ? ORDER BY idPedido ASC";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idProducto);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(new Pedido(
+                            rs.getInt("idPedido"),
+                            rs.getInt("idCliente"),
+                            rs.getDate("fecha"),
+                            rs.getString("status"),
+                            rs.getInt("idProducto"),
+                            rs.getInt("cantidad")
+                    ));
+                }
+            }
+        }
+        return lista;
     }
 }

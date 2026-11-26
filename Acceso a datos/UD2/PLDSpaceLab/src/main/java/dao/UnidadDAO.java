@@ -172,4 +172,60 @@ public class UnidadDAO {
             }
         }
     }
+
+    public List<Unidad> buscarPorEstado(String estado) throws IOException, SQLException {
+        List<Unidad> lista = new ArrayList<>();
+        String sql = "SELECT u.id, u.codigo, u.modelo, u.estado, u.responsable_id, us.usuario AS resp_nombre " +
+                     "FROM unidades u " +
+                     "JOIN usuarios us ON u.responsable_id = us.id " +
+                     "WHERE UPPER(u.estado) = UPPER(?) " +
+                     "ORDER BY u.id ASC";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, estado.trim());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(new Unidad(
+                            rs.getInt("id"),
+                            rs.getString("codigo"),
+                            rs.getString("modelo"),
+                            rs.getString("estado"),
+                            rs.getInt("responsable_id"),
+                            rs.getString("resp_nombre")
+                    ));
+                }
+            }
+        }
+        return lista;
+    }
+
+    public List<Unidad> buscarPorModelo(String modelo) throws IOException, SQLException {
+        List<Unidad> lista = new ArrayList<>();
+        String sql = "SELECT u.id, u.codigo, u.modelo, u.estado, u.responsable_id, us.usuario AS resp_nombre " +
+                     "FROM unidades u " +
+                     "JOIN usuarios us ON u.responsable_id = us.id " +
+                     "WHERE UPPER(u.modelo) = UPPER(?) " +
+                     "ORDER BY u.id ASC";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, modelo.trim());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(new Unidad(
+                            rs.getInt("id"),
+                            rs.getString("codigo"),
+                            rs.getString("modelo"),
+                            rs.getString("estado"),
+                            rs.getInt("responsable_id"),
+                            rs.getString("resp_nombre")
+                    ));
+                }
+            }
+        }
+        return lista;
+    }
 }

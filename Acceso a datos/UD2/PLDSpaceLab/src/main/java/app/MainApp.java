@@ -74,6 +74,8 @@ public class MainApp {
                 case "4" -> modificarEstadoUnidad();
                 case "5" -> eliminarUnidad();
                 case "6" -> iniciarCampaniaPruebas();
+                case "7" -> consultarUnidadesPorEstado();
+                case "8" -> consultarUnidadesPorModelo();
                 case "0" -> {
                     System.out.println("\nCerrando sesión de " + usuarioAutenticado.getUsuario() + ". ¡Hasta pronto!");
                     salir = true;
@@ -93,6 +95,8 @@ public class MainApp {
         System.out.println("4. Modificar el estado de una unidad existente");
         System.out.println("5. Eliminar una unidad por su identificador");
         System.out.println("6. Iniciar una campaña conjunta de pruebas (Transacción con rollback/commit)");
+        System.out.println("7. Consultar unidades por estado (MODELO A)");
+        System.out.println("8. Consultar unidades por modelo (MODELO B)");
         System.out.println("0. Salir del programa");
         System.out.println("-------------------------------------------------------------");
     }
@@ -297,6 +301,78 @@ public class MainApp {
 
         } catch (NumberFormatException e) {
             System.out.println("Los identificadores deben ser números enteros.");
+        } catch (IOException | SQLException e) {
+            mostrarErrorBD(e);
+        }
+    }
+
+    private static void consultarUnidadesPorEstado() {
+        System.out.println("\n=== CONSULTA DE UNIDADES POR ESTADO (MODELO A) ===");
+        System.out.println("Estados definidos: 1) PLANIFICADA | 2) INTEGRACION | 3) EN_ENSAYOS | 4) REVISION");
+        System.out.print("Introduzca el estado a consultar (1-4, o escriba el nombre): ");
+        String entrada = scanner.nextLine().trim();
+
+        String estado = switch (entrada) {
+            case "1" -> "PLANIFICADA";
+            case "2" -> "INTEGRACION";
+            case "3" -> "EN_ENSAYOS";
+            case "4" -> "REVISION";
+            default -> entrada.toUpperCase();
+        };
+
+        if (estado.isBlank()) {
+            System.out.println("Debe introducir un estado válido.");
+            return;
+        }
+
+        try {
+            List<Unidad> unidades = unidadDAO.buscarPorEstado(estado);
+            if (unidades.isEmpty()) {
+                System.out.println("No existen unidades que cumplan la condición para el estado '" + estado + "'.");
+            } else {
+                System.out.printf("%nUnidades encontradas en estado '%s' (%d):%n", estado, unidades.size());
+                for (Unidad u : unidades) {
+                    String resp = (u.getResponsableUsuario() != null && !u.getResponsableUsuario().isBlank())
+                            ? u.getResponsableUsuario() : "ID " + u.getResponsableId();
+                    System.out.printf("  - Código: %-12s | Modelo: %-8s | Estado: %-12s | Responsable: %s%n",
+                            u.getCodigo(), u.getModelo(), u.getEstado(), resp);
+                }
+            }
+        } catch (IOException | SQLException e) {
+            mostrarErrorBD(e);
+        }
+    }
+
+    private static void consultarUnidadesPorModelo() {
+        System.out.println("\n=== CONSULTA DE UNIDADES POR MODELO (MODELO B) ===");
+        System.out.println("Modelos registrados: 1) MIURA 1 | 2) MIURA 5");
+        System.out.print("Introduzca el modelo a consultar (1 o 2, o escriba 'MIURA 1' / 'MIURA 5'): ");
+        String entrada = scanner.nextLine().trim();
+
+        String modelo = switch (entrada) {
+            case "1" -> "MIURA 1";
+            case "2" -> "MIURA 5";
+            default -> entrada.toUpperCase();
+        };
+
+        if (modelo.isBlank()) {
+            System.out.println("Debe introducir un modelo válido.");
+            return;
+        }
+
+        try {
+            List<Unidad> unidades = unidadDAO.buscarPorModelo(modelo);
+            if (unidades.isEmpty()) {
+                System.out.println("No existen unidades que cumplan la condición para el modelo '" + modelo + "'.");
+            } else {
+                System.out.printf("%nUnidades encontradas para el modelo '%s' (%d):%n", modelo, unidades.size());
+                for (Unidad u : unidades) {
+                    String resp = (u.getResponsableUsuario() != null && !u.getResponsableUsuario().isBlank())
+                            ? u.getResponsableUsuario() : "ID " + u.getResponsableId();
+                    System.out.printf("  - Código: %-12s | Modelo: %-8s | Estado: %-12s | Responsable: %s%n",
+                            u.getCodigo(), u.getModelo(), u.getEstado(), resp);
+                }
+            }
         } catch (IOException | SQLException e) {
             mostrarErrorBD(e);
         }
